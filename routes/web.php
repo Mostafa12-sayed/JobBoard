@@ -15,12 +15,16 @@ Route::group(['middleware' => 'guest:admin', 'prefix' => 'dashboard', 'as' => 'd
     Route::post('/login',  [AuthController::class, 'login'])->name('.login.store');
 });
 
-Route::group(['middleware' => 'auth:admin', 'prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
+Route::group(['middleware' => 'auth.admin', 'prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::resource('category', CategoryController::class)->names('category')->except(['destroy', 'show']);
     Route::get('/category/destroy/{category}', [CategoryController::class, 'destroy'])->name('category.destroy');
     Route::post('/category/chanageStatus', [CategoryController::class, 'changeStatus'])->name('category.changeStatus');
+
+    Route::get('/jobs', [DashboardController::class, 'jobs'])->name('jobs');
+    Route::get('/jobs/created', [DashboardController::class, 'jobsCreated'])->name('jobs-created');
+
 
     Route::resource('users', UsersController::class)->names('user')->except(['destroy']);
     Route::get('/users/destroy/{user}', [UsersController::class, 'destroy'])->name('user.destroy');

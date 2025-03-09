@@ -30,25 +30,25 @@
 
 
     @endif
-    $(document).ready(function() {
-        if (sessionStorage.getItem('successMessage')) {
-            textmessage=sessionStorage.getItem('successMessage')
-            Toastify({
-            text: textmessage,
-            duration: 5000,
-            newWindow: true,
-            close: true,
-            gravity: "top",
-            position: "center",
-            stopOnFocus: true, 
-            onClick: function(){} 
-            }).showToast();
-            sessionStorage.removeItem('successMessage');
-        }
-        });
+    // $(document).ready(function() {
+    //     if (sessionStorage.getItem('successMessage')) {
+    //         textmessage=sessionStorage.getItem('successMessage')
+    //         Toastify({
+    //         text: textmessage,
+    //         duration: 5000,
+    //         newWindow: true,
+    //         close: true,
+    //         gravity: "top",
+    //         position: "center",
+    //         stopOnFocus: true, 
+    //         onClick: function(){} 
+    //         }).showToast();
+    //         sessionStorage.removeItem('successMessage');
+    //     }
+    //     });
 
 
-        $(document).ready(function() {
+$(document).ready(function() {
 $('.toggle-checkbox').change(function() {
     
     var id = $(this).data('id');

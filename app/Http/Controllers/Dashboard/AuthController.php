@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminRequest;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AuthController extends Controller
 {
@@ -24,17 +25,10 @@ class AuthController extends Controller
         }
         $remember = $request->input('remember') ? true : false;
         if (!auth('admin')->attempt($credentials, $remember)) return $this->invalid($request);
-        // toastr()->success('login_successfull');
-        notify()->success('Welcome to Laravel Notify ⚡️');
+        flash()->success('Login Successfull');
 
         return redirect()->route('dashboard.index');
     }
-
-    /**
-     * Filter Member Credentials
-     * @param $request
-     * @return array|bool
-     */
     private function credentials($request)
     {
         $inputs = $request->validated();
@@ -46,25 +40,12 @@ class AuthController extends Controller
         }
         return false;
     }
-
-
-    /**
-     * Return MSG Error
-     * @param $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     private function invalid($request)
     {
-        // toastr()->error('Oops! Something went wrong!');
-        notify()->error('Welcome to Laravel Notify ⚡️');
+        flash()->error('Invalid Credentials!');
 
         return back();
     }
-
-    /**
-     * Logout Admin
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
     public function logout()
     {
         if (auth('admin')->check()) {
@@ -72,5 +53,9 @@ class AuthController extends Controller
             request()->session()->invalidate();
         }
         return redirect(route('dashboard.login'));
+    }
+    protected function redirectTo()
+    {
+        return route('dashboard.index');
     }
 }
