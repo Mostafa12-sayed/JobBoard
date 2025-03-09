@@ -26,4 +26,12 @@ class AdminRequest extends FormRequest
             'password' => 'required',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'username.required' => 'Username is required',
+            'password.required' => 'Password is required',
+        ];
+    }
 }

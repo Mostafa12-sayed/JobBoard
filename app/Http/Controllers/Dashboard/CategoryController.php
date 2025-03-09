@@ -33,7 +33,9 @@ class CategoryController extends Controller
             'slug' => $slug,
             'description' => $request->description,
         ]);
-        return response()->json(['message' => 'Category created successfully']);
+        flash()->success('Category created successfully');
+
+        // return response()->json(['message' => 'Category created successfully']);
 
 
         // return redirect(route('category.index'));
@@ -51,14 +53,18 @@ class CategoryController extends Controller
             'slug' => $slug,
             'description' => $request->description,
         ]);
-        return response()->json(['message' => 'Category Updated successfully']);
+        flash()->success('Category Updated successfully');
+
+        // return response()->json(['message' => 'Category Updated successfully']);
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
         // return response()->json(['message' => 'Category deleted successfully']);
-        toast('Category deleted successfully', 'success');
+        // toast('Category deleted successfully', 'success');
+        flash()->success('Category deleted successfully');
+
         // Alert::success('Success!', 'Operation completed successfully.');
 
         return back();
@@ -66,7 +72,6 @@ class CategoryController extends Controller
 
 
     public function changeStatus(Request $request)
-
     {
         $category = Category::find($request->id);
         $status = $category->status == 'active' ? 'inactive' : 'active';
