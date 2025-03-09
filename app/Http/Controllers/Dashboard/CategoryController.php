@@ -34,11 +34,6 @@ class CategoryController extends Controller
             'description' => $request->description,
         ]);
         flash()->success('Category created successfully');
-
-        // return response()->json(['message' => 'Category created successfully']);
-
-
-        // return redirect(route('category.index'));
     }
     public function edit(Category $category)
     {
@@ -54,19 +49,12 @@ class CategoryController extends Controller
             'description' => $request->description,
         ]);
         flash()->success('Category Updated successfully');
-
-        // return response()->json(['message' => 'Category Updated successfully']);
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
-        // return response()->json(['message' => 'Category deleted successfully']);
-        // toast('Category deleted successfully', 'success');
         flash()->success('Category deleted successfully');
-
-        // Alert::success('Success!', 'Operation completed successfully.');
-
         return back();
     }
 

@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\UsersController;
 use App\Http\Controllers\Dashboard\AuthController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\JobsAdminController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -22,8 +23,9 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'dashboard', 'as' => 'da
     Route::get('/category/destroy/{category}', [CategoryController::class, 'destroy'])->name('category.destroy');
     Route::post('/category/chanageStatus', [CategoryController::class, 'changeStatus'])->name('category.changeStatus');
 
-    Route::get('/jobs', [DashboardController::class, 'jobs'])->name('jobs');
-    Route::get('/jobs/created', [DashboardController::class, 'jobsCreated'])->name('jobs-created');
+    Route::get('/jobs', [JobsAdminController::class, 'index'])->name('jobs.index');
+    Route::get('/jobs/{job}', [JobsAdminController::class, 'show'])->name('jobs.show');
+    Route::post('/jobs/changeStatus', [JobsAdminController::class, 'changeStatus'])->name('jobs.changeStatus');
 
 
     Route::resource('users', UsersController::class)->names('user')->except(['destroy']);

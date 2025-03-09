@@ -39,5 +39,6 @@
   <script src="{{ asset('assets/dashboard/js/sweetalert2.js') }}"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   @include('Dashboard.layouts.script')
+  @yield('js')
 
 </html>

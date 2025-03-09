@@ -20,12 +20,15 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background-color: var(--blue-alt-color);
 }
+
 a,
 ul li a,
 ul li {
     text-decoration: none !important;
 }
-
+a {
+    cursor: pointer !important;
+}
 ul {
     list-style: none;
     padding: 0;
@@ -1257,15 +1260,15 @@ input[type="radio"] {
 }
 
 /*end courses */
-.friends .box {
+.box {
     height: auto;
 }
-.friends .box .contact {
+.box .contact {
     position: absolute;
     top: 10px;
     left: 10px;
 }
-.friends .box .contact i {
+.box .contact i {
     background-color: #eee;
     border-radius: 50%;
     padding: 10px;
@@ -1278,12 +1281,12 @@ input[type="radio"] {
     -o-transition: 0.3s;
     font-size: 14px;
 }
-.friends .box .contact i:hover {
+.box .contact i:hover {
     background-color: var(--blue-color);
     color: white;
 }
 
-.friends .box .friend {
+.box .friend {
     text-align: center;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -1291,7 +1294,7 @@ input[type="radio"] {
     padding-right: 20px;
     padding-left: 20px;
 }
-.friends .box .friend img {
+.box .friend img {
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -1299,12 +1302,12 @@ input[type="radio"] {
     -o-border-radius: 50%;
     width: 100px;
 }
-.friends .box .icons {
+.box .icons {
     margin-top: 10px;
     padding-bottom: 20px;
     border-bottom: 2px solid #eee;
 }
-.friends .box .vip {
+.box .vip {
     position: absolute;
     right: 20px;
     bottom: 20px;
@@ -1312,7 +1315,7 @@ input[type="radio"] {
     opacity: 0.2;
 }
 
-.friends .box a {
+.box a {
     /* background-color: gray; */
     color: white;
 }
@@ -1964,4 +1967,8 @@ input[type="radio"] {
         right: 0;
         max-width: fit-content;
     }
+}
+
+.btn-model {
+    cursor: pointer !important;
 }
