@@ -41,6 +41,17 @@
                 <span>Users</span>
       </a>
     </li>
+
+    <li>
+      <a
+        href="{{route('dashboard.jobs.index')}}"
+        class="d-flex fs-14 rad-6 p-10 align-center c-black align-center {{request()->routeIs('dashboard.user.index*')? 'active' : ''}}"
+        id="index"
+      >
+      <i class="fa-solid fa-tower-observation mr-5"></i>                
+      <span>Jobs Orders</span>
+      </a>
+    </li>
     {{-- <li>
       <a
         href="setting.html"

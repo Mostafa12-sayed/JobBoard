@@ -12,9 +12,15 @@ class Category extends Model
         'name',
         'description',
         'slug',
+        'status'
     ];
     // public function jobs()
     // {
     //     return $this->hasMany(Job::class, 'category_id', 'id');
     // }
+
+    public function jobs()
+    {
+        return $this->hasMany(Jobs::class);
+    }
 }
