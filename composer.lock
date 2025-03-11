@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "content-hash": "773f69a04aa432e057c237eab72b2700",
-=======
     "content-hash": "8a2d5c8512048181e7e461ef1a531723",
->>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
     "packages": [
         {
             "name": "brick/math",
@@ -2011,8 +2007,6 @@
             "time": "2024-12-08T08:18:47+00:00"
         },
         {
-<<<<<<< HEAD
-=======
             "name": "mckenziearts/laravel-notify",
             "version": "v2.7",
             "source": {
@@ -2083,7 +2077,6 @@
             "time": "2025-03-06T17:12:38+00:00"
         },
         {
->>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
             "name": "monolog/monolog",
             "version": "3.8.1",
             "source": {
@@ -6568,16 +6561,16 @@
         },
         {
             "name": "laravel/pint",
-            "version": "v1.21.0",
+            "version": "v1.21.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/pint.git",
-                "reference": "531fa0871fbde719c51b12afa3a443b8f4e4b425"
+                "reference": "c44bffbb2334e90fba560933c45948fa4a3f3e86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pint/zipball/531fa0871fbde719c51b12afa3a443b8f4e4b425",
-                "reference": "531fa0871fbde719c51b12afa3a443b8f4e4b425",
+                "url": "https://api.github.com/repos/laravel/pint/zipball/c44bffbb2334e90fba560933c45948fa4a3f3e86",
+                "reference": "c44bffbb2334e90fba560933c45948fa4a3f3e86",
                 "shasum": ""
             },
             "require": {
@@ -6588,9 +6581,9 @@
                 "php": "^8.2.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.68.5",
-                "illuminate/view": "^11.42.0",
-                "larastan/larastan": "^3.0.4",
+                "friendsofphp/php-cs-fixer": "^3.70.2",
+                "illuminate/view": "^11.44.1",
+                "larastan/larastan": "^3.1.0",
                 "laravel-zero/framework": "^11.36.1",
                 "mockery/mockery": "^1.6.12",
                 "nunomaduro/termwind": "^2.3",
@@ -6630,7 +6623,7 @@
                 "issues": "https://github.com/laravel/pint/issues",
                 "source": "https://github.com/laravel/pint"
             },
-            "time": "2025-02-18T03:18:57+00:00"
+            "time": "2025-03-11T03:22:21+00:00"
         },
         {
             "name": "laravel/sail",
@@ -6696,79 +6689,6 @@
             "time": "2025-01-24T15:45:36+00:00"
         },
         {
-<<<<<<< HEAD
-            "name": "mckenziearts/laravel-notify",
-            "version": "v2.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mckenziearts/laravel-notify.git",
-                "reference": "1b40ba9e6c9ebed08d84629377ebc5ac9dc8ec2b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mckenziearts/laravel-notify/zipball/1b40ba9e6c9ebed08d84629377ebc5ac9dc8ec2b",
-                "reference": "1b40ba9e6c9ebed08d84629377ebc5ac9dc8ec2b",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "^8.0|^9.0|^10.0|^11.0|^12.0",
-                "php": "~8.0"
-            },
-            "require-dev": {
-                "laravel/pint": "^1.6",
-                "mockery/mockery": "^1.0",
-                "phpunit/phpunit": "^8.0|^9.0|^10.5"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "aliases": {
-                        "Notify": "Mckenziearts\\Notify\\Facades\\LaravelNotify"
-                    },
-                    "providers": [
-                        "Mckenziearts\\Notify\\LaravelNotifyServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/helpers.php"
-                ],
-                "psr-4": {
-                    "Mckenziearts\\Notify\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Arthur Monney",
-                    "email": "monneylobe@gmail.com"
-                }
-            ],
-            "description": "Flexible flash notifications for Laravel",
-            "keywords": [
-                "laravel",
-                "laravel-notify",
-                "notification"
-            ],
-            "support": {
-                "issues": "https://github.com/mckenziearts/laravel-notify/issues",
-                "source": "https://github.com/mckenziearts/laravel-notify"
-            },
-            "funding": [
-                {
-                    "url": "https://paypal.me/jvquilichini?locale.x=fr_FR",
-                    "type": "custom"
-                }
-            ],
-            "time": "2025-03-06T17:12:38+00:00"
-        },
-        {
-=======
->>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
             "name": "mockery/mockery",
             "version": "1.6.12",
             "source": {
@@ -7452,18 +7372,6 @@
         },
         {
             "name": "phpunit/phpunit",
-<<<<<<< HEAD
-            "version": "11.5.11",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "3946ac38410be7440186c6e74584f31b15107fc7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3946ac38410be7440186c6e74584f31b15107fc7",
-                "reference": "3946ac38410be7440186c6e74584f31b15107fc7",
-=======
             "version": "11.5.12",
             "source": {
                 "type": "git",
@@ -7474,7 +7382,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/d42785840519401ed2113292263795eb4c0f95da",
                 "reference": "d42785840519401ed2113292263795eb4c0f95da",
->>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
                 "shasum": ""
             },
             "require": {
@@ -7495,11 +7402,7 @@
                 "phpunit/php-timer": "^7.0.1",
                 "sebastian/cli-parser": "^3.0.2",
                 "sebastian/code-unit": "^3.0.2",
-<<<<<<< HEAD
-                "sebastian/comparator": "^6.3.0",
-=======
                 "sebastian/comparator": "^6.3.1",
->>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
                 "sebastian/diff": "^6.0.2",
                 "sebastian/environment": "^7.2.0",
                 "sebastian/exporter": "^6.3.0",
@@ -7550,11 +7453,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-<<<<<<< HEAD
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.11"
-=======
                 "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.12"
->>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
             },
             "funding": [
                 {
@@ -7570,11 +7469,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
-            "time": "2025-03-05T07:36:02+00:00"
-=======
             "time": "2025-03-07T07:31:03+00:00"
->>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
         },
         {
             "name": "sebastian/cli-parser",
@@ -7748,18 +7643,6 @@
         },
         {
             "name": "sebastian/comparator",
-<<<<<<< HEAD
-            "version": "6.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "d4e47a769525c4dd38cea90e5dcd435ddbbc7115"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/d4e47a769525c4dd38cea90e5dcd435ddbbc7115",
-                "reference": "d4e47a769525c4dd38cea90e5dcd435ddbbc7115",
-=======
             "version": "6.3.1",
             "source": {
                 "type": "git",
@@ -7770,7 +7653,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/24b8fbc2c8e201bb1308e7b05148d6ab393b6959",
                 "reference": "24b8fbc2c8e201bb1308e7b05148d6ab393b6959",
->>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
                 "shasum": ""
             },
             "require": {
@@ -7789,11 +7671,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-<<<<<<< HEAD
-                    "dev-main": "6.2-dev"
-=======
                     "dev-main": "6.3-dev"
->>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
                 }
             },
             "autoload": {
@@ -7833,11 +7711,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/comparator/issues",
                 "security": "https://github.com/sebastianbergmann/comparator/security/policy",
-<<<<<<< HEAD
-                "source": "https://github.com/sebastianbergmann/comparator/tree/6.3.0"
-=======
                 "source": "https://github.com/sebastianbergmann/comparator/tree/6.3.1"
->>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
             },
             "funding": [
                 {
@@ -7845,11 +7719,7 @@
                     "type": "github"
                 }
             ],
-<<<<<<< HEAD
-            "time": "2025-01-06T10:28:19+00:00"
-=======
             "time": "2025-03-07T06:57:01+00:00"
->>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
         },
         {
             "name": "sebastian/complexity",
@@ -8704,12 +8574,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

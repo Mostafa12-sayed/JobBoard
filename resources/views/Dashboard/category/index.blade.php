@@ -42,11 +42,7 @@
                   
                 <tr>
                   <td>{{$category->name}}</td>
-<<<<<<< HEAD
-                  <td>{{$category->description}}</td>
-=======
                   <td>{{ Str::limit($category->description ,50)}}</td>
->>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
                   <td> <label>
                     <input type="checkbox" class="toggle-checkbox" data-url={{route('dashboard.category.changeStatus')}} data-id="{{ $category->id }}" {{$category->status == 'active'? 'checked' : ''}} />
                     <div class="toggle-switch"></div>

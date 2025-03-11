@@ -4,19 +4,12 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-<<<<<<< HEAD
-=======
 use Illuminate\Support\Facades\Auth;
->>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
 
 class DashboardController extends Controller
 {
     public function index()
     {
-<<<<<<< HEAD
-        return view('dashboard.index');
-    }
-=======
 
         return view('dashboard.index');
     }
@@ -70,5 +63,4 @@ class DashboardController extends Controller
         }
         return $fullpath;
     }
->>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
 }

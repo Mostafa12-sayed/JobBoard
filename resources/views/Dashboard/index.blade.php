@@ -30,11 +30,7 @@
           <div class="flex-grow-1">
             <div class="price blue">
               <span class="d-block fw-bold mb-2"><i class="fa-solid fa-list mr-5"></i> Jobs</span>
-<<<<<<< HEAD
-              <span class="d-block plan-price">{{\App\Models\Category::count()}}</span>
-=======
               <span class="d-block plan-price">{{\App\Models\Jobs::count()}}</span>
->>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
             </div>
           </div>
 

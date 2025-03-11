@@ -104,14 +104,11 @@ return [
             explode(',', env('APP_PREVIOUS_KEYS', ''))
         ),
     ],
-<<<<<<< HEAD
-=======
     // 'providers' => [
     //     Illuminate\View\ViewServiceProvider::class,
 
     //     // Mckenziearts\Notify\LaravelNotifyServiceProvider::class,
     // ],
->>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
 
     /*
     |--------------------------------------------------------------------------

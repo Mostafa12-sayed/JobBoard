@@ -17,15 +17,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-<<<<<<< HEAD
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
-=======
     protected $guarded = [];
->>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
 
     /**
      * The attributes that should be hidden for serialization.
@@ -49,12 +41,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-<<<<<<< HEAD
-=======
 
     public function jobsOrder()
     {
         return $this->hasMany(Jobs::class, 'user_id', 'id');
     }
->>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
 }

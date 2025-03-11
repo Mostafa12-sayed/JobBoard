@@ -8,11 +8,7 @@
   }
 </style>
 
-<<<<<<< HEAD
-<div class="sidebar p-relative bg-white p-20">
-=======
 <div class="sidebar p-relative bg-white p-20 ">
->>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
   <h3 class="p-relative txt-c mt-0">{{auth('admin')->user()->name}}</h3>
   <ul>
     <li>
@@ -45,8 +41,6 @@
                 <span>Users</span>
       </a>
     </li>
-<<<<<<< HEAD
-=======
 
     <li>
       <a
@@ -69,7 +63,6 @@
       <span>Bad Words</span>
       </a>
     </li>
->>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
     {{-- <li>
       <a
         href="setting.html"
