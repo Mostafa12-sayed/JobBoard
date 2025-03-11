@@ -33,10 +33,14 @@ class CategoryController extends Controller
             'slug' => $slug,
             'description' => $request->description,
         ]);
+<<<<<<< HEAD
         return response()->json(['message' => 'Category created successfully']);
 
 
         // return redirect(route('category.index'));
+=======
+        flash()->success('Category created successfully');
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
     }
     public function edit(Category $category)
     {
@@ -51,22 +55,33 @@ class CategoryController extends Controller
             'slug' => $slug,
             'description' => $request->description,
         ]);
+<<<<<<< HEAD
         return response()->json(['message' => 'Category Updated successfully']);
+=======
+        flash()->success('Category Updated successfully');
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
+<<<<<<< HEAD
         // return response()->json(['message' => 'Category deleted successfully']);
         toast('Category deleted successfully', 'success');
         // Alert::success('Success!', 'Operation completed successfully.');
 
+=======
+        flash()->success('Category deleted successfully');
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
         return back();
     }
 
 
     public function changeStatus(Request $request)
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
     {
         $category = Category::find($request->id);
         $status = $category->status == 'active' ? 'inactive' : 'active';

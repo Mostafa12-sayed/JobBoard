@@ -12,7 +12,11 @@
             contentType: false,
             processData: false,
             success: function(response) {
+<<<<<<< HEAD
               sessionStorage.setItem('successMessage',response.message);
+=======
+            //   sessionStorage.setItem('successMessage',response.message);
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
               location.reload();
               
             },

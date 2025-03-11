@@ -31,7 +31,11 @@
                                                     <li><a href="single-blog.html">single-blog</a></li>
                                                 </ul>
                                             </li>
+<<<<<<< HEAD
                                             <li><a href="contact.html">Contact</a></li>
+=======
+                                            <li><a href="{{route('website.contact-us')}}">Contact</a></li>
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
                                         </ul>
                                     </nav>
                                 </div>

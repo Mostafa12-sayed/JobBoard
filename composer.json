@@ -9,6 +9,10 @@
         "php": "^8.2",
         "laravel/framework": "^11.31",
         "laravel/tinker": "^2.9",
+<<<<<<< HEAD
+=======
+        "mckenziearts/laravel-notify": "*",
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
         "php-flasher/flasher-laravel": "^2.1",
         "realrashid/sweet-alert": "^7.3",
         "yoeunes/toastr": "^3.1"
@@ -18,7 +22,10 @@
         "laravel/pail": "^1.1",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",
+<<<<<<< HEAD
         "mckenziearts/laravel-notify": "^2.7",
+=======
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.1",
         "phpunit/phpunit": "^11.0.1"

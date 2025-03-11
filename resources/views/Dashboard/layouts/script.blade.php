@@ -30,6 +30,7 @@
 
 
     @endif
+<<<<<<< HEAD
     $(document).ready(function() {
         if (sessionStorage.getItem('successMessage')) {
             textmessage=sessionStorage.getItem('successMessage')
@@ -49,6 +50,27 @@
 
 
         $(document).ready(function() {
+=======
+    // $(document).ready(function() {
+    //     if (sessionStorage.getItem('successMessage')) {
+    //         textmessage=sessionStorage.getItem('successMessage')
+    //         Toastify({
+    //         text: textmessage,
+    //         duration: 5000,
+    //         newWindow: true,
+    //         close: true,
+    //         gravity: "top",
+    //         position: "center",
+    //         stopOnFocus: true, 
+    //         onClick: function(){} 
+    //         }).showToast();
+    //         sessionStorage.removeItem('successMessage');
+    //     }
+    //     });
+
+
+$(document).ready(function() {
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
 $('.toggle-checkbox').change(function() {
     
     var id = $(this).data('id');
@@ -69,6 +91,21 @@ $('.toggle-checkbox').change(function() {
 });
 });
 
+<<<<<<< HEAD
+=======
+function changeImage(element, id) {
+        if (element.files && element.files[0]) {
+            var reader = new FileReader();
+            console.log(id);
+            reader.onload = function (e) {
+                $('.image-preview-' + id).attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(element.files[0]);
+        }
+    }
+
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
 $('.delete-item').on('click', function(e) {
           e.preventDefault();
           var url = $(this).data('url');
@@ -88,4 +125,20 @@ $('.delete-item').on('click', function(e) {
             }
         });
   });
+<<<<<<< HEAD
+=======
+
+  document.querySelectorAll('.dropdown-toggle').forEach(item => {
+  item.addEventListener('click', event => {
+ 
+    if(event.target.classList.contains('dropdown-toggle') ){
+      event.target.classList.toggle('toggle-change');
+    }
+    else if(event.target.parentElement.classList.contains('dropdown-toggle')){
+      event.target.parentElement.classList.toggle('toggle-change');
+    }
+  })
+});
+
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
 </script>

@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminRequest;
 use Illuminate\Http\Request;
+<<<<<<< HEAD
+=======
+use RealRashid\SweetAlert\Facades\Alert;
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
 
 class AuthController extends Controller
 {
@@ -18,12 +22,17 @@ class AuthController extends Controller
     public function login(AdminRequest $request)
     {
         $credentials = $this->credentials($request);
+<<<<<<< HEAD
 
+=======
+        // dd($credentials);
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
         if (!$credentials) {
             return $this->invalid($request);
         }
         $remember = $request->input('remember') ? true : false;
         if (!auth('admin')->attempt($credentials, $remember)) return $this->invalid($request);
+<<<<<<< HEAD
         // toastr()->success('login_successfull');
         notify()->success('Welcome to Laravel Notify ⚡️');
 
@@ -35,6 +44,12 @@ class AuthController extends Controller
      * @param $request
      * @return array|bool
      */
+=======
+        flash()->success('Login Successfull');
+
+        return redirect()->route('dashboard.index');
+    }
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
     private function credentials($request)
     {
         $inputs = $request->validated();
@@ -46,6 +61,7 @@ class AuthController extends Controller
         }
         return false;
     }
+<<<<<<< HEAD
 
 
     /**
@@ -65,6 +81,14 @@ class AuthController extends Controller
      * Logout Admin
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
+=======
+    private function invalid($request)
+    {
+        flash()->error('Invalid Credentials!');
+
+        return back();
+    }
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
     public function logout()
     {
         if (auth('admin')->check()) {
@@ -73,4 +97,11 @@ class AuthController extends Controller
         }
         return redirect(route('dashboard.login'));
     }
+<<<<<<< HEAD
+=======
+    protected function redirectTo()
+    {
+        return route('dashboard.index');
+    }
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
 }

@@ -8,7 +8,11 @@
   }
 </style>
 
+<<<<<<< HEAD
 <div class="sidebar p-relative bg-white p-20">
+=======
+<div class="sidebar p-relative bg-white p-20 ">
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
   <h3 class="p-relative txt-c mt-0">{{auth('admin')->user()->name}}</h3>
   <ul>
     <li>
@@ -41,6 +45,31 @@
                 <span>Users</span>
       </a>
     </li>
+<<<<<<< HEAD
+=======
+
+    <li>
+      <a
+        href="{{route('dashboard.jobs.index')}}"
+        class="d-flex fs-14 rad-6 p-10 align-center c-black align-center {{request()->routeIs('dashboard.jobs.index*')? 'active' : ''}}"
+        id="index"
+      >
+      <i class="fa-solid fa-tower-observation mr-5"></i>                
+      <span>Jobs Orders</span>
+      </a>
+    </li>
+    
+    <li>
+      <a
+        href="{{route('dashboard.badWord.index')}}"
+        class="d-flex fs-14 rad-6 p-10 align-center c-black align-center {{request()->routeIs('dashboard.badWord.index*')? 'active' : ''}}"
+        id="index"
+      >
+      <i class="fa-solid fa-file-word mr-5"></i>      
+      <span>Bad Words</span>
+      </a>
+    </li>
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
     {{-- <li>
       <a
         href="setting.html"

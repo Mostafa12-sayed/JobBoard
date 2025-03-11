@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -136,33 +137,81 @@
         
       </div>
 
+=======
+@extends('Website.layouts.master')
+
+@php
+    $title = "Contact Us"
+@endphp
+@section('title' , $title)
+@section('content')
+    @include('Website.layouts.includes.bradcamp')
+  <section class="contact-section section_padding">
+    <div class="container">
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
 
       <div class="row">
         <div class="col-12">
           <h2 class="contact-title">Get in Touch</h2>
         </div>
         <div class="col-lg-8">
+<<<<<<< HEAD
           <form class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
             <div class="row">
               <div class="col-12">
                 <div class="form-group">
                   
                     <textarea class="form-control w-100" name="message" id="message" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'" placeholder = 'Enter Message'></textarea>
+=======
+          <form class="form-contact contact_form" action="{{route('website.contact-us.store')}}" method="post" >
+            @csrf
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                    <textarea class="form-control w-100" name="message" id="message" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'" placeholder = 'Enter Message'>{{old('message')}}</textarea>
+                    @if($errors->has('message'))
+                    <span class="text-danger">{{ $errors->first('message') }}</span>
+                    @endif
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
+<<<<<<< HEAD
                   <input class="form-control" name="name" id="name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" placeholder = 'Enter your name'>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
                   <input class="form-control" name="email" id="email" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" placeholder = 'Enter email address'>
+=======
+                <input class="form-control"  {{old('name')}}  name="name" id="name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" placeholder = 'Enter your name'>
+                @if($errors->has('name'))
+                <span class="text-danger">{{ $errors->first('name') }}</span>
+                @endif
+            </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                    
+                       
+                  <input class="form-control"  {{old('email')}}  name="email" id="email" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" placeholder = 'Enter email address'>
+                  @if($errors->has('email'))
+                  <span class="text-danger">{{ $errors->first('email') }}</span>
+                  @endif
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
                 </div>
               </div>
               <div class="col-12">
                 <div class="form-group">
+<<<<<<< HEAD
                   <input class="form-control" name="subject" id="subject" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Subject'" placeholder = 'Enter Subject'>
+=======
+                  <input class="form-control" name="subject"   {{old('subject')}} id="subject" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Subject'" placeholder = 'Enter Subject'>
+                  @if($errors->has('subject'))
+                  <span class="text-danger">{{ $errors->first('subject') }}</span>
+                  @endif
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
                 </div>
               </div>
             </div>
@@ -197,6 +246,7 @@
       </div>
     </div>
   </section>
+<<<<<<< HEAD
   <!-- ================ contact section end ================= -->
     <!-- footer start -->
     <footer class="footer">
@@ -334,3 +384,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </body>
 
 </html>
+=======
+@endsection
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b

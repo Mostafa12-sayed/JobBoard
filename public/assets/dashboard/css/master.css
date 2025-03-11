@@ -20,12 +20,22 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background-color: var(--blue-alt-color);
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
 a,
 ul li a,
 ul li {
     text-decoration: none !important;
 }
+<<<<<<< HEAD
 
+=======
+a {
+    cursor: pointer !important;
+}
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
 ul {
     list-style: none;
     padding: 0;
@@ -1257,15 +1267,26 @@ input[type="radio"] {
 }
 
 /*end courses */
+<<<<<<< HEAD
 .friends .box {
     height: auto;
 }
 .friends .box .contact {
+=======
+.box {
+    height: auto;
+}
+.box .contact {
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
     position: absolute;
     top: 10px;
     left: 10px;
 }
+<<<<<<< HEAD
 .friends .box .contact i {
+=======
+.box .contact i {
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
     background-color: #eee;
     border-radius: 50%;
     padding: 10px;
@@ -1278,12 +1299,20 @@ input[type="radio"] {
     -o-transition: 0.3s;
     font-size: 14px;
 }
+<<<<<<< HEAD
 .friends .box .contact i:hover {
+=======
+.box .contact i:hover {
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
     background-color: var(--blue-color);
     color: white;
 }
 
+<<<<<<< HEAD
 .friends .box .friend {
+=======
+.box .friend {
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
     text-align: center;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -1291,7 +1320,11 @@ input[type="radio"] {
     padding-right: 20px;
     padding-left: 20px;
 }
+<<<<<<< HEAD
 .friends .box .friend img {
+=======
+.box .friend img {
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -1299,12 +1332,20 @@ input[type="radio"] {
     -o-border-radius: 50%;
     width: 100px;
 }
+<<<<<<< HEAD
 .friends .box .icons {
+=======
+.box .icons {
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
     margin-top: 10px;
     padding-bottom: 20px;
     border-bottom: 2px solid #eee;
 }
+<<<<<<< HEAD
 .friends .box .vip {
+=======
+.box .vip {
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
     position: absolute;
     right: 20px;
     bottom: 20px;
@@ -1312,7 +1353,11 @@ input[type="radio"] {
     opacity: 0.2;
 }
 
+<<<<<<< HEAD
 .friends .box a {
+=======
+.box a {
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
     /* background-color: gray; */
     color: white;
 }
@@ -1965,3 +2010,10 @@ input[type="radio"] {
         max-width: fit-content;
     }
 }
+<<<<<<< HEAD
+=======
+
+.btn-model {
+    cursor: pointer !important;
+}
+>>>>>>> 3a7c11c0f7c26e882b2a588b74bda85988f62f2b
