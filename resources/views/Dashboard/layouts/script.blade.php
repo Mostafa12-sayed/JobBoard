@@ -69,6 +69,18 @@ $('.toggle-checkbox').change(function() {
 });
 });
 
+function changeImage(element, id) {
+        if (element.files && element.files[0]) {
+            var reader = new FileReader();
+            console.log(id);
+            reader.onload = function (e) {
+                $('.image-preview-' + id).attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(element.files[0]);
+        }
+    }
+
 $('.delete-item').on('click', function(e) {
           e.preventDefault();
           var url = $(this).data('url');
@@ -88,4 +100,17 @@ $('.delete-item').on('click', function(e) {
             }
         });
   });
+
+  document.querySelectorAll('.dropdown-toggle').forEach(item => {
+  item.addEventListener('click', event => {
+ 
+    if(event.target.classList.contains('dropdown-toggle') ){
+      event.target.classList.toggle('toggle-change');
+    }
+    else if(event.target.parentElement.classList.contains('dropdown-toggle')){
+      event.target.parentElement.classList.toggle('toggle-change');
+    }
+  })
+});
+
 </script>

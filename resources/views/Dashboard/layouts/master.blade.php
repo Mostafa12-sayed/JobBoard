@@ -19,6 +19,7 @@
       href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500&display=swap"
       rel="stylesheet"
     />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   </head>
   <body>
     <div class="page d-flex">
@@ -35,10 +36,12 @@
     @include('sweetalert::alert')
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
   <script src="{{asset('assets/dashboard/js/index.js')}}"></script>
   <script src="{{ asset('assets/dashboard/js/sweetalert2.js') }}"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   @include('Dashboard.layouts.script')
   @yield('js')
-
+  
 </html>
