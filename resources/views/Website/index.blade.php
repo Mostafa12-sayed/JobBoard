@@ -91,13 +91,16 @@
                 </div>
             </div>
             <div class="row">
+                @foreach ($categories as $category)
+                    
                 <div class="col-lg-4 col-xl-3 col-md-6">
                     <div class="single_catagory">
-                        <a href="jobs.html"><h4>Design & Creative</h4></a>
+                        <a href="jobs.html"><h4>{{$category->name}}</h4></a>
                         <p> <span>50</span> Available position</p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
+                @endforeach
+                <!-- <div class="col-lg-4 col-xl-3 col-md-6">
                     <div class="single_catagory">
                         <a href="jobs.html"><h4>Marketing</h4></a>
                         <p> <span>50</span> Available position</p>
@@ -138,7 +141,7 @@
                         <a href="jobs.html"><h4>Garments / Textile</h4></a>
                         <p> <span>50</span> Available position</p>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

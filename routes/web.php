@@ -7,11 +7,11 @@ use App\Http\Controllers\Dashboard\BadWordController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\JobsAdminController;
 use App\Http\Controllers\Website\ContactUsController;
+use App\Http\Controllers\Website\HomePageController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('Website.jobs');
-});
+Route::get('/', [HomePageController::class, 'index'])->name('homepage.index');
+
 
 Route::group(['middleware' => 'guest:admin', 'prefix' => 'dashboard', 'as' => 'dashboard'], function () {
     Route::get('/login', [AuthController::class, 'view'])->name('.login');
