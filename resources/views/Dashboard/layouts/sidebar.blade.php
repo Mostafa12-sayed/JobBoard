@@ -8,7 +8,7 @@
   }
 </style>
 
-<div class="sidebar p-relative bg-white p-20">
+<div class="sidebar p-relative bg-white p-20 ">
   <h3 class="p-relative txt-c mt-0">{{auth('admin')->user()->name}}</h3>
   <ul>
     <li>
@@ -45,11 +45,22 @@
     <li>
       <a
         href="{{route('dashboard.jobs.index')}}"
-        class="d-flex fs-14 rad-6 p-10 align-center c-black align-center {{request()->routeIs('dashboard.user.index*')? 'active' : ''}}"
+        class="d-flex fs-14 rad-6 p-10 align-center c-black align-center {{request()->routeIs('dashboard.jobs.index*')? 'active' : ''}}"
         id="index"
       >
       <i class="fa-solid fa-tower-observation mr-5"></i>                
       <span>Jobs Orders</span>
+      </a>
+    </li>
+    
+    <li>
+      <a
+        href="{{route('dashboard.badWord.index')}}"
+        class="d-flex fs-14 rad-6 p-10 align-center c-black align-center {{request()->routeIs('dashboard.badWord.index*')? 'active' : ''}}"
+        id="index"
+      >
+      <i class="fa-solid fa-file-word mr-5"></i>      
+      <span>Bad Words</span>
       </a>
     </li>
     {{-- <li>
