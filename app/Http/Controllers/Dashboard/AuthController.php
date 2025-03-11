@@ -19,7 +19,7 @@ class AuthController extends Controller
     public function login(AdminRequest $request)
     {
         $credentials = $this->credentials($request);
-
+        // dd($credentials);
         if (!$credentials) {
             return $this->invalid($request);
         }

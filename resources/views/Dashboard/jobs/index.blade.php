@@ -11,12 +11,56 @@
     }
 
   }
+  .close-icon {
+    border:1px solid transparent;
+    background-color: transparent;
+    display: inline-block;
+    vertical-align: middle;
+  outline: 0;
+  cursor: pointer;
+}
+.close-icon:after {
+    content: "x";
+    display: block;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    z-index:1;
+    right: 10px;
+    top: -30px;
+    bottom: 0;
+    margin: auto;
+    padding: 2px;
+    border-radius: 50%;
+    text-align: center;
+    color: black;
+    font-weight: normal;
+    font-size: 14px;
+    font-weight: bold;
+    /* box-shadow: 0 0 2px #E50F0F; */
+    cursor: pointer;
+}
+  .search-box:not(:valid) ~ .close-icon {
+      display: none;
+  }
   .box .friend img {
     width: 80px !important;
     height: 80px !important;
     border-radius: 50%;
     /* object-fit: cover; */
     background-color: #ccc
+  }
+  .select2-container .select2-selection--single {
+    height: 38px !important;
+    padding-top: 5px !important;
+    border: none !important;
+    border-radius: 6px !important
+  }
+  .select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: 7px !important;}
+
+  input::placeholder{
+    color: rgb(161, 152, 152) !important;
   }
 </style>
 <h1 class="p-relative">Jobs Order</h1>
@@ -75,7 +119,27 @@
 @section('js')
 
 <script>
-  
+  function resetInput(id) {
+    document.getElementById(id).value = ""; // إعادة تعيين الـ input
+  }
+   $('#type').select2({
+      allowClear: true,
+      placeholder: 'Select Job Type',
+      width: '100%',
+      height: '40px',
+  });
+  $('#category').select2({
+      allowClear: true,
+      placeholder: 'Select Category',
+      width: '100%',
+      height: '40px',
+  });
+  $('#status').select2({
+      allowClear: true,
+      placeholder: 'Select status',
+      width: '100%',
+      height: '40px',
+  });
   $(document).ready(function() {
     $('.changeStatus').on('click', function(e) {
       console.log('clicked');

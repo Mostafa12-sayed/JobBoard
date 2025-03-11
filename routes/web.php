@@ -3,13 +3,15 @@
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\UsersController;
 use App\Http\Controllers\Dashboard\AuthController;
+use App\Http\Controllers\Dashboard\BadWordController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\JobsAdminController;
+use App\Http\Controllers\Website\ContactUsController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('Website.jobs');
-// });
+Route::get('/', function () {
+    return view('Website.jobs');
+});
 
 Route::group(['middleware' => 'guest:admin', 'prefix' => 'dashboard', 'as' => 'dashboard'], function () {
     Route::get('/login', [AuthController::class, 'view'])->name('.login');
@@ -30,4 +32,18 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'dashboard', 'as' => 'da
 
     Route::resource('users', UsersController::class)->names('user')->except(['destroy']);
     Route::get('/users/destroy/{user}', [UsersController::class, 'destroy'])->name('user.destroy');
+
+    Route::get('/dashboard/profile', [DashboardController::class, 'profile'])->name('profile');
+    Route::post('/dashboard/profile', [DashboardController::class, 'updateProfile'])->name('profile.update');
+
+    Route::resource('badWords', BadWordController::class)->names('badWord')->except(['destroy']);
+    Route::get('/badWords/destroy/{badWord}', [BadWordController::class, 'destroy'])->name('badWord.destroy');
+});
+
+
+
+
+Route::group(['as' => 'website.'], function () {
+    Route::get('/contact-us', [ContactUsController::class, 'index'])->name('contact-us');
+    Route::post('/contact-us', [ContactUsController::class, 'store'])->name('contact-us.store');
 });
