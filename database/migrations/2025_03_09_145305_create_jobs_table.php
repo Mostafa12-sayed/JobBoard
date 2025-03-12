@@ -18,11 +18,14 @@ return new class extends Migration
             $table->string('title');
             $table->string('description');
             $table->string('location');
-            $table->string('type');
+            $table->string('technologies');
+            $table->enum('work_type', ['remote', 'onsite', 'hybrid']);
+            $table->string('job_type');
             $table->string('min_salary');
             $table->string('max_salary')->nullable();
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->string('slug')->unique();
+            $table->enum('status', ['available', 'not available'])->default('available');
             $table->string('application_deadline')->nullable();
             $table->timestamps();
         });
