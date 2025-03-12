@@ -22,6 +22,10 @@
   padding: 4px;
   border-radius: 50%;
 }
+#aria-messages{
+  height: 250px;
+  overflow-y: scroll;
+}
 </style>
 
 <nav class="navbar navbar-expand-lg navbar-white bg-white">
@@ -55,14 +59,17 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle position-relative" href="#" id="notifications" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="badge bg-danger">31</span>
+            <span class="badge bg-danger">{{auth()->guard('admin')->user()->notifications->where('type', 'App\Notifications\ContactUsNotification')->count()}}</span>
             <i class="fa-solid fa-envelope" style="font-size: 20px !important;"></i>
           </a>
-          <ul class="dropdown-menu" aria-labelledby="notifications">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          <ul class="dropdown-menu" aria-labelledby="notifications" >
+            <ul class="list-group list-group-flush" id="aria-messages">
+            @foreach(auth()->guard('admin')->user()->notifications->where('type', 'App\Notifications\ContactUsNotification') as $notification)
+            <li class="p-1"><a class="dropdown-item" href="#">New message from {{$notification->data['name']}}</a></li>
+            @endforeach
+            </ul>
+            <li class="dropdown-divider"></li>
+            <li class="font-weight-bold p-3 text-center"><a href="#">show All messages</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
