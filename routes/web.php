@@ -10,8 +10,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\JobsAdminController;
 use App\Http\Controllers\Dashboard\WebInfoController;
 use App\Http\Controllers\Website\ContactUsController;
-use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Website\JobController;
 Route::get('/', function () {
     return view('Website.jobs');
 });
