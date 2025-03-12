@@ -1,3 +1,12 @@
+
+import './bootstrap';
+
+import Alpine from 'alpinejs';
+
+window.Alpine = Alpine;
+
+Alpine.start();
+
 import "./bootstrap";
 
 // import Echo from "laravel-echo";
@@ -33,3 +42,4 @@ window.Echo = new Echo({
     cluster: pusherCluster,
     forceTLS: false,
 });
+
