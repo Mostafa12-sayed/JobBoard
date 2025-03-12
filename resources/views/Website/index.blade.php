@@ -83,10 +83,15 @@
     <!-- popular_catagory_area_start  -->
     <div class="popular_catagory_area">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section_title mb-40">
-                        <h3>Popolar Categories</h3>
+        <div class="row align-items-center">
+                <div class="col-lg-6 mb-40">
+                    <div class="section_title">
+                        <h3>popular categories</h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="brouse_job text-right">
+                        <a href="jobs.html" class="boxed-btn4">Browse More categories</a>
                     </div>
                 </div>
             </div>
@@ -96,52 +101,10 @@
                 <div class="col-lg-4 col-xl-3 col-md-6">
                     <div class="single_catagory">
                         <a href="jobs.html"><h4>{{$category->name}}</h4></a>
-                        <p> <span>50</span> Available position</p>
+                        <p> <span>{{$category->jobs_count}}</span> Available position</p>
                     </div>
                 </div>
                 @endforeach
-                <!-- <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory">
-                        <a href="jobs.html"><h4>Marketing</h4></a>
-                        <p> <span>50</span> Available position</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory">
-                        <a href="jobs.html"><h4>Telemarketing</h4></a>
-                        <p> <span>50</span> Available position</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory">
-                        <a href="jobs.html"><h4>Software & Web</h4></a>
-                        <p> <span>50</span> Available position</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory">
-                        <a href="jobs.html"><h4>Administration</h4></a>
-                        <p> <span>50</span> Available position</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory">
-                        <a href="jobs.html"><h4>Teaching & Education</h4></a>
-                        <p> <span>50</span> Available position</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory">
-                        <a href="jobs.html"><h4>Engineering</h4></a>
-                        <p> <span>50</span> Available position</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory">
-                        <a href="jobs.html"><h4>Garments / Textile</h4></a>
-                        <p> <span>50</span> Available position</p>
-                    </div>
-                </div> -->
             </div>
         </div>
     </div>
@@ -164,290 +127,36 @@
             </div>
             <div class="job_lists">
                 <div class="row">
+                    @foreach ($jobs as $job)
                     <div class="col-lg-12 col-md-12">
                         <div class="single_jobs white-bg d-flex justify-content-between">
                             <div class="jobs_left d-flex align-items-center">
                                 <div class="thumb">
-                                    <img src="img/svg_icon/1.svg" alt="">
+                                    <img src="{{$job->user->company_logo}}" alt="">
                                 </div>
                                 <div class="jobs_conetent">
-                                    <a href="job_details.html"><h4>Software Engineer</h4></a>
+                                    <a href="job_details.html"><h4>{{ $job->title }}</h4></a>
                                     <div class="links_locat d-flex align-items-center">
                                         <div class="location">
-                                            <p> <i class="fa fa-map-marker"></i> California, USA</p>
+                                            <p> <i class="fa fa-map-marker"></i>{{$job->location}}</p>
                                         </div>
                                         <div class="location">
-                                            <p> <i class="fa fa-clock-o"></i> Part-time</p>
+                                            <p> <i class="fa fa-clock-o"></i>{{$job->type}} </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="jobs_right">
                                 <div class="apply_now">
-                                    <a class="heart_mark" href="#"> <i class="ti-heart"></i> </a>
                                     <a href="job_details.html" class="boxed-btn3">Apply Now</a>
                                 </div>
                                 <div class="date">
-                                    <p>Date line: 31 Jan 2020</p>
+                                    <p>Date line: {{$job->application_deadline}}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-12 col-md-12">
-                        <div class="single_jobs white-bg d-flex justify-content-between">
-                            <div class="jobs_left d-flex align-items-center">
-                                <div class="thumb">
-                                    <img src="img/svg_icon/2.svg" alt="">
-                                </div>
-                                <div class="jobs_conetent">
-                                    <a href="job_details.html"><h4>Digital Marketer</h4></a>
-                                    <div class="links_locat d-flex align-items-center">
-                                        <div class="location">
-                                            <p> <i class="fa fa-map-marker"></i> California, USA</p>
-                                        </div>
-                                        <div class="location">
-                                            <p> <i class="fa fa-clock-o"></i> Part-time</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="jobs_right">
-                                <div class="apply_now">
-                                    <a class="heart_mark" href="#"> <i class="ti-heart"></i> </a>
-                                    <a href="job_details.html" class="boxed-btn3">Apply Now</a>
-                                </div>
-                                <div class="date">
-                                    <p>Date line: 31 Jan 2020</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12">
-                        <div class="single_jobs white-bg d-flex justify-content-between">
-                            <div class="jobs_left d-flex align-items-center">
-                                <div class="thumb">
-                                    <img src="img/svg_icon/3.svg" alt="">
-                                </div>
-                                <div class="jobs_conetent">
-                                    <a href="job_details.html"><h4>Wordpress Developer</h4></a>
-                                    <div class="links_locat d-flex align-items-center">
-                                        <div class="location">
-                                            <p> <i class="fa fa-map-marker"></i> California, USA</p>
-                                        </div>
-                                        <div class="location">
-                                            <p> <i class="fa fa-clock-o"></i> Part-time</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="jobs_right">
-                                <div class="apply_now">
-                                    <a class="heart_mark" href="#"> <i class="ti-heart"></i> </a>
-                                    <a href="job_details.html" class="boxed-btn3">Apply Now</a>
-                                </div>
-                                <div class="date">
-                                    <p>Date line: 31 Jan 2020</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12">
-                        <div class="single_jobs white-bg d-flex justify-content-between">
-                            <div class="jobs_left d-flex align-items-center">
-                                <div class="thumb">
-                                    <img src="img/svg_icon/4.svg" alt="">
-                                </div>
-                                <div class="jobs_conetent">
-                                    <a href="job_details.html"><h4>Visual Designer</h4></a>
-                                    <div class="links_locat d-flex align-items-center">
-                                        <div class="location">
-                                            <p> <i class="fa fa-map-marker"></i> California, USA</p>
-                                        </div>
-                                        <div class="location">
-                                            <p> <i class="fa fa-clock-o"></i> Part-time</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="jobs_right">
-                                <div class="apply_now">
-                                    <a class="heart_mark" href="#"> <i class="ti-heart"></i> </a>
-                                    <a href="job_details.html" class="boxed-btn3">Apply Now</a>
-                                </div>
-                                <div class="date">
-                                    <p>Date line: 31 Jan 2020</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12">
-                        <div class="single_jobs white-bg d-flex justify-content-between">
-                            <div class="jobs_left d-flex align-items-center">
-                                <div class="thumb">
-                                    <img src="img/svg_icon/5.svg" alt="">
-                                </div>
-                                <div class="jobs_conetent">
-                                    <a href="job_details.html"><h4>Software Engineer</h4></a>
-                                    <div class="links_locat d-flex align-items-center">
-                                        <div class="location">
-                                            <p> <i class="fa fa-map-marker"></i> California, USA</p>
-                                        </div>
-                                        <div class="location">
-                                            <p> <i class="fa fa-clock-o"></i> Part-time</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="jobs_right">
-                                <div class="apply_now">
-                                    <a class="heart_mark" href="#"> <i class="ti-heart"></i> </a>
-                                    <a href="job_details.html" class="boxed-btn3">Apply Now</a>
-                                </div>
-                                <div class="date">
-                                    <p>Date line: 31 Jan 2020</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12">
-                        <div class="single_jobs white-bg d-flex justify-content-between">
-                            <div class="jobs_left d-flex align-items-center">
-                                <div class="thumb">
-                                    <img src="img/svg_icon/1.svg" alt="">
-                                </div>
-                                <div class="jobs_conetent">
-                                    <a href="job_details.html"><h4>Creative Designer</h4></a>
-                                    <div class="links_locat d-flex align-items-center">
-                                        <div class="location">
-                                            <p> <i class="fa fa-map-marker"></i> California, USA</p>
-                                        </div>
-                                        <div class="location">
-                                            <p> <i class="fa fa-clock-o"></i> Part-time</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="jobs_right">
-                                <div class="apply_now">
-                                    <a class="heart_mark" href="#"> <i class="ti-heart"></i> </a>
-                                    <a href="job_details.html" class="boxed-btn3">Apply Now</a>
-                                </div>
-                                <div class="date">
-                                    <p>Date line: 31 Jan 2020</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- job_listing_area_end  -->
-
-    <!-- featured_candidates_area_start  -->
-    <div class="featured_candidates_area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section_title text-center mb-40">
-                        <h3>Featured Candidates</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="candidate_active owl-carousel">
-                        <div class="single_candidates text-center">
-                            <div class="thumb">
-                                <img src="img/candiateds/1.png" alt="">
-                            </div>
-                            <a href="#"><h4>Markary Jondon</h4></a>
-                            <p>Software Engineer</p>
-                        </div>
-                        <div class="single_candidates text-center">
-                            <div class="thumb">
-                                <img src="img/candiateds/2.png" alt="">
-                            </div>
-                            <a href="#"><h4>Markary Jondon</h4></a>
-                            <p>Software Engineer</p>
-                        </div>
-                        <div class="single_candidates text-center">
-                            <div class="thumb">
-                                <img src="img/candiateds/3.png" alt="">
-                            </div>
-                            <a href="#"><h4>Markary Jondon</h4></a>
-                            <p>Software Engineer</p>
-                        </div>
-                        <div class="single_candidates text-center">
-                            <div class="thumb">
-                                <img src="img/candiateds/4.png" alt="">
-                            </div>
-                            <a href="#"><h4>Markary Jondon</h4></a>
-                            <p>Software Engineer</p>
-                        </div>
-                        <div class="single_candidates text-center">
-                            <div class="thumb">
-                                <img src="img/candiateds/5.png" alt="">
-                            </div>
-                            <a href="#"><h4>Markary Jondon</h4></a>
-                            <p>Software Engineer</p>
-                        </div>
-                        <div class="single_candidates text-center">
-                            <div class="thumb">
-                                <img src="img/candiateds/6.png" alt="">
-                            </div>
-                            <a href="#"><h4>Markary Jondon</h4></a>
-                            <p>Software Engineer</p>
-                        </div>
-                        <div class="single_candidates text-center">
-                            <div class="thumb">
-                                <img src="img/candiateds/7.png" alt="">
-                            </div>
-                            <a href="#"><h4>Markary Jondon</h4></a>
-                            <p>Software Engineer</p>
-                        </div>
-                        <div class="single_candidates text-center">
-                            <div class="thumb">
-                                <img src="img/candiateds/8.png" alt="">
-                            </div>
-                            <a href="#"><h4>Markary Jondon</h4></a>
-                            <p>Software Engineer</p>
-                        </div>
-                        <div class="single_candidates text-center">
-                            <div class="thumb">
-                                <img src="img/candiateds/9.png" alt="">
-                            </div>
-                            <a href="#"><h4>Markary Jondon</h4></a>
-                            <p>Software Engineer</p>
-                        </div>
-                        <div class="single_candidates text-center">
-                            <div class="thumb">
-                                <img src="img/candiateds/9.png" alt="">
-                            </div>
-                            <a href="#"><h4>Markary Jondon</h4></a>
-                            <p>Software Engineer</p>
-                        </div>
-                        <div class="single_candidates text-center">
-                            <div class="thumb">
-                                <img src="img/candiateds/10.png" alt="">
-                            </div>
-                            <a href="#"><h4>Markary Jondon</h4></a>
-                            <p>Software Engineer</p>
-                        </div>
-                        <div class="single_candidates text-center">
-                            <div class="thumb">
-                                <img src="img/candiateds/3.png" alt="">
-                            </div>
-                            <a href="#"><h4>Markary Jondon</h4></a>
-                            <p>Software Engineer</p>
-                        </div>
-                        <div class="single_candidates text-center">
-                            <div class="thumb">
-                                <img src="img/candiateds/4.png" alt="">
-                            </div>
-                            <a href="#"><h4>Markary Jondon</h4></a>
-                            <p>Software Engineer</p>
-                        </div>
+                    @endforeach
                     </div>
                 </div>
             </div>
@@ -469,45 +178,21 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_company">
-                        <div class="thumb">
-                            <img src="img/svg_icon/5.svg" alt="">
+            <div class="d-flex">
+                <div class="row">
+                    @foreach ($employer as $employer) 
+                    <div class="col-lg-4 col-xl-3 col-md-6">
+                        <div class="single_company">
+                            <div class="thumb">
+                                <img src='{{$employer->company_logo}}' alt="">
+                            </div>
+                            <a href="jobs.html"><h3>{{$employer->company_name}}</h3></a>
                         </div>
-                        <a href="jobs.html"><h3>Snack Studio</h3></a>
-                        <p> <span>50</span> Available position</p>
                     </div>
-                </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_company">
-                        <div class="thumb">
-                            <img src="img/svg_icon/4.svg" alt="">
-                        </div>
-                        <a href="jobs.html"><h3>Snack Studio</h3></a>
-                        <p> <span>50</span> Available position</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_company">
-                        <div class="thumb">
-                            <img src="img/svg_icon/3.svg" alt="">
-                        </div>
-                        <a href="jobs.html"><h3>Snack Studio</h3></a>
-                        <p> <span>50</span> Available position</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_company">
-                        <div class="thumb">
-                            <img src="img/svg_icon/1.svg" alt="">
-                        </div>
-                        <a href="jobs.html"><h3>Snack Studio</h3></a>
-                        <p> <span>50</span> Available position</p>
-                    </div>
+                    @endforeach
                 </div>
             </div>
-        </div>
+        </div> 
     </div>
 
     <!-- job_searcing_wrap  -->
