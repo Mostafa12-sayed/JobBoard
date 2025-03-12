@@ -11,30 +11,43 @@ use App\Http\Controllers\Dashboard\JobsAdminController;
 use App\Http\Controllers\Dashboard\WebInfoController;
 use App\Http\Controllers\Website\ContactUsController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+
 use App\Http\Controllers\Website\JobController;
 use App\Models\Job;
 
+use App\Http\Controllers\Website\HomePageController;
+
+
 Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);
+
 
 Route::get('/', function () {
     $jobs = Job::paginate(5); 
     $jobCount = Job::count(); 
     return view('Website.jobs', compact('jobs', 'jobCount'));
 });
+
+////// home page
+Route::get('/', [HomePageController::class, 'show'])->name('home.show');
+
+// Route::get('/', function () {
+//     return view('Website.jobs');
+// });
+
+
 Route::group(['middleware' => 'guest:admin', 'prefix' => 'dashboard', 'as' => 'dashboard'], function () {
     Route::get('/login', [AuthController::class, 'view'])->name('.login');
     Route::post('/login',  [AuthController::class, 'login'])->name('.login.store');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::group(['middleware' => 'auth.admin', 'prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('index');
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::resource('category', CategoryController::class)->names('category')->except(['destroy', 'show']);
+    Route::get('/category/destroy/{category}', [CategoryController::class, 'destroy'])->name('category.destroy');
+    Route::post('/category/chanageStatus', [CategoryController::class, 'changeStatus'])->name('category.changeStatus');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/jobs', [JobsAdminController::class, 'index'])->name('jobs.index');
     // Route::get('/jobs/{job}', [JobsAdminController::class, 'show'])->name('jobs.show');
     Route::post('/jobs/changeStatus', [JobsAdminController::class, 'changeStatus'])->name('jobs.changeStatus');
@@ -53,6 +66,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/webInfo/edit', [WebInfoController::class, 'edit'])->name('webInfo.edit');
     Route::post('/webInfo/update', [WebInfoController::class, 'update'])->name('webInfo.update');
 });
+
 
 
 
@@ -78,7 +92,7 @@ Route::group(['as' => 'website.'], function () {
     // });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 
 
