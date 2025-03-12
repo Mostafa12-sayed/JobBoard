@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Jobs;
+use App\Models\Job;
 use Illuminate\Http\Request;
 
 use function PHPUnit\Framework\isEmpty;
@@ -16,9 +16,9 @@ class JobsAdminController extends Controller
     {
 
         if ($request->all() == []) {
-            $jobs = Jobs::where('status', 'pending')->get();
+            $jobs = Job::where('status', 'pending')->get();
         } else {
-            $query = Jobs::query();
+            $query = Job::query();
 
             // Filter by title
             if ($request->has('title') && !empty($request->title)) {
@@ -59,14 +59,14 @@ class JobsAdminController extends Controller
 
 
 
-    public function show(Jobs $job)
+    public function show(Job $job)
     {
         return view('dashboard.jobs.show', ['resource' => $job]);
     }
 
     public function changeStatus(Request $request)
     {
-        $job = Jobs::find($request->id);
+        $job = Job::find($request->id);
         $job->status = $request->status;
         $job->save();
         flash()->success('Status updated successfully');

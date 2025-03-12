@@ -26,14 +26,13 @@ Route::group(['middleware' => 'guest:admin', 'prefix' => 'dashboard', 'as' => 'd
     Route::post('/login',  [AuthController::class, 'login'])->name('.login.store');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::group(['middleware' => 'auth.admin', 'prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('index');
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::resource('category', CategoryController::class)->names('category')->except(['destroy', 'show']);
+    Route::get('/category/destroy/{category}', [CategoryController::class, 'destroy'])->name('category.destroy');
+    Route::post('/category/chanageStatus', [CategoryController::class, 'changeStatus'])->name('category.changeStatus');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/jobs', [JobsAdminController::class, 'index'])->name('jobs.index');
     Route::get('/jobs/{job}', [JobsAdminController::class, 'show'])->name('jobs.show');
     Route::post('/jobs/changeStatus', [JobsAdminController::class, 'changeStatus'])->name('jobs.changeStatus');
@@ -56,12 +55,13 @@ Route::middleware('auth')->group(function () {
 
 
 
+
 Route::group(['as' => 'website.'], function () {
     Route::get('/contact-us', [ContactUsController::class, 'index'])->name('contact-us');
     Route::post('/contact-us', [ContactUsController::class, 'store'])->name('contact-us.store');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 
 
