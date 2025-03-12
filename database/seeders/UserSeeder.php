@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
         // Using Faker to create 10 users (you can modify the number)
         \App\Models\User::create([
             'name' => 'John Doe',
-            'email' => 'johndoe@example.com',
+            'email' => 'johndoee@example.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'), // Always hash the password
             'role' => 'employer',
@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
 
         \App\Models\User::create([
             'name' => 'Jane Smith',
-            'email' => 'janesmith@example.com',
+            'email' => 'janesmithe@example.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'role' => 'candidate',
@@ -37,6 +37,6 @@ class UserSeeder extends Seeder
         ]);
 
         // You can also use Faker to generate random data
-        \App\Models\User::factory(8)->create(); // This will generate 8 random users
+        \App\Models\User::factory(50)->create(); // This will generate 8 random users
     }
 }

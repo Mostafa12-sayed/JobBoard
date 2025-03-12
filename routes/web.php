@@ -11,15 +11,17 @@ use App\Http\Controllers\Dashboard\JobsAdminController;
 use App\Http\Controllers\Dashboard\WebInfoController;
 use App\Http\Controllers\Website\ContactUsController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Website\HomePageController;
 
 Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);
 
+////// home page
+Route::get('/', [HomePageController::class, 'show'])->name('home.show');
 
-
-Route::get('/', function () {
-    return view('Website.jobs');
-});
+// Route::get('/', function () {
+//     return view('Website.jobs');
+// });
 
 Route::group(['middleware' => 'guest:admin', 'prefix' => 'dashboard', 'as' => 'dashboard'], function () {
     Route::get('/login', [AuthController::class, 'view'])->name('.login');
