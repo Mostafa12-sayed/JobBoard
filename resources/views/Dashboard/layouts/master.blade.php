@@ -30,18 +30,31 @@
       @yield('content')
       </div>
     </div>
-    <div class="modal fade notifications-modal" id="dash-table-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-    </div>
+  
     @include('sweetalert::alert')
+    {{-- <div id="pusher-config"
+     data-pusher-key="{{ env('PUSHER_APP_KEY') }}"
+     data-pusher-cluster="{{ env('PUSHER_APP_CLUSTER') }}">
+</div> --}}
   </body>
+  <div class="modal fade notifications-modal" id="dash-table-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+</div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
   <script src="{{asset('assets/dashboard/js/index.js')}}"></script>
   <script src="{{ asset('assets/dashboard/js/sweetalert2.js') }}"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-  @include('Dashboard.layouts.script')
+  {{-- @vite([ 'resources/js/app.js']) --}}
+
+  <script>
+    const PUSHER_APP_KEY = '{{ env('PUSHER_APP_KEY') }}';
+    const PUSHER_APP_CLUSTER = '{{ env('PUSHER_APP_CLUSTER') }}';
+    const CURRENT_USER_ID = '{{ auth()->guard('admin')->user()->id }}';
+
+    </script>
+    @include('Dashboard.layouts.script')
   @yield('js')
   
 </html>
