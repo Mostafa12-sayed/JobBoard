@@ -43,7 +43,7 @@ class User extends Authenticatable
      */
     public function jobsOrder()
     {
-        return $this->hasMany(Jobs::class, 'user_id', 'id');
+        return $this->hasMany(Job::class, 'user_id', 'id');
     }
 
     /**

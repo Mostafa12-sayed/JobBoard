@@ -64,7 +64,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'role'     => $request->role,
         ]);
-        
+
         // Process file uploads if needed.
         $companyLogoPath = null;
         $resumePath = null;
