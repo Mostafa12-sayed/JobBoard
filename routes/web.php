@@ -11,10 +11,13 @@ use App\Http\Controllers\Dashboard\JobsAdminController;
 use App\Http\Controllers\Dashboard\WebInfoController;
 use App\Http\Controllers\Website\ContactUsController;
 use App\Http\Controllers\Website\JobController;
-Route::get('/', function () {
-    return view('Website.jobs');
-});
+use App\Models\Job;
 
+Route::get('/', function () {
+    $jobs = Job::paginate(5); 
+    $jobCount = Job::count(); 
+    return view('Website.jobs', compact('jobs', 'jobCount'));
+});
 Route::group(['middleware' => 'guest:admin', 'prefix' => 'dashboard', 'as' => 'dashboard'], function () {
     Route::get('/login', [AuthController::class, 'view'])->name('.login');
     Route::post('/login',  [AuthController::class, 'login'])->name('.login.store');

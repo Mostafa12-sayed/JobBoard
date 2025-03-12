@@ -23,7 +23,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <input class="form-control" name="title" type="text" value="{{ old('title') }}"
-                                           placeholder="">
+                                           placeholder="title">
                                     @if ($errors->has('title'))
                                         <span class="text-danger">{{ $errors->first('title') }}</span>
                                     @endif
@@ -34,7 +34,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <textarea class="form-control w-100" name="description" rows="4"
-                                              placeholder="">{{ old('description') }}</textarea>
+                                              placeholder="description">{{ old('description') }}</textarea>
                                     @if ($errors->has('description'))
                                         <span class="text-danger">{{ $errors->first('description') }}</span>
                                     @endif
@@ -45,7 +45,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <input class="form-control" name="category" type="text" value="{{ old('category') }}"
-                                           placeholder="">
+                                           placeholder="category">
                                     @if ($errors->has('category'))
                                         <span class="text-danger">{{ $errors->first('category') }}</span>
                                     @endif
@@ -56,7 +56,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <input class="form-control" name="location" type="text" value="{{ old('location') }}"
-                                           placeholder="">
+                                           placeholder="location">
                                     @if ($errors->has('location'))
                                         <span class="text-danger">{{ $errors->first('location') }}</span>
                                     @endif
@@ -67,7 +67,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <input class="form-control" name="technologies" type="text"
-                                           value="{{ old('technologies') }}" placeholder="">
+                                           value="{{ old('technologies') }}" placeholder="technologies">
                                     @if ($errors->has('technologies'))
                                         <span class="text-danger">{{ $errors->first('technologies') }}</span>
                                     @endif
@@ -95,7 +95,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <input class="form-control" name="salary_range" type="text"
-                                           value="{{ old('salary_range') }}" placeholder="">
+                                           value="{{ old('salary_range') }}" placeholder="Salary">
                                     @if ($errors->has('salary_range'))
                                         <span class="text-danger">{{ $errors->first('salary_range') }}</span>
                                     @endif
