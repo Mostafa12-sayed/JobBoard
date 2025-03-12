@@ -7,6 +7,9 @@ use App\Http\Controllers\Dashboard\BadWordController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\JobsAdminController;
 use App\Http\Controllers\Website\ContactUsController;
+use App\Http\Controllers\Website\EmployerController;
+use App\Http\Controllers\Website\JobController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -46,4 +49,20 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'dashboard', 'as' => 'da
 Route::group(['as' => 'website.'], function () {
     Route::get('/contact-us', [ContactUsController::class, 'index'])->name('contact-us');
     Route::post('/contact-us', [ContactUsController::class, 'store'])->name('contact-us.store');
+
+    Route::get('/jobs', [JobController::class, 'index'])->name('jobs.index');
+    Route::get('/jobs/{id}', [JobController::class, 'show'])->name('jobs.show');
+
+    // Route::middleware(['auth'])->group(function () {
+    Route::get('/employer/create-job', [JobController::class, 'create'])->name('job.create');
+    Route::post('/employer/store-job', [JobController::class, 'store'])->name('job.store');
+
+    Route::get('/employer/manage-jobs', [JobController::class, 'manage'])->name('employer.jobs.index');
+    Route::get('/employer/edit-job/{job}', [JobController::class, 'edit'])->name('job.edit');
+    Route::put('/employer/update-job/{job}', [JobController::class, 'update'])->name('job.update');
+    Route::delete('/employer/delete-job/{job}', [JobController::class, 'destroy'])->name('job.destroy');
+
+    Route::post('/employer/job/{job}/accept/{application}', [JobController::class, 'acceptApplication'])->name('job.accept');
+    Route::post('/employer/job/{job}/reject/{application}', [JobController::class, 'rejectApplication'])->name('job.reject');
+    // });
 });

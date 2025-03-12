@@ -42,7 +42,7 @@
                                         <a href="#">Log in</a>
                                     </div>
                                     <div class="d-none d-lg-block">
-                                        <a class="boxed-btn3" href="#">Post a Job</a>
+                                    <a class="boxed-btn3" href="{{ route('website.job.create') }}">Post a Job</a>
                                     </div>
                                 </div>
                             </div>
