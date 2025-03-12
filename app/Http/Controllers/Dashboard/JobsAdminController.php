@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Jobs;
+use App\Models\Job;
 use Illuminate\Http\Request;
 
 use function PHPUnit\Framework\isEmpty;
@@ -61,7 +61,7 @@ class JobsAdminController extends Controller
 
     public function show(Jobs $job)
     {
-        return view('dashboard.jobs.show', ['resource' => $job]);
+        return view('dashboard.job.show', ['resource' => $job]);
     }
 
     public function changeStatus(Request $request)

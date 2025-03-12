@@ -57,16 +57,27 @@
                 </div>
 
                 <div class="apply_job_form white-bg">
-                    <h4>Apply for the job</h4>
-                    <form action="#" method="POST">
-                        @csrf
-                        <div class="col-md-12">
-                            <div class="submit_btn">
-                                <button class="boxed-btn3 w-100" type="submit">Apply Now</button>
-                            </div>
-                        </div>
-                    </form>
+            <h4>{{ auth()->check() && auth()->user()->role === 'employer' ? 'Manage Job' : 'Apply for the job' }}</h4>
+            @if(auth()->check() && auth()->user()->role === 'employer')
+                <!-- If Employer, Show "Edit Job" Button -->
+                <div class="col-md-12">
+                    <div class="submit_btn">
+                        <a href="{{ route('website.job.edit', $job->id) }}" class="btn btn-warning w-100">Edit Job</a>
+                    </div>
                 </div>
+            @else
+                <!-- If Not Employer, Show "Apply Now" Button -->
+                <form action="#" method="POST">
+                    @csrf
+                    <div class="col-md-12">
+                        <div class="submit_btn">
+                            <button class="boxed-btn3 w-100" type="submit">Apply Now</button>
+                        </div>
+                    </div>
+                </form>
+            @endif
+        </div>
+
             </div>
             
             <div class="col-lg-4">

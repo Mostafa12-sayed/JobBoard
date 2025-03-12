@@ -53,16 +53,31 @@ class JobController extends Controller {
         return view('jobs.manage', compact('jobs'));
     }
 
-    public function edit(Job $job) 
-    {
-        return view('jobs.edit', compact('job'));
+    public function edit($id) {
+        $job = Job::findOrFail($id);
+        return view('website.edit', compact('job'));
     }
     
-    public function update(Request $request, Job $job) 
-    {
+    
+    public function update(Request $request, $id) {
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'category' => 'required',
+            'location' => 'required',
+            'technologies' => 'required',
+            'work_type' => 'required|in:remote,onsite,hybrid',
+            'salary_range' => 'required',
+            'application_deadline' => 'required|date',
+        ]);
+    
+        $job = Job::findOrFail($id);
         $job->update($request->all());
+    
         return redirect()->route('jobs.index')->with('success', 'Job updated successfully.');
     }
+    
+    
     
     public function destroy(Job $job) 
     {

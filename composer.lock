@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f71bfb1e22ce0954adb840e44314e6eb",
+    "content-hash": "50349b2991eb041daf19efb658f71a71",
     "packages": [
         {
             "name": "brick/math",
@@ -1056,16 +1056,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v11.44.1",
+            "version": "v11.44.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "0883d4175f4e2b5c299e7087ad3c74f2ce195c6d"
+                "reference": "f85216c82cbd38b66d67ebd20ea762cb3751a4b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/0883d4175f4e2b5c299e7087ad3c74f2ce195c6d",
-                "reference": "0883d4175f4e2b5c299e7087ad3c74f2ce195c6d",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/f85216c82cbd38b66d67ebd20ea762cb3751a4b4",
+                "reference": "f85216c82cbd38b66d67ebd20ea762cb3751a4b4",
                 "shasum": ""
             },
             "require": {
@@ -1267,7 +1267,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-03-05T15:34:10+00:00"
+            "time": "2025-03-12T14:34:30+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -2794,6 +2794,151 @@
                 "open-source",
                 "php",
                 "phpflasher",
+                "user-feedback"
+            ],
+            "support": {
+                "issues": "https://github.com/php-flasher/php-flasher/issues",
+                "source": "https://github.com/php-flasher/php-flasher"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.com/paypalme/yoeunes",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/yoeunes",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-02-21T20:05:00+00:00"
+        },
+        {
+            "name": "php-flasher/flasher-toastr",
+            "version": "v2.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-flasher/flasher-toastr.git",
+                "reference": "e9772b7d4e7a2780e41caf0e2f142e3c1670358f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-flasher/flasher-toastr/zipball/e9772b7d4e7a2780e41caf0e2f142e3c1670358f",
+                "reference": "e9772b7d4e7a2780e41caf0e2f142e3c1670358f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2",
+                "php-flasher/flasher": "^2.1.6"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "functions.php",
+                    "helpers.php"
+                ],
+                "psr-4": {
+                    "Flasher\\Toastr\\Prime\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Younes ENNAJI",
+                    "email": "younes.ennaji.pro@gmail.com",
+                    "homepage": "https://www.linkedin.com/in/younes--ennaji/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHPFlasher Toastr - An extension for PHPFlasher to integrate Toastr notifications seamlessly in Laravel or Symfony. Enhances UX with elegant, responsive toast messages.",
+            "homepage": "https://php-flasher.io",
+            "keywords": [
+                "customizable-alerts-php",
+                "flash-messages",
+                "interactive-web-notifications",
+                "laravel-notification",
+                "php-messaging-library",
+                "php-notification-system",
+                "php-user-interface",
+                "symfony-notification",
+                "user-engagement-php",
+                "user-feedback-tools",
+                "web-application-notifications"
+            ],
+            "support": {
+                "issues": "https://github.com/php-flasher/php-flasher/issues",
+                "source": "https://github.com/php-flasher/php-flasher"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.com/paypalme/yoeunes",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/yoeunes",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-02-21T20:05:00+00:00"
+        },
+        {
+            "name": "php-flasher/flasher-toastr-laravel",
+            "version": "v2.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-flasher/flasher-toastr-laravel.git",
+                "reference": "db6c6d98405643236c47735b5352ee41f4e4691e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-flasher/flasher-toastr-laravel/zipball/db6c6d98405643236c47735b5352ee41f4e4691e",
+                "reference": "db6c6d98405643236c47735b5352ee41f4e4691e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2",
+                "php-flasher/flasher-laravel": "^2.1.6",
+                "php-flasher/flasher-toastr": "^2.1.6"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Toastr": "Flasher\\Toastr\\Laravel\\Facade\\Toastr"
+                    },
+                    "providers": [
+                        "Flasher\\Toastr\\Laravel\\FlasherToastrServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Flasher\\Toastr\\Laravel\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Younes ENNAJI",
+                    "email": "younes.ennaji.pro@gmail.com",
+                    "homepage": "https://www.linkedin.com/in/younes--ennaji/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Leverage Toastr for stylish toast notifications in Laravel with PHPFlasher. Add Toastr's sleek notifications to your Laravel projects effortlessly.",
+            "homepage": "https://php-flasher.io",
+            "keywords": [
+                "dynamic-notifications",
+                "flash-notifications",
+                "laravel",
+                "open-source",
+                "phpflasher",
+                "toastr",
                 "user-feedback"
             ],
             "support": {
@@ -6239,6 +6384,67 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "yoeunes/toastr",
+            "version": "v3.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yoeunes/toastr.git",
+                "reference": "0e203a03c3144dcd72c913ee845970f118e65fa2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yoeunes/toastr/zipball/0e203a03c3144dcd72c913ee845970f118e65fa2",
+                "reference": "0e203a03c3144dcd72c913ee845970f118e65fa2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2",
+                "php-flasher/flasher-toastr-laravel": "^2.1.6"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Younes ENNAJI",
+                    "email": "younes.ennaji.pro@gmail.com",
+                    "homepage": "https://www.linkedin.com/in/younes--ennaji/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "toastr.js flush notifications for Laravel",
+            "homepage": "https://github.com/yoeunes/toastr",
+            "keywords": [
+                "dynamic-notifications",
+                "flash-notifications",
+                "laravel",
+                "open-source",
+                "phpflasher",
+                "toastr",
+                "user-feedback"
+            ],
+            "support": {
+                "docs": "https://php-flasher.io",
+                "email": "younes.ennaji.pro@gmail.com",
+                "issues": "https://github.com/php-flasher/php-flasher/issues",
+                "source": "https://github.com/php-flasher/php-flasher"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.com/paypalme/yoeunes",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/yoeunes",
+                    "type": "github"
+                }
+            ],
+            "abandoned": "php-flasher/flasher-toastr-laravel",
+            "time": "2025-02-26T14:13:03+00:00"
         }
     ],
     "packages-dev": [
@@ -6429,16 +6635,16 @@
         },
         {
             "name": "laravel/breeze",
-            "version": "v2.3.5",
+            "version": "v2.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/breeze.git",
-                "reference": "1d85805c4aecc425a0ce157147384d4becea3fa2"
+                "reference": "390cbc433cb72fa6050965000b2d56c9ba6fd713"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/breeze/zipball/1d85805c4aecc425a0ce157147384d4becea3fa2",
-                "reference": "1d85805c4aecc425a0ce157147384d4becea3fa2",
+                "url": "https://api.github.com/repos/laravel/breeze/zipball/390cbc433cb72fa6050965000b2d56c9ba6fd713",
+                "reference": "390cbc433cb72fa6050965000b2d56c9ba6fd713",
                 "shasum": ""
             },
             "require": {
@@ -6486,7 +6692,7 @@
                 "issues": "https://github.com/laravel/breeze/issues",
                 "source": "https://github.com/laravel/breeze"
             },
-            "time": "2025-02-19T23:49:42+00:00"
+            "time": "2025-03-06T14:02:32+00:00"
         },
         {
             "name": "laravel/pail",

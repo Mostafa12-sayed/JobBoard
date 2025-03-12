@@ -10,8 +10,12 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\JobsAdminController;
 use App\Http\Controllers\Dashboard\WebInfoController;
 use App\Http\Controllers\Website\ContactUsController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Website\JobController;
 use App\Models\Job;
+
+Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+Route::post('/register', [RegisteredUserController::class, 'store']);
 
 Route::get('/', function () {
     $jobs = Job::paginate(5); 
@@ -32,7 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/jobs', [JobsAdminController::class, 'index'])->name('jobs.index');
-    Route::get('/jobs/{job}', [JobsAdminController::class, 'show'])->name('jobs.show');
+    // Route::get('/jobs/{job}', [JobsAdminController::class, 'show'])->name('jobs.show');
     Route::post('/jobs/changeStatus', [JobsAdminController::class, 'changeStatus'])->name('jobs.changeStatus');
 
 
