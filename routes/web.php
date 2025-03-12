@@ -11,10 +11,22 @@ use App\Http\Controllers\Dashboard\JobsAdminController;
 use App\Http\Controllers\Dashboard\WebInfoController;
 use App\Http\Controllers\Website\ContactUsController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+
+use App\Http\Controllers\Website\JobController;
+use App\Models\Job;
+
 use App\Http\Controllers\Website\HomePageController;
+
 
 Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);
+
+
+Route::get('/', function () {
+    $jobs = Job::paginate(5); 
+    $jobCount = Job::count(); 
+    return view('Website.jobs', compact('jobs', 'jobCount'));
+});
 
 ////// home page
 Route::get('/', [HomePageController::class, 'show'])->name('home.show');
@@ -22,6 +34,7 @@ Route::get('/', [HomePageController::class, 'show'])->name('home.show');
 // Route::get('/', function () {
 //     return view('Website.jobs');
 // });
+
 
 Route::group(['middleware' => 'guest:admin', 'prefix' => 'dashboard', 'as' => 'dashboard'], function () {
     Route::get('/login', [AuthController::class, 'view'])->name('.login');
@@ -36,7 +49,7 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'dashboard', 'as' => 'da
     Route::post('/category/chanageStatus', [CategoryController::class, 'changeStatus'])->name('category.changeStatus');
 
     Route::get('/jobs', [JobsAdminController::class, 'index'])->name('jobs.index');
-    Route::get('/jobs/{job}', [JobsAdminController::class, 'show'])->name('jobs.show');
+    // Route::get('/jobs/{job}', [JobsAdminController::class, 'show'])->name('jobs.show');
     Route::post('/jobs/changeStatus', [JobsAdminController::class, 'changeStatus'])->name('jobs.changeStatus');
 
 
@@ -61,6 +74,22 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'dashboard', 'as' => 'da
 Route::group(['as' => 'website.'], function () {
     Route::get('/contact-us', [ContactUsController::class, 'index'])->name('contact-us');
     Route::post('/contact-us', [ContactUsController::class, 'store'])->name('contact-us.store');
+
+    Route::get('/jobs', [JobController::class, 'index'])->name('jobs.index');
+    Route::get('/jobs/{id}', [JobController::class, 'show'])->name('jobs.show');
+
+    // Route::middleware(['auth'])->group(function () {
+    Route::get('/employer/create-job', [JobController::class, 'create'])->name('job.create');
+    Route::post('/employer/store-job', [JobController::class, 'store'])->name('job.store');
+
+    Route::get('/employer/manage-jobs', [JobController::class, 'manage'])->name('employer.jobs.index');
+    Route::get('/employer/edit-job/{job}', [JobController::class, 'edit'])->name('job.edit');
+    Route::put('/employer/update-job/{job}', [JobController::class, 'update'])->name('job.update');
+    Route::delete('/employer/delete-job/{job}', [JobController::class, 'destroy'])->name('job.destroy');
+
+    Route::post('/employer/job/{job}/accept/{application}', [JobController::class, 'acceptApplication'])->name('job.accept');
+    Route::post('/employer/job/{job}/reject/{application}', [JobController::class, 'rejectApplication'])->name('job.reject');
+    // });
 });
 
 require __DIR__ . '/auth.php';

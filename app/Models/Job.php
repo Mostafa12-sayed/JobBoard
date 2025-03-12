@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-class Job extends Model
-{
+class Job extends Model {
     use HasFactory;
-
-    protected $table = 'jobs_table';
-    protected $guarded = [];
-
+   protected $table = 'jobs_table';
+    protected $fillable = [
+        'title', 'description', 'category_id', 'location', 
+        'technologies', 'work_type', 'salary_range', 'application_deadline'
+    ];
+}
 
     public function user()
     {
@@ -23,3 +23,4 @@ class Job extends Model
         return $this->belongsTo(Category::class);
     }
 }
+

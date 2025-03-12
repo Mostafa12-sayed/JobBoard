@@ -61,7 +61,7 @@ class JobsAdminController extends Controller
 
     public function show(Job $job)
     {
-        return view('dashboard.jobs.show', ['resource' => $job]);
+        return view('dashboard.job.show', ['resource' => $job]);
     }
 
     public function changeStatus(Request $request)
