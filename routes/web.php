@@ -9,6 +9,11 @@ use App\Http\Controllers\Dashboard\BadWordController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\JobsAdminController;
 use App\Http\Controllers\Website\ContactUsController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+
+Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+Route::post('/register', [RegisteredUserController::class, 'store']);
+
 
 
 Route::get('/', function () {
@@ -52,3 +57,14 @@ Route::group(['as' => 'website.'], function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+
+
+
+
+
+/////////////////////////
+use App\Http\Controllers\HadyProfileController;
+
+Route::get('/hady-profile', [HadyProfileController::class, 'index'])->name('hady-profile');
