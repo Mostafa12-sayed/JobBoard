@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\AuthController;
 use App\Http\Controllers\Dashboard\BadWordController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\JobsAdminController;
+use App\Http\Controllers\Dashboard\WebInfoController;
 use App\Http\Controllers\Website\ContactUsController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,10 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'dashboard', 'as' => 'da
 
     Route::resource('badWords', BadWordController::class)->names('badWord')->except(['destroy']);
     Route::get('/badWords/destroy/{badWord}', [BadWordController::class, 'destroy'])->name('badWord.destroy');
+
+    Route::get('/webInfo', [WebInfoController::class, 'index'])->name('webInfo.index');
+    Route::get('/webInfo/edit', [WebInfoController::class, 'edit'])->name('webInfo.edit');
+    Route::post('/webInfo/update', [WebInfoController::class, 'update'])->name('webInfo.update');
 });
 
 
