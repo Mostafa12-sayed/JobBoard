@@ -63,6 +63,16 @@
       <span>Bad Words</span>
       </a>
     </li>
+    <li>
+      <a
+        href="{{route('dashboard.webInfo.index')}}"
+        class="d-flex fs-14 rad-6 p-10 align-center c-black align-center {{request()->routeIs('dashboard.webInfo.index*')? 'active' : ''}}"
+        id="index"
+      >
+      <i class="fa-solid fa-file-word mr-5"></i>      
+      <span>Web Info</span>
+      </a>
+    </li>
     {{-- <li>
       <a
         href="setting.html"

@@ -11,11 +11,13 @@
         "laravel/tinker": "^2.9",
         "mckenziearts/laravel-notify": "*",
         "php-flasher/flasher-laravel": "^2.1",
+        "pusher/pusher-php-server": "^7.2",
         "realrashid/sweet-alert": "^7.3",
         "yoeunes/toastr": "^3.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
+        "laravel/breeze": "^2.3",
         "laravel/pail": "^1.1",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",
@@ -28,7 +30,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/http/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
