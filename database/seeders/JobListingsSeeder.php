@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
-use App\Models\Jobs;
+use App\Models\Job;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -16,7 +16,7 @@ class JobListingsSeeder extends Seeder
      */
     public function run(): void
     {
-        Jobs::create([
+        Job::create([
             'user_id' => User::first()->id, // Assumes a user already exists
             'category_id' => Category::first()->id, // Assumes a category already exists
             'title' => 'Senior Software Engineer',
@@ -31,6 +31,6 @@ class JobListingsSeeder extends Seeder
         ]);
 
         // You can also generate multiple job listings using the factory if you have one.
-        \App\Models\Jobs::factory(100)->create();  // Creates 10 random job listings
+        \App\Models\Job::factory(100)->create();  // Creates 10 random job listings
     }
 }
