@@ -54,14 +54,14 @@ class JobsAdminController extends Controller
             $jobs = $query->get();
         }
 
-        return view('dashboard.jobs.index', ['jobs' => $jobs]);
+        return view('Dashboard.jobs.index', ['jobs' => $jobs]);
     }
 
 
 
     public function show(Job $job)
     {
-        return view('dashboard.job.show', ['resource' => $job]);
+        return view('Dashboard.jobs.show', ['resource' => $job]);
     }
 
     public function changeStatus(Request $request)

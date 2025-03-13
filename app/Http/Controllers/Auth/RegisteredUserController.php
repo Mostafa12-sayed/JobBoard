@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\EmployerUser;
+use App\Models\EmployeeUser;
 use App\Models\CandidateUser;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -78,7 +78,7 @@ class RegisteredUserController extends Controller
 
         // Create a related record based on the role.
         if ($user->role === 'employer') {
-            employerUser::create([
+            EmployeeUser::create([
                 'user_id'      => $user->id,
                 'company_name' => $request->company_name,
                 'company_logo' => $companyLogoPath,

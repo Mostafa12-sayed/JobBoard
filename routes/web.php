@@ -16,7 +16,7 @@ use App\Http\Controllers\Website\JobController;
 use App\Models\Job;
 
 use App\Http\Controllers\Website\HomePageController;
-
+use App\Http\Controllers\Website\MyJobsController;
 
 Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);
@@ -41,7 +41,7 @@ Route::group(['middleware' => 'guest:admin', 'prefix' => 'dashboard', 'as' => 'd
     Route::post('/login',  [AuthController::class, 'login'])->name('.login.store');
 });
 
-Route::group(['middleware' => 'check.admin.login', 'prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
+Route::group(['middleware' => 'auth:admin', 'prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::resource('category', CategoryController::class)->names('category')->except(['destroy', 'show']);
@@ -49,7 +49,7 @@ Route::group(['middleware' => 'check.admin.login', 'prefix' => 'dashboard', 'as'
     Route::post('/category/chanageStatus', [CategoryController::class, 'changeStatus'])->name('category.changeStatus');
 
     Route::get('/jobs', [JobsAdminController::class, 'index'])->name('jobs.index');
-    // Route::get('/jobs/{job}', [JobsAdminController::class, 'show'])->name('jobs.show');
+    Route::get('/jobs/{job}', [JobsAdminController::class, 'show'])->name('jobs.show');
     Route::post('/jobs/changeStatus', [JobsAdminController::class, 'changeStatus'])->name('jobs.changeStatus');
 
 
@@ -81,6 +81,9 @@ Route::group(['as' => 'website.'], function () {
     Route::middleware(['auth'])->group(function () {
         Route::get('/employer/create-job', [JobController::class, 'create'])->name('job.create');
         Route::post('/employer/store-job', [JobController::class, 'store'])->name('job.store');
+
+        Route::get('/candidates', [HomePageController::class, 'candidates'])->name('candidates');
+        Route::get('/my-jobs', [MyJobsController::class, 'index'])->name('MyJobs.index');
 
         Route::get('/employer/manage-jobs', [JobController::class, 'manage'])->name('employer.jobs.index');
         Route::get('/employer/edit-job/{job}', [JobController::class, 'edit'])->name('job.edit');

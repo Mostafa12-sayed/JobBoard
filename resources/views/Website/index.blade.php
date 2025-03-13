@@ -1,6 +1,18 @@
 @extends('Website.layouts.master')
 
 @section('content')
+<style>
+    .single_company{
+        width: 250px !important;
+    }
+    .single_company .thumb{
+        width: 100px;
+        padding: 0 !important;
+    }
+    .single_company .thumb img{
+        width: 100%;
+    }
+</style>
     <!-- slider_area_start -->
     <div class="slider_area">
         <div class="single_slider  d-flex align-items-center slider_bg_1">
@@ -132,7 +144,7 @@
                         <div class="single_jobs white-bg d-flex justify-content-between">
                             <div class="jobs_left d-flex align-items-center">
                                 <div class="thumb">
-                                    <img src="{{$job->user->company_logo}}" alt="">
+                                    <img src="{{$job->user->company_logo ? asset($job->user->company_logo) : asset('assets/website/img/defult-company.png')}}" alt="">
                                 </div>
                                 <div class="jobs_conetent">
                                     <a href="job_details.html"><h4>{{ $job->title }}</h4></a>
@@ -183,10 +195,14 @@
                     @foreach ($employer as $employer) 
                     <div class="col-lg-4 col-xl-3 col-md-6">
                         <div class="single_company">
-                            <div class="thumb">
+                            {{-- <div class="thumb">
                                 <img src='{{$employer->company_logo}}' alt="">
+                            </div> --}}
+                            <div class="thumb">
+                                <img src="{{$employer->company_logo ? asset($employer->company_logo) : asset('assets/website/img/defult-company.png')}}" alt="">
                             </div>
                             <a href="jobs.html"><h3>{{$employer->company_name}}</h3></a>
+                            <p> <span>{{$employer->jobs_count}}</span> Available position</p>
                         </div>
                     </div>
                     @endforeach

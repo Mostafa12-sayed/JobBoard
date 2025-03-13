@@ -158,13 +158,36 @@
                         @endforeach
                         @endif
                     </div>
+                    @if($jobs->lastPage() > 1)
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="pagination_wrap">
-                                {{ $jobs->links() }} <!-- Pagination -->
+                                <ul>
+                                    @if ($jobs->onFirstPage())
+                                        <li><span><i class="ti-angle-left"></i></span></li>
+                                    @else
+                                        <li><a href="{{ $jobs->previousPageUrl() }}"><i class="ti-angle-left"></i></a></li>
+                                    @endif
+                                    @foreach ($jobs->getUrlRange(1, $jobs->lastPage()) as $page => $url)
+                                        <li>
+                                            @if ($page == $jobs->currentPage())
+                                                <span style="background-color: rgb(16, 170, 241) ; width: 25px; height: 25px; border-radius: 50%; display: inline-block; margin-right: 5px; color: white; text-align: center; line-height: 25px;" >{{ $page }}</span> 
+                                            @else
+                                                <a href="{{ $url }}"><span>{{ $page }}</span></a>
+                                            @endif
+                                        </li>
+                                    @endforeach
+                    
+                                    @if ($jobs->hasMorePages())
+                                        <li><a href="{{ $jobs->nextPageUrl() }}"><i class="ti-angle-right"></i></a></li>
+                                    @else
+                                        <li><span><i class="ti-angle-right"></i></span></li>
+                                    @endif
+                                </ul>
                             </div>
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
