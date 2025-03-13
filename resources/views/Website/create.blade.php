@@ -23,7 +23,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <input class="form-control" name="title" type="text" value="{{ old('title') }}"
-                                           placeholder="title">
+                                           placeholder="Title">
                                     @if ($errors->has('title'))
                                         <span class="text-danger">{{ $errors->first('title') }}</span>
                                     @endif
@@ -34,7 +34,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <textarea class="form-control w-100" name="description" rows="4"
-                                              placeholder="description">{{ old('description') }}</textarea>
+                                              placeholder="Description">{{ old('description') }}</textarea>
                                     @if ($errors->has('description'))
                                         <span class="text-danger">{{ $errors->first('description') }}</span>
                                     @endif
@@ -44,10 +44,14 @@
                             <!-- Category -->
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <input class="form-control" name="category" type="text" value="{{ old('category') }}"
-                                           placeholder="category">
-                                    @if ($errors->has('category'))
-                                        <span class="text-danger">{{ $errors->first('category') }}</span>
+                                    <select class="form-control" name="category_id">
+                                        <option value="" disabled selected>Select Category</option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @if ($errors->has('category_id'))
+                                        <span class="text-danger">{{ $errors->first('category_id') }}</span>
                                     @endif
                                 </div>
                             </div>
@@ -56,7 +60,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <input class="form-control" name="location" type="text" value="{{ old('location') }}"
-                                           placeholder="location">
+                                           placeholder="Location">
                                     @if ($errors->has('location'))
                                         <span class="text-danger">{{ $errors->first('location') }}</span>
                                     @endif
@@ -67,7 +71,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <input class="form-control" name="technologies" type="text"
-                                           value="{{ old('technologies') }}" placeholder="technologies">
+                                           value="{{ old('technologies') }}" placeholder="Technologies">
                                     @if ($errors->has('technologies'))
                                         <span class="text-danger">{{ $errors->first('technologies') }}</span>
                                     @endif
@@ -88,22 +92,30 @@
                                     @endif
                                 </div>
                             </div>
-                            <br>
-                            <br>
 
                             <!-- Salary Range -->
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <input class="form-control" name="salary_range" type="text"
-                                           value="{{ old('salary_range') }}" placeholder="Salary">
-                                    @if ($errors->has('salary_range'))
-                                        <span class="text-danger">{{ $errors->first('salary_range') }}</span>
+                                    <input class="form-control" name="min_salary" type="number"
+                                           value="{{ old('min_salary') }}" placeholder="Min Salary">
+                                    @if ($errors->has('min_salary'))
+                                        <span class="text-danger">{{ $errors->first('min_salary') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input class="form-control" name="max_salary" type="number"
+                                           value="{{ old('max_salary') }}" placeholder="Max Salary">
+                                    @if ($errors->has('max_salary'))
+                                        <span class="text-danger">{{ $errors->first('max_salary') }}</span>
                                     @endif
                                 </div>
                             </div>
 
                             <!-- Application Deadline -->
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                                 <div class="form-group">
                                     <input class="form-control" name="application_deadline" type="date"
                                            value="{{ old('application_deadline') }}">
