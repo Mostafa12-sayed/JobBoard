@@ -3,7 +3,7 @@
     background-color: #f2f2f2;
     padding: 50px !important;
     text-align: center;
-    height: 100% !important;
+    height: 500px !important;
     display: flex;
     justify-content: center;
     align-items: center;

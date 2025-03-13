@@ -7,7 +7,7 @@
 
 @section('content')
     @include('Website.layouts.includes.bradcamp')
-
+    
     <section class="contact-section section_padding">
         <div class="container">
             <div class="row col-lg-12">

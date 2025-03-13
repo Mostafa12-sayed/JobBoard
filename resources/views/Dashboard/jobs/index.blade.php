@@ -67,8 +67,20 @@
 <div class=" m-20 ">
 @include('Dashboard.jobs.filter')
 </div>
-<div class="friends m-20 d-grid gap-20">
+@if($jobs->counT() == 0)
+<div class="m-20 h-100">
 
+@component('Website.layouts.includes.alter')
+
+@slot('content')
+No Jobs found
+@endslot
+  
+@endcomponent
+</div>
+@else
+<div class="friends m-20 d-grid gap-20">
+ 
   @foreach ($jobs as $job )
   
   <div class="box bg-white rad-6 p-relative p-20 " >
@@ -111,6 +123,7 @@
   </div>
 
   @endforeach
+  @endif
 
 </div>
 

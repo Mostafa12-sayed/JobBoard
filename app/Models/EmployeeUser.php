@@ -29,4 +29,9 @@ class EmployeeUser extends Model
     {
         return $this->hasMany(job::class);
     }
+
+    public function getJobsCountAttribute()
+    {
+        return Job::where('user_id', $this->user_id)->where('status', 'active')->count();
+    }
 }

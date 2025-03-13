@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\JobListing>
  */
-class JobsFactory extends Factory
+class JobFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -25,11 +25,15 @@ class JobsFactory extends Factory
             'title' => $this->faker->jobTitle,
             'description' => $this->faker->text(200),
             'location' => $this->faker->city,
-            'type' => $this->faker->randomElement(['Full-time', 'Part-time']),
+            'job_type' => $this->faker->randomElement(['Full-time', 'Part-time']),
             'min_salary' => $this->faker->numberBetween(50000, 100000),
             'max_salary' => $this->faker->numberBetween(100000, 150000),
             'status' => $this->faker->randomElement(['pending', 'approved', 'rejected']),
+            'work_type' => $this->faker->randomElement(['remote', 'onsite', 'hybrid']),
+            'created_at' => now(),
+            'job_status' => $this->faker->randomElement(['available', 'not available']),
             'slug' => Str::slug($this->faker->jobTitle),
+            'technologies' => $this->faker->words(3, true),
             'application_deadline' => $this->faker->date(),
         ];
     }

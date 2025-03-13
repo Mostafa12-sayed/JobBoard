@@ -5,7 +5,13 @@
     /* .logo{
         width: 100px;
     }*/
- 
+    .item-nav{
+        font-weight: 600 !important;
+        transition: all 0.3s ease-in-out;
+    }
+    .item-nav:hover{
+        color: rgb(0, 211, 99) !important;
+    }
 </style>
     <header>
         <div class="header-area ">
@@ -26,21 +32,17 @@
                                         <ul id="navigation">
                                             <li><a href="{{ route('home.show') }}">home</a></li>
                                             <li><a href="{{route('website.jobs.index')}}">Browse Job</a></li>
-                                            <li><a href="#">pages <i class="ti-angle-down"></i></a>
-                                                <ul class="submenu">
-                                                    <li><a href="candidate.html">Candidates </a></li>
-                                                    <li><a href="job_details.html">job details </a></li>
-                                                    <li><a href="elements.html">elements</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">blog <i class="ti-angle-down"></i></a>
-                                                <ul class="submenu">
-                                                    <li><a href="blog.html">blog</a></li>
-                                                    <li><a href="single-blog.html">single-blog</a></li>
-                                                </ul>
-                                            </li>
+                                            @if(Auth::check())
+                                                @if(Auth::user()->role == 'employer')
+                                                    <li><a href="{{ route('website.candidates') }}">Candidates</a></li>
+                                                    <li><a href="{{ route('website.MyJobs.index') }}">My Jobs</a></li>
+                                                @else
+                                                    <li><a href="{{ route('home.show') }}">My Application Jobs</a></li>
+                                                @endif
+                                            @endif
                                             <li><a href="{{route('website.contact-us')}}">Contact</a></li>
                                         </ul>
+                                        
                                     </nav>
                                 </div>
                             </div>
@@ -53,8 +55,8 @@
                                             <button type="submit" class="boxed-btn3">Log out</button>
                                         </form>
                                         @else
-                                            <a href="{{route('register')}}" class="m-2">Sign Up</a>
-                                            <a href="{{route('login')}}">Log in</a>
+                                            <a href="{{route('register')}}" class="m-2 item-nav">Sign Up</a>
+                                            <a href="{{route('login')}}" class="item-nav">Log in</a>
                                         @endif
                                     </div>
                                     <div class="d-none d-lg-block">
