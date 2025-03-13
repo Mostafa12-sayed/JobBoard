@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('max_salary')->nullable();
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->string('slug')->unique();
+            $table->enum('job_status', ['available', 'not available'])->default('available');
             $table->string('application_deadline')->nullable();
             $table->timestamps();
         });

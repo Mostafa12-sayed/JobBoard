@@ -1,8 +1,9 @@
 <?php
-namespace App\Http\Controllers\Website; 
+
+namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
-use App\Models\Job; 
+use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
@@ -13,8 +14,9 @@ class JobController extends Controller {
         $categories = Category::all();
         return view('website.create', compact('categories'));
     }
-    
-    public function store(Request $request) {
+
+    public function store(Request $request)
+    {
         $request->validate([
             'title' => 'required',
             'description' => 'required',
@@ -50,24 +52,25 @@ class JobController extends Controller {
     
     public function index()
     {
-        $jobs = Job::paginate(5); 
+        $jobs = Job::paginate(5);
         $jobCount = Job::count();
         return view('Website.jobs', compact('jobs', 'jobCount'));
     }
-    
+
     public function show($id)
     {
-        $job = Job::findOrFail($id); 
+        $job = Job::findOrFail($id);
         return view('website.job_details', compact('job'));
     }
 
     public function manage()
     {
-        $jobs = Auth::user()->employer->jobs; 
+        $jobs = Auth::user()->employer->jobs;
         return view('jobs.manage', compact('jobs'));
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
         $job = Job::findOrFail($id);
         $categories = Category::all();
         return view('website.edit', compact('job', 'categories'));
@@ -85,7 +88,7 @@ class JobController extends Controller {
             'max_salary' => 'nullable|numeric|gte:min_salary',
             'application_deadline' => 'required|date|after_or_equal:today',
         ]);
-    
+
         $job = Job::findOrFail($id);
 
         $job->update([
@@ -110,14 +113,14 @@ class JobController extends Controller {
         $job->delete();
         return redirect()->route('jobs.index')->with('success', 'Job deleted successfully.');
     }
-    
-    public function acceptApplication(Job $job, $applicationId) 
+
+    public function acceptApplication(Job $job, $applicationId)
     {
         // Accept application logic here
         return redirect()->back()->with('success', 'Application accepted.');
     }
-    
-    public function rejectApplication(Job $job, $applicationId) 
+
+    public function rejectApplication(Job $job, $applicationId)
     {
         // Reject application logic here
         return redirect()->back()->with('error', 'Application rejected.');

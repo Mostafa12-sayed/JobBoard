@@ -25,7 +25,9 @@ class WebInfoController extends Controller
             'phone' => 'nullable|numeric|digits_between:10,20',
             'address' => 'nullable|string|max:255',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'favicon' => 'nullable|image|mimes:ico,png,jpg,gif,svg|max:2048',
+            'favicon' => 'nullable|mimes:png,jpg,jpeg,ico|max:1024',
+
+
         ]);
         $data = $request->all();
         $webInfo = WebInfo::first();
@@ -34,7 +36,7 @@ class WebInfoController extends Controller
             $data['logo'] = uploadFile($request->file('logo'), 'webinfo/', $webInfo->logo ?? null);
         }
         if ($request->hasFile('favicon')) {
-            $data['favicon'] = uploadFile($request->file('favicon'), 'webinfo/', $webInfo->logo ?? null);
+            $data['favicon'] = uploadFile($request->file('favicon'), 'webinfo/', $webInfo->favicon ?? null);
         }
 
         if ($webInfo) {
