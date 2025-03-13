@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('description');
             $table->string('location');
-            $table->string('type');
+            $table->string('technologies');
+            $table->enum('work_type', ['remote', 'onsite', 'hybrid']);
             $table->string('min_salary');
             $table->string('max_salary')->nullable();
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');

@@ -5,34 +5,48 @@ use App\Http\Controllers\Controller;
 use App\Models\Job; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Category;
+
 
 class JobController extends Controller {
     public function create() {
-        return view('website.create');
+        $categories = Category::all();
+        return view('website.create', compact('categories'));
     }
     
     public function store(Request $request) {
         $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'category' => 'required',
+            'category_id' => 'required|exists:category,id', 
             'location' => 'required',
             'technologies' => 'required',
             'work_type' => 'required|in:remote,onsite,hybrid',
-            'salary_range' => 'required',
+            'min_salary' => 'required|numeric',
+            'max_salary' => 'nullable|numeric',
             'application_deadline' => 'required|date',
         ]);
+    
+        $employer = Auth::user();
+        if (!$employer || $employer->role !== 'employer') {
+            return redirect()->back()->with('error', 'Only employers can post jobs.');
+        }
 
-        // $employer = Auth::user()->employer;
-        // if (!$employer) {
-        //     return redirect()->back()->with('error', 'You need to register as an employer first.');
-        // }
-
-        // $employer->jobs()->create($request->all());
-
-        Job::create($request->all());
+        $job = $employer->jobs()->create([
+            'category_id' => $request->category_id,
+            'title' => $request->title,
+            'description' => $request->description,
+            'location' => $request->location,
+            'technologies' => $request->technologies,
+            'work_type' => $request->work_type,
+            'min_salary' => $request->min_salary,
+            'max_salary' => $request->max_salary,
+            'application_deadline' => $request->application_deadline,
+        ]);
+    
         return redirect()->route('website.jobs.index')->with('success', 'Job posted successfully.');
     }
+    
     
     public function index()
     {
@@ -55,29 +69,41 @@ class JobController extends Controller {
 
     public function edit($id) {
         $job = Job::findOrFail($id);
-        return view('website.edit', compact('job'));
+        $categories = Category::all();
+        return view('website.edit', compact('job', 'categories'));
     }
-    
     
     public function update(Request $request, $id) {
         $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'category' => 'required',
-            'location' => 'required',
-            'technologies' => 'required',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'category_id' => 'required|exists:category,id',
+            'location' => 'required|string|max:255',
+            'technologies' => 'required|string',
             'work_type' => 'required|in:remote,onsite,hybrid',
-            'salary_range' => 'required',
-            'application_deadline' => 'required|date',
+            'min_salary' => 'required|numeric|min:0',
+            'max_salary' => 'nullable|numeric|gte:min_salary',
+            'application_deadline' => 'required|date|after_or_equal:today',
         ]);
     
         $job = Job::findOrFail($id);
+
+        $job->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'category_id' => $request->category_id,
+            'location' => $request->location,
+            'technologies' => $request->technologies,
+            'work_type' => $request->work_type,
+            'min_salary' => $request->min_salary,
+            'max_salary' => $request->max_salary,
+            'application_deadline' => $request->application_deadline,
+        ]);
+    
         $job->update($request->all());
     
-        return redirect()->route('jobs.index')->with('success', 'Job updated successfully.');
+        return redirect()->route('website.jobs.index')->with('success', 'Job updated successfully.');
     }
-    
-    
     
     public function destroy(Job $job) 
     {
