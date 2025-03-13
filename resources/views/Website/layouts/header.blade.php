@@ -1,4 +1,12 @@
-
+@php
+    $info =webinfo();
+@endphp
+<style>
+    /* .logo{
+        width: 100px;
+    }*/
+ 
+</style>
     <header>
         <div class="header-area ">
             <div id="sticky-header" class="main-header-area">
@@ -7,8 +15,8 @@
                         <div class="row align-items-center">
                             <div class="col-xl-3 col-lg-2">
                                 <div class="logo">
-                                    <a href="index.html">
-                                        <img src="img/logo.png" alt="">
+                                    <a href="{{route('home.show')}}">
+                                        <img src="{{$info ?  asset($info->logo) : ''}}" alt="">
                                     </a>
                                 </div>
                             </div>
@@ -17,7 +25,7 @@
                                     <nav>
                                         <ul id="navigation">
                                             <li><a href="{{ route('home.show') }}">home</a></li>
-                                            <li><a href="jobs.html">Browse Job</a></li>
+                                            <li><a href="{{route('website.jobs.index')}}">Browse Job</a></li>
                                             <li><a href="#">pages <i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
                                                     <li><a href="candidate.html">Candidates </a></li>
@@ -39,7 +47,15 @@
                             <div class="col-xl-3 col-lg-3 d-none d-lg-block">
                                 <div class="Appointment">
                                     <div class="phone_num d-none d-xl-block">
-                                        <a href="#">Log in</a>
+                                        @if(Auth::check())
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button type="submit" class="boxed-btn3">Log out</button>
+                                        </form>
+                                        @else
+                                            <a href="{{route('register')}}" class="m-2">Sign Up</a>
+                                            <a href="{{route('login')}}">Log in</a>
+                                        @endif
                                     </div>
                                     <div class="d-none d-lg-block">
                                     <a class="boxed-btn3" href="{{ route('website.job.create') }}">Post a Job</a>

@@ -23,7 +23,7 @@
             </div>
 
             <!-- Registration form -->
-            <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data" class="form">
                 @csrf
                 <input type="hidden" name="role" x-model="userType">
 

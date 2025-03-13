@@ -1,7 +1,10 @@
 @extends('Website.layouts.master')
 
 @php
-    $title = "Contact Us"
+    $title = "Contact Us";
+    
+    $info =webinfo();
+
 @endphp
 @section('title' , $title)
 @section('content')
@@ -61,21 +64,21 @@
           <div class="media contact-info">
             <span class="contact-info__icon"><i class="ti-home"></i></span>
             <div class="media-body">
-              <h3>Buttonwood, California.</h3>
-              <p>Rosemead, CA 91770</p>
+              <h3>{{ $info ? $info->address : 'N/A' }}</h3>
+              <p>{{ $info ? $info->city : 'N/A' }}</p>
             </div>
           </div>
           <div class="media contact-info">
             <span class="contact-info__icon"><i class="ti-tablet"></i></span>
             <div class="media-body">
-              <h3>00 (440) 9865 562</h3>
-              <p>Mon to Fri 9am to 6pm</p>
+              <h3>{{ $info ? $info->phone : 'N/A' }}</h3>
+              {{-- <p>Mon to Fri 9am to 6pm</p> --}}
             </div>
           </div>
           <div class="media contact-info">
             <span class="contact-info__icon"><i class="ti-email"></i></span>
             <div class="media-body">
-              <h3>support@colorlib.com</h3>
+              <h3>{{ $info ? $info->email : 'N/A' }}</h3>
               <p>Send us your query anytime!</p>
             </div>
           </div>
