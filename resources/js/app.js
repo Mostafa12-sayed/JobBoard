@@ -1,13 +1,12 @@
-
-import './bootstrap';
-
-import Alpine from 'alpinejs';
-
-window.Alpine = Alpine;
-
-Alpine.start();
-
 import "./bootstrap";
+
+// import Alpine from 'alpinejs';
+
+// window.Alpine = Alpine;
+
+// Alpine.start();
+
+// import "./bootstrap";
 
 // import Echo from "laravel-echo";
 // import Pusher from "pusher-js";
@@ -26,20 +25,19 @@ import "./bootstrap";
 //     alert(`New message from: ${event.name}`);
 // });
 
-import Echo from "laravel-echo";
+// import Echo from "laravel-echo";
 
-import Pusher from "pusher-js";
+// import Pusher from "pusher-js";
 
-const pusherConfigElement = document.getElementById("pusher-config");
-const pusherKey = pusherConfigElement.dataset.pusherKey;
-const pusherCluster = pusherConfigElement.dataset.pusherCluster;
+// const pusherConfigElement = document.getElementById("pusher-config");
+// const pusherKey = pusherConfigElement.dataset.pusherKey;
+// const pusherCluster = pusherConfigElement.dataset.pusherCluster;
 
-window.Pusher = Pusher;
+// window.Pusher = Pusher;
 
-window.Echo = new Echo({
-    broadcaster: "pusher",
-    key: pusherKey,
-    cluster: pusherCluster,
-    forceTLS: false,
-});
-
+// window.Echo = new Echo({
+//     broadcaster: "pusher",
+//     key: pusherKey,
+//     cluster: pusherCluster,
+//     forceTLS: false,
+// });

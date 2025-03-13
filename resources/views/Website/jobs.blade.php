@@ -107,20 +107,25 @@
                                     <h4>Job Listing</h4>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="serch_cat d-flex justify-content-end">
-                                        <select>
-                                            <option data-display="Most Recent">Most Recent</option>
-                                            <option value="1">Marketer</option>
-                                            <option value="2">Wordpress </option>
-                                            <option value="4">Designer</option>
-                                        </select>
-                                    </div>
+                                   
                                 </div>
                             </div>
                         </div>
                     </div>
                 <div class="job_lists m-0">
                     <div class="row">
+                        @if($jobs->count() == 0)
+                        <div class="col-lg-12 col-md-12">
+                            @component('Website.layouts.includes.alter')
+                                @slot('title')
+                                    No Jobs Found
+                                @endslot
+                                @slot('content')
+                                    Sorry, no jobs found.
+                                @endslot
+                            @endcomponent
+                        </div>
+                        @else
                         @foreach($jobs as $job)
                         <div class="col-lg-12 col-md-12">
                             <div class="single_jobs white-bg d-flex justify-content-between">
@@ -151,6 +156,7 @@
                             </div>
                         </div>
                         @endforeach
+                        @endif
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
@@ -163,7 +169,7 @@
             </div>
         </div>
     </div> <!-- End container -->
-</div> <!-- End job_listing_area -->
-<!-- job_listing_area_end -->
+</div> 
+
 
 @endsection

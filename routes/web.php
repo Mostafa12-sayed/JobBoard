@@ -23,8 +23,8 @@ Route::post('/register', [RegisteredUserController::class, 'store']);
 
 
 Route::get('/', function () {
-    $jobs = Job::paginate(5); 
-    $jobCount = Job::count(); 
+    $jobs = Job::paginate(5);
+    $jobCount = Job::count();
     return view('Website.jobs', compact('jobs', 'jobCount'));
 });
 
@@ -41,7 +41,7 @@ Route::group(['middleware' => 'guest:admin', 'prefix' => 'dashboard', 'as' => 'd
     Route::post('/login',  [AuthController::class, 'login'])->name('.login.store');
 });
 
-Route::group(['middleware' => 'auth.admin', 'prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
+Route::group(['middleware' => 'check.admin.login', 'prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::resource('category', CategoryController::class)->names('category')->except(['destroy', 'show']);
@@ -78,20 +78,24 @@ Route::group(['as' => 'website.'], function () {
     Route::get('/jobs', [JobController::class, 'index'])->name('jobs.index');
     Route::get('/jobs/{id}', [JobController::class, 'show'])->name('jobs.show');
 
-    // Route::middleware(['auth'])->group(function () {
-    Route::get('/employer/create-job', [JobController::class, 'create'])->name('job.create');
-    Route::post('/employer/store-job', [JobController::class, 'store'])->name('job.store');
+    Route::middleware(['auth', 'check.user.type'])->group(function () {
+        Route::get('/employer/create-job', [JobController::class, 'create'])->name('job.create');
+        Route::post('/employer/store-job', [JobController::class, 'store'])->name('job.store');
 
-    Route::get('/employer/manage-jobs', [JobController::class, 'manage'])->name('employer.jobs.index');
-    Route::get('/employer/edit-job/{job}', [JobController::class, 'edit'])->name('job.edit');
-    Route::put('/employer/update-job/{job}', [JobController::class, 'update'])->name('job.update');
-    Route::delete('/employer/delete-job/{job}', [JobController::class, 'destroy'])->name('job.destroy');
+        Route::get('/employer/manage-jobs', [JobController::class, 'manage'])->name('employer.jobs.index');
+        Route::get('/employer/edit-job/{job}', [JobController::class, 'edit'])->name('job.edit');
+        Route::put('/employer/update-job/{job}', [JobController::class, 'update'])->name('job.update');
+        Route::delete('/employer/delete-job/{job}', [JobController::class, 'destroy'])->name('job.destroy');
 
-    Route::post('/employer/job/{job}/accept/{application}', [JobController::class, 'acceptApplication'])->name('job.accept');
-    Route::post('/employer/job/{job}/reject/{application}', [JobController::class, 'rejectApplication'])->name('job.reject');
-    // });
+        Route::post('/employer/job/{job}/accept/{application}', [JobController::class, 'acceptApplication'])->name('job.accept');
+        Route::post('/employer/job/{job}/reject/{application}', [JobController::class, 'rejectApplication'])->name('job.reject');
+    });
 });
 
+Route::get('/error', function () {
+    return view('Website.abort');
+})->name('error');
+// Route::view('/{any}', 'Website.abort')->where('any', '.*');
 require __DIR__ . '/auth.php';
 
 
