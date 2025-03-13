@@ -78,9 +78,9 @@ Route::group(['as' => 'website.'], function () {
     Route::get('/jobs', [JobController::class, 'index'])->name('jobs.index');
     Route::get('/jobs/{id}', [JobController::class, 'show'])->name('jobs.show');
 
-    // Route::middleware(['auth'])->group(function () {
-    Route::get('/employer/create-job', [JobController::class, 'create'])->name('job.create');
-    Route::post('/employer/store-job', [JobController::class, 'store'])->name('job.store');
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/employer/create-job', [JobController::class, 'create'])->name('job.create');
+        Route::post('/employer/store-job', [JobController::class, 'store'])->name('job.store');
 
         Route::get('/employer/manage-jobs', [JobController::class, 'manage'])->name('employer.jobs.index');
         Route::get('/employer/edit-job/{job}', [JobController::class, 'edit'])->name('job.edit');
