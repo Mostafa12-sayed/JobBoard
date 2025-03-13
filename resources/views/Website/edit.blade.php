@@ -19,43 +19,80 @@
         @csrf
         @method('PUT')
 
+        <!-- Title -->
         <div class="form-group">
             <label>Title</label>
-            <input type="text" name="title" class="form-control" value="{{ $job->title }}" required>
+            <input type="text" name="title" class="form-control" value="{{ old('title', $job->title) }}" required>
+            @error('title') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
+
+        <!-- Description -->
         <div class="form-group">
             <label>Description</label>
-            <textarea name="description" class="form-control" required>{{ $job->description }}</textarea>
+            <textarea name="description" class="form-control" required>{{ old('description', $job->description) }}</textarea>
+            @error('description') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
+
+        <!-- Category (Dropdown) -->
         <div class="form-group">
             <label>Category</label>
-            <input type="text" name="category" class="form-control" value="{{ $job->category }}" required>
+            <select name="category_id" class="form-control" required>
+                <option value="" disabled>Select a Category</option>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}" {{ $job->category_id == $category->id ? 'selected' : '' }}>
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+            </select>
+            @error('category_id') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
+
+        <!-- Location -->
         <div class="form-group">
             <label>Location</label>
-            <input type="text" name="location" class="form-control" value="{{ $job->location }}" required>
+            <input type="text" name="location" class="form-control" value="{{ old('location', $job->location) }}" required>
+            @error('location') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
+
+        <!-- Technologies -->
         <div class="form-group">
             <label>Technologies</label>
-            <input type="text" name="technologies" class="form-control" value="{{ $job->technologies }}" required>
+            <input type="text" name="technologies" class="form-control" value="{{ old('technologies', $job->technologies) }}" required>
+            @error('technologies') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
+
+        <!-- Work Type -->
         <div class="form-group">
             <label>Work Type</label>
             <select name="work_type" class="form-control">
-                <option value="remote" {{ $job->work_type == 'remote' ? 'selected' : '' }}>Remote</option>
-                <option value="onsite" {{ $job->work_type == 'onsite' ? 'selected' : '' }}>Onsite</option>
-                <option value="hybrid" {{ $job->work_type == 'hybrid' ? 'selected' : '' }}>Hybrid</option>
+                <option value="remote" {{ old('work_type', $job->work_type) == 'remote' ? 'selected' : '' }}>Remote</option>
+                <option value="onsite" {{ old('work_type', $job->work_type) == 'onsite' ? 'selected' : '' }}>Onsite</option>
+                <option value="hybrid" {{ old('work_type', $job->work_type) == 'hybrid' ? 'selected' : '' }}>Hybrid</option>
             </select>
+            @error('work_type') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
+
+        <!-- Min Salary -->
         <div class="form-group">
-            <label>Salary Range</label>
-            <input type="text" name="salary_range" class="form-control" value="{{ $job->salary_range }}" required>
+            <label>Min Salary</label>
+            <input type="number" name="min_salary" class="form-control" value="{{ old('min_salary', $job->min_salary) }}" required>
+            @error('min_salary') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
+
+        <!-- Max Salary -->
+        <div class="form-group">
+            <label>Max Salary</label>
+            <input type="number" name="max_salary" class="form-control" value="{{ old('max_salary', $job->max_salary) }}">
+            @error('max_salary') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
+
+        <!-- Application Deadline -->
         <div class="form-group">
             <label>Application Deadline</label>
-            <input type="date" name="application_deadline" class="form-control" value="{{ $job->application_deadline }}" required>
+            <input type="date" name="application_deadline" class="form-control" value="{{ old('application_deadline', $job->application_deadline) }}" required>
+            @error('application_deadline') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
-        
+
         <button type="submit" class="btn btn-primary">Update Job</button>
     </form>
 </div>

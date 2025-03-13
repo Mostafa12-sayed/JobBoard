@@ -46,14 +46,14 @@
                     <div class="single_wrap">
                         <h4>Qualifications</h4>
                         <ul>
-                            <li>{{ $job->category }}</li>
+                            <li>{{ $job->category->name }}</li>
                             <li>{{ $job->technologies }}</li>
                         </ul>
                     </div>
                     <div class="single_wrap">
-                        <h4>Salary</h4>
-                        <p>{{ $job->salary_range }}</p>
-                    </div>
+                    <h4>Salary</h4>
+                    <p>min {{ number_format($job->min_salary) }} - max{{ number_format($job->max_salary) }}</p>
+                </div>
                 </div>
 
                 <div class="apply_job_form white-bg">
