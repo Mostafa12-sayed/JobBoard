@@ -88,7 +88,7 @@ Route::group(['as' => 'website.'], function () {
         Route::get('/employer/manage-jobs', [JobController::class, 'manage'])->name('employer.jobs.index');
         Route::get('/employer/edit-job/{job}', [JobController::class, 'edit'])->name('job.edit');
         Route::put('/employer/update-job/{job}', [JobController::class, 'update'])->name('job.update');
-        Route::delete('/employer/delete-job/{job}', [JobController::class, 'destroy'])->name('job.destroy');
+        Route::get('/employer/delete-job/{job}', [JobController::class, 'destroy'])->name('job.destroy');
 
         Route::post('/employer/job/{job}/accept/{application}', [JobController::class, 'acceptApplication'])->name('job.accept');
         Route::post('/employer/job/{job}/reject/{application}', [JobController::class, 'rejectApplication'])->name('job.reject');

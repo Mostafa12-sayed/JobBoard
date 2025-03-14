@@ -1,7 +1,45 @@
 @extends('Website.layouts.master')
 
 @section('content')
+<style>
+    .apply_now{
+        display: flex !important;
+        gap: 10px;
+        justify-content: flex-end;
+        align-items: center;
+    }
+    .close{
+       
+        color: rgb(255, 178, 12) !important;
+        font-size: 18px !important;
+    }
+    .close:hover{
+       
+        color: rgb(158, 110, 7) !important;
+        transform: scale(1.5)
+    }
+    .danger{
+        color: rgb(226, 21, 21) !important;
+        background-color: transparent !important;
+        border: none !important;
+        transition:all 0.3s ease 0s !important;
+        cursor: pointer !important;
+    }
+    .danger:hover{
+        color: rgb(236, 92, 92) !important;
+        transform: scale(1.5)
 
+    }
+    .edit{
+        color: rgb(5, 159, 248) !important;
+     
+    }
+    .edit:hover{
+        color: rgb(59, 170, 235) !important;
+        transform: scale(1.5)
+
+    }
+</style>
 @component('Website.layouts.includes.bradcamp')
 
     @slot('title')
@@ -57,16 +95,20 @@
                                             <div class="location">
                                                 <p><i class="fa fa-clock-o"></i> {{ $job->work_type }}</p>
                                             </div>
+                                            <div class="location">
+                                                <p>Deadline: {{ $job->application_deadline }}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="jobs_right">
                                     <div class="apply_now">
-                                        <a href="{{ route('website.jobs.show', $job->id) }}" class="boxed-btn3">Apply Now</a>
+                                        <a href="{{ route('website.job.edit', $job->id) }}" title="View Job" class="edit" ><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a data-id="{{ $job->id }}" data-url="{{ route('website.job.destroy', $job->id) }}" onclick="deleteJob(this , event)" class="danger delete-item" title="Delete Job"><i class="fa-solid fa-trash"></i></a>
+                                        <a href="{{ route('website.jobs.show', $job->id) }}" title="Close Job" class=" close" ><i class="fa-solid fa-lock"></i></a>
+                                        {{-- <a href="#" class="genric-btn primary-border circle arrow">Close</a> --}}
                                     </div>
-                                    <div class="date">
-                                        <p>Deadline: {{ $job->application_deadline }}</p>
-                                    </div>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -114,5 +156,29 @@
     </div> <!-- End container -->
 </div> 
 
+<script>
+        function deleteJob(but ,e) {
+            console.log(but);
+            e.preventDefault();
+            var $button = $(but);
+            var url = $button.data('url');
+            var id = $button.data('id');
+            Swal.fire({
+            title: "Info",
+            text: "Are you sure you want to delete this item?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!"
+            }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = url; 
+            }
+            });
+        }
 
+
+</script>
 @endsection

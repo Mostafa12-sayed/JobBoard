@@ -25,6 +25,7 @@ return new class extends Migration
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->string('slug')->unique();
             $table->enum('job_status', ['available', 'not available'])->default('available');
+            $table->enum('job_type', ['full-time', 'part-time'])->default('full-time');
             $table->string('application_deadline')->nullable();
             $table->timestamps();
         });

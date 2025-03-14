@@ -33,7 +33,12 @@ class JobFactory extends Factory
             'created_at' => now(),
             'job_status' => $this->faker->randomElement(['available', 'not available']),
             'slug' => Str::slug($this->faker->jobTitle),
-            'technologies' => $this->faker->words(3, true),
+
+            // Generate technologies as JSON
+            'technologies' => json_encode(array_map(function ($tech) {
+                return ['value' => $tech];
+            }, $this->faker->words(3))),
+
             'application_deadline' => $this->faker->date(),
         ];
     }
