@@ -18,6 +18,8 @@ class EmployeeUser extends Model
         'position',
         'phone_number',
         'address',
+        'profile_picture',
+        'background_image',
     ];
 
     public function user()

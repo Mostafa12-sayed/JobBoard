@@ -40,6 +40,7 @@
                                 <div class="Appointment">
                                     <div class="phone_num d-none d-xl-block">
                                         <a href="#">Log in</a>
+                                        <a href="#">Register</a>
                                     </div>
                                     <div class="d-none d-lg-block">
                                         <a class="boxed-btn3" href="#">Post a Job</a>

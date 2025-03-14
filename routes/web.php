@@ -11,9 +11,22 @@ use App\Http\Controllers\Dashboard\JobsAdminController;
 use App\Http\Controllers\Dashboard\WebInfoController;
 use App\Http\Controllers\Website\ContactUsController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\MyProfileController;
 
+
+Route::get('/my-profile', [MyProfileController::class, 'index'])->middleware('auth')->name('my-profile');
+Route::post('/profile/update-images', [MyProfileController::class, 'updateImages'])->middleware('auth')->name('profile.update.images');
 Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+
+
+
 
 
 
@@ -30,10 +43,13 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::group(['middleware' => 'auth.admin', 'prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('index');
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::resource('category', CategoryController::class)->names('category')->except(['destroy', 'show']);
+    Route::get('/category/destroy/{category}', [CategoryController::class, 'destroy'])->name('category.destroy');
+    Route::post('/category/chanageStatus', [CategoryController::class, 'changeStatus'])->name('category.changeStatus');
+
     Route::get('/jobs', [JobsAdminController::class, 'index'])->name('jobs.index');
     Route::get('/jobs/{job}', [JobsAdminController::class, 'show'])->name('jobs.show');
     Route::post('/jobs/changeStatus', [JobsAdminController::class, 'changeStatus'])->name('jobs.changeStatus');
@@ -55,7 +71,6 @@ Route::middleware('auth')->group(function () {
 
 
 
-
 Route::group(['as' => 'website.'], function () {
     Route::get('/contact-us', [ContactUsController::class, 'index'])->name('contact-us');
     Route::post('/contact-us', [ContactUsController::class, 'store'])->name('contact-us.store');
@@ -64,12 +79,3 @@ Route::group(['as' => 'website.'], function () {
 require __DIR__.'/auth.php';
 
 
-
-
-
-
-
-/////////////////////////
-use App\Http\Controllers\HadyProfileController;
-
-Route::get('/hady-profile', [HadyProfileController::class, 'index'])->name('hady-profile');
