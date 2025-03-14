@@ -42,22 +42,15 @@
                                             @endif
                                             <li><a href="{{route('website.contact-us')}}">Contact</a></li>
                                         </ul>
-                                        
+
                                     </nav>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-3  d-lg-block">
                                 <div class="Appointment">
                                     <div class="phone_num d-none d-xl-block">
-                                        @if(Auth::check())
-                                        <form method="POST" action="{{ route('logout') }}">
-                                            @csrf
-                                            <button type="submit" class="boxed-btn3">Log out</button>
-                                        </form>
-                                        @else
-                                            <a href="{{route('register')}}" class="m-2 item-nav">Sign Up</a>
-                                            <a href="{{route('login')}}" class="item-nav">Log in</a>
-                                        @endif
+                                        <a href="#">Log in</a>
+                                        <a href="#">Register</a>
                                     </div>
                                     <div class="d-none d-lg-block">
                                     <a class="boxed-btn3" href="{{ route('website.job.create') }}">Post a Job</a>

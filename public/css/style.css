@@ -22,6 +22,8 @@ body {
     height: 300px;
     object-fit: cover;
     border-radius: 10px;
+    object-position: center; /* Added */
+    cursor: pointer; /* Added */
 }
 
 .profile-pic {
@@ -38,10 +40,17 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+.profile-img:hover {
+    opacity: 0.8;
+    cursor: pointer; /* Added */
+}
+
 .header-info {
     margin-bottom: 30px;
 }
-
+.hidden-input{
+    display: none;
+}
 .main-content {
     display: flex;
     gap: 30px;
@@ -116,7 +125,7 @@ p {
     text-align: right;
     padding-right: 8px;
     color: #fff;
-    font-size: 12px;
+    font-size: 9px;
     font-weight: 500;
     line-height: 10px;
 }
@@ -167,6 +176,17 @@ p {
     display: inline-block;
     width: 100px;
     font-weight: 500;
+}
+
+.personal-details a {
+    color: #98c5ce;
+    text-decoration: none;
+    transition: color 0.3s; /* Added */
+}
+
+.personal-details a:hover {
+    color: #28a745;
+    text-decoration: underline; /* Added */
 }
 
 .social-icons {
@@ -239,8 +259,36 @@ p {
     display: flex;
     align-items: center;
     gap: 10px;
-    width: 100%;
+    width: 87%;
     text-align: center;
     justify-content: center;
     font-size: 1em;
+}
+
+.upload-section {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="file"] {
+    width: 100%;
+}
+
+.alert-success {
+    background: lightgreen;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.error {
+    color: red;
+    font-size: 0.9em;
 }

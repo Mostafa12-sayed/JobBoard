@@ -11,16 +11,23 @@ use App\Http\Controllers\Dashboard\JobsAdminController;
 use App\Http\Controllers\Dashboard\WebInfoController;
 use App\Http\Controllers\Website\ContactUsController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\MyProfileController;
 
-use App\Http\Controllers\Website\JobController;
-use App\Models\Job;
 
 use App\Http\Controllers\Website\HomePageController;
 use App\Http\Controllers\Website\MyJobsController;
-use App\Http\Middleware\AdminAuthenticate;
 
 Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+
+
+
 
 
 Route::get('/', function () {
@@ -70,8 +77,6 @@ Route::group(['middleware' => AdminAuthenticate::class, 'prefix' => 'dashboard',
 
 
 
-
-
 Route::group(['as' => 'website.'], function () {
     Route::get('/contact-us', [ContactUsController::class, 'index'])->name('contact-us');
     Route::post('/contact-us', [ContactUsController::class, 'store'])->name('contact-us.store');
@@ -101,14 +106,3 @@ Route::get('/error', function () {
 })->name('error');
 // Route::view('/{any}', 'Website.abort')->where('any', '.*');
 require __DIR__ . '/auth.php';
-
-
-
-
-
-
-
-/////////////////////////
-use App\Http\Controllers\HadyProfileController;
-
-Route::get('/hady-profile', [HadyProfileController::class, 'index'])->name('hady-profile');
