@@ -28,3 +28,24 @@
 
 
 <script src="{{asset('assets/website/js/main.js')}}"></script>
+
+<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script>
+
+
+
+function changeImage(element, id) {
+        if (element.files && element.files[0]) {
+            var reader = new FileReader();
+            console.log(id);
+            reader.onload = function (e) {
+                $('.image-preview-' + id).attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(element.files[0]);
+        }
+    }
+
+
+

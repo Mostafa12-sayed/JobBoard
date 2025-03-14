@@ -9,18 +9,22 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 
 
-class JobController extends Controller {
-    public function create() {
+class JobController extends Controller
+{
+    public function create()
+    {
         $categories = Category::all();
-        return view('website.create', compact('categories'));
+        $job = new Job();
+        return view('Website.website-jobs.create', compact('categories', 'job'));
     }
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'category_id' => 'required|exists:category,id', 
+            'category_id' => 'required|exists:category,id',
             'location' => 'required',
             'technologies' => 'required',
             'work_type' => 'required|in:remote,onsite,hybrid',
@@ -28,7 +32,7 @@ class JobController extends Controller {
             'max_salary' => 'nullable|numeric',
             'application_deadline' => 'required|date',
         ]);
-    
+
         $employer = Auth::user();
         if (!$employer || $employer->role !== 'employer') {
             return redirect()->back()->with('error', 'Only employers can post jobs.');
@@ -44,23 +48,24 @@ class JobController extends Controller {
             'min_salary' => $request->min_salary,
             'max_salary' => $request->max_salary,
             'application_deadline' => $request->application_deadline,
+            'job_type' => $request->job_type,
         ]);
-    
+
         return redirect()->route('website.jobs.index')->with('success', 'Job posted successfully.');
     }
-    
-    
+
+
     public function index()
     {
         $jobs = Job::paginate(5);
         $jobCount = Job::count();
-        return view('Website.jobs', compact('jobs', 'jobCount'));
+        return view('Website.website-jobs.jobs', compact('jobs', 'jobCount'));
     }
 
     public function show($id)
     {
         $job = Job::findOrFail($id);
-        return view('website.job_details', compact('job'));
+        return view('Website.website-jobs.job_details', compact('job'));
     }
 
     public function manage()
@@ -73,10 +78,11 @@ class JobController extends Controller {
     {
         $job = Job::findOrFail($id);
         $categories = Category::all();
-        return view('website.edit', compact('job', 'categories'));
+        return view('Website.website-jobs.create', compact('job', 'categories'));
     }
-    
-    public function update(Request $request, $id) {
+
+    public function update(Request $request, $id)
+    {
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -102,16 +108,16 @@ class JobController extends Controller {
             'max_salary' => $request->max_salary,
             'application_deadline' => $request->application_deadline,
         ]);
-    
+
         $job->update($request->all());
-    
+
         return redirect()->route('website.jobs.index')->with('success', 'Job updated successfully.');
     }
-    
-    public function destroy(Job $job) 
+
+    public function destroy(Job $job)
     {
         $job->delete();
-        return redirect()->route('jobs.index')->with('success', 'Job deleted successfully.');
+        return back()->with('success', 'Job deleted successfully.');
     }
 
     public function acceptApplication(Job $job, $applicationId)

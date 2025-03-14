@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str; 
+use Illuminate\Support\Str;
 
 class Job extends Model
 {
@@ -13,17 +13,18 @@ class Job extends Model
     protected $table = 'jobs_table';
 
     protected $fillable = [
-        'user_id',  
-        'title', 
-        'slug', 
-        'description', 
-        'category_id', 
-        'location', 
-        'technologies', 
-        'work_type', 
-        'min_salary', 
+        'user_id',
+        'title',
+        'slug',
+        'description',
+        'category_id',
+        'location',
+        'technologies',
+        'work_type',
+        'min_salary',
         'max_salary',
         'application_deadline',
+        'job_type'
     ];
 
 
@@ -31,7 +32,7 @@ class Job extends Model
     {
         parent::boot();
         static::creating(function ($job) {
-            $job->slug = Str::slug($job->title); 
+            $job->slug = Str::slug($job->title);
         });
     }
 

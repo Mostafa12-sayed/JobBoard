@@ -46,26 +46,27 @@
                     <div class="single_wrap">
                         <h4>Qualifications</h4>
                         <ul>
-                            <li>{{ $job->category->name }}</li>
-                            <li>{{ $job->technologies }}</li>
+                            @foreach(json_decode($job->technologies ,true) as $tech)
+                                <li>{{ $tech['value'] }}</li>
+                            @endforeach
                         </ul>
                     </div>
                     <div class="single_wrap">
                     <h4>Salary</h4>
-                    <p>min {{ number_format($job->min_salary) }} - max{{ number_format($job->max_salary) }}</p>
+                    <p>${{ number_format($job->min_salary) }} - ${{ number_format($job->max_salary) }}</p>
                 </div>
                 </div>
 
                 <div class="apply_job_form white-bg">
-            <h4>{{ auth()->check() && auth()->user()->role === 'employer' ? 'Manage Job' : 'Apply for the job' }}</h4>
-            @if(auth()->check() && auth()->user()->role === 'employer')
-                <!-- If Employer, Show "Edit Job" Button -->
-                <div class="col-md-12">
-                    <div class="submit_btn">
-                        <a href="{{ route('website.job.edit', $job->id) }}" class="btn btn-warning w-100">Edit Job</a>
-                    </div>
-                </div>
-            @else
+                    <h4>{{ auth()->check() && auth()->user()->role === 'employer' ? 'Manage Job' : 'Apply for the job' }}</h4>
+                    @if(auth()->check() && auth()->user()->role === 'employer')
+                        <!-- If Employer, Show "Edit Job" Button -->
+                        <div class="col-md-12">
+                            <div class="submit_btn">
+                                <a href="{{ route('website.job.edit', $job->id) }}" class="btn btn-warning w-100">Edit Job</a>
+                            </div>
+                        </div>
+                    @else
                 <!-- If Not Employer, Show "Apply Now" Button -->
                 <form action="#" method="POST">
                     @csrf
@@ -87,7 +88,7 @@
                     </div>
                     <div class="job_content">
                         <ul>
-                            <li>Salary: <span>{{ $job->salary_range }}</span></li>
+                            <li>Salary: <span>${{ number_format($job->min_salary) }} - ${{ number_format($job->max_salary) }}</span></li>
                             <li>Location: <span>{{ $job->location }}</span></li>
                             <li>Job Type: <span>{{ $job->work_type }}</span></li>
                             <li>Deadline: <span>{{ $job->application_deadline }}</span></li>

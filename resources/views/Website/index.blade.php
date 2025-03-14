@@ -5,12 +5,12 @@
     .single_company{
         width: 250px !important;
     }
-    .single_company .thumb{
-        width: 100px;
+    .single_company .thumb ,.thumb{
+        width: 100px !important;
         padding: 0 !important;
     }
-    .single_company .thumb img{
-        width: 100%;
+    .single_company .thumb img ,.thumb img{
+        width: 100% !important;
     }
 </style>
     <!-- slider_area_start -->
@@ -153,7 +153,7 @@
                                             <p> <i class="fa fa-map-marker"></i>{{$job->location}}</p>
                                         </div>
                                         <div class="location">
-                                            <p> <i class="fa fa-clock-o"></i>{{$job->type}} </p>
+                                            <p> <i class="fa fa-clock-o"></i>{{$job->job_type}} </p>
                                         </div>
                                     </div>
                                 </div>

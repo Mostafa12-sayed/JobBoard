@@ -12,6 +12,6 @@ class MyJobsController extends Controller
     {
         $jobs = Job::where('user_id', auth()->user()->id)->paginate(10);
         // dd(auth()->user()->id);
-        return view('Website.my-jobs', compact('jobs'));
+        return view('Website.website-jobs.my-jobs', compact('jobs'));
     }
 }
