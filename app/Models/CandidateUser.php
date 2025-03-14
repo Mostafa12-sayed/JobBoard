@@ -23,6 +23,8 @@ class CandidateUser extends Model
         'languages',
         'interests',
         'cover_letter',
+        'profile_picture', 
+        'background_image',
     ];
 
     public function user()
