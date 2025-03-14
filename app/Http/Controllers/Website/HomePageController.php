@@ -23,7 +23,7 @@ class HomePageController extends Controller
 
     public function candidates()
     {
-        $candidates = User::select('name')->where('role', 'candidate')->paginate(10);
+        $candidates = User::select('name')->where('role', 'candidate')->paginate(8);
         // dd($candidates);
 
         return view('Website.candidates', compact('candidates'));

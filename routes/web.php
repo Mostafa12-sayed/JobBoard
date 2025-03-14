@@ -17,6 +17,7 @@ use App\Models\Job;
 
 use App\Http\Controllers\Website\HomePageController;
 use App\Http\Controllers\Website\MyJobsController;
+use App\Http\Middleware\AdminAuthenticate;
 
 Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);
@@ -36,12 +37,12 @@ Route::get('/', [HomePageController::class, 'show'])->name('home.show');
 // });
 
 
-Route::group(['middleware' => 'guest:admin', 'prefix' => 'dashboard', 'as' => 'dashboard'], function () {
-    Route::get('/login', [AuthController::class, 'view'])->name('.login');
-    Route::post('/login',  [AuthController::class, 'login'])->name('.login.store');
+Route::group(['middleware' => 'guest:admin', 'prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
+    Route::get('/login', [AuthController::class, 'view'])->name('login');
+    Route::post('/login',  [AuthController::class, 'login'])->name('login.store');
 });
 
-Route::group(['middleware' => 'auth:admin', 'prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
+Route::group(['middleware' => AdminAuthenticate::class, 'prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::resource('category', CategoryController::class)->names('category')->except(['destroy', 'show']);
@@ -78,7 +79,7 @@ Route::group(['as' => 'website.'], function () {
     Route::get('/jobs', [JobController::class, 'index'])->name('jobs.index');
     Route::get('/jobs/{id}', [JobController::class, 'show'])->name('jobs.show');
 
-    Route::middleware(['auth'])->group(function () {
+    Route::middleware(['auth:web', 'check.user.type'])->group(function () {
         Route::get('/employer/create-job', [JobController::class, 'create'])->name('job.create');
         Route::post('/employer/store-job', [JobController::class, 'store'])->name('job.store');
 

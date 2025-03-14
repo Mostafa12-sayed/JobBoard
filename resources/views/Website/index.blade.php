@@ -147,7 +147,7 @@
                                     <img src="{{$job->user->company_logo ? asset($job->user->company_logo) : asset('assets/website/img/defult-company.png')}}" alt="">
                                 </div>
                                 <div class="jobs_conetent">
-                                    <a href="job_details.html"><h4>{{ $job->title }}</h4></a>
+                                    <a href="{{route('website.jobs.show' , $job->id)}}"><h4>{{ $job->title }}</h4></a>
                                     <div class="links_locat d-flex align-items-center">
                                         <div class="location">
                                             <p> <i class="fa fa-map-marker"></i>{{$job->location}}</p>

@@ -46,7 +46,7 @@
                                     </nav>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-lg-3 d-none d-lg-block">
+                            <div class="col-xl-3 col-lg-3  d-lg-block">
                                 <div class="Appointment">
                                     <div class="phone_num d-none d-xl-block">
                                         @if(Auth::check())
