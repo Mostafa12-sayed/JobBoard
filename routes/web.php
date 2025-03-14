@@ -15,8 +15,13 @@ use App\Http\Controllers\MyProfileController;
 
 
 use App\Http\Controllers\Website\HomePageController;
+use App\Http\Controllers\Website\JobController;
 use App\Http\Controllers\Website\MyJobsController;
+use App\Http\Middleware\AdminAuthenticate;
+use App\Models\Job;
 
+Route::get('/my-profile', [MyProfileController::class, 'index'])->middleware('auth')->name('my-profile');
+Route::post('/profile/update-images', [MyProfileController::class, 'updateImages'])->middleware('auth')->name('profile.update.images');
 Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);
 Route::middleware('auth')->group(function () {
@@ -24,7 +29,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
 
 
 
