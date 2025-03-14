@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\WebInfo;
 
 if (!function_exists('uploadFile')) {
   function uploadFile($file, $path, $old_file = null)
@@ -15,5 +16,13 @@ if (!function_exists('uploadFile')) {
       }
     }
     return $fullpath;
+  }
+}
+
+if (!function_exists('webinfo')) {
+  function webinfo()
+  {
+    $info = WebInfo::first();
+    return $info;
   }
 }

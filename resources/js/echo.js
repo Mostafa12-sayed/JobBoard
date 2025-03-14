@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import Echo from 'laravel-echo';
 
 // import Pusher from 'pusher-js';
@@ -12,3 +13,6 @@
 //     forceTLS: (import.meta.env.VITE_REVERB_SCHEME ?? 'https') === 'https',
 //     enabledTransports: ['ws', 'wss'],
 // });
+=======
+ 
+>>>>>>> 9b0a0e265c1c811885aaae0bf23ec29458722831

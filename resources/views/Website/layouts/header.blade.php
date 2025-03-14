@@ -1,4 +1,18 @@
-
+@php
+    $info =webinfo();
+@endphp
+<style>
+    /* .logo{
+        width: 100px;
+    }*/
+    .item-nav{
+        font-weight: 600 !important;
+        transition: all 0.3s ease-in-out;
+    }
+    .item-nav:hover{
+        color: rgb(0, 211, 99) !important;
+    }
+</style>
     <header>
         <div class="header-area ">
             <div id="sticky-header" class="main-header-area">
@@ -7,8 +21,8 @@
                         <div class="row align-items-center">
                             <div class="col-xl-3 col-lg-2">
                                 <div class="logo">
-                                    <a href="index.html">
-                                        <img src="img/logo.png" alt="">
+                                    <a href="{{route('home.show')}}">
+                                        <img src="{{$info ?  asset($info->logo) : ''}}" alt="">
                                     </a>
                                 </div>
                             </div>
@@ -16,23 +30,19 @@
                                 <div class="main-menu  d-none d-lg-block">
                                     <nav>
                                         <ul id="navigation">
-                                            <li><a href="index.html">home</a></li>
-                                            <li><a href="jobs.html">Browse Job</a></li>
-                                            <li><a href="#">pages <i class="ti-angle-down"></i></a>
-                                                <ul class="submenu">
-                                                    <li><a href="candidate.html">Candidates </a></li>
-                                                    <li><a href="job_details.html">job details </a></li>
-                                                    <li><a href="elements.html">elements</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">blog <i class="ti-angle-down"></i></a>
-                                                <ul class="submenu">
-                                                    <li><a href="blog.html">blog</a></li>
-                                                    <li><a href="single-blog.html">single-blog</a></li>
-                                                </ul>
-                                            </li>
+                                            <li><a href="{{ route('home.show') }}">home</a></li>
+                                            <li><a href="{{route('website.jobs.index')}}">Browse Job</a></li>
+                                            @if(Auth::check())
+                                                @if(Auth::user()->role == 'employer')
+                                                    <li><a href="{{ route('website.candidates') }}">Candidates</a></li>
+                                                    <li><a href="{{ route('website.MyJobs.index') }}">My Jobs</a></li>
+                                                @else
+                                                    <li><a href="{{ route('home.show') }}">My Application Jobs</a></li>
+                                                @endif
+                                            @endif
                                             <li><a href="{{route('website.contact-us')}}">Contact</a></li>
                                         </ul>
+
                                     </nav>
                                 </div>
                             </div>
@@ -43,7 +53,7 @@
                                         <a href="#">Register</a>
                                     </div>
                                     <div class="d-none d-lg-block">
-                                        <a class="boxed-btn3" href="#">Post a Job</a>
+                                    <a class="boxed-btn3" href="{{ route('website.job.create') }}">Post a Job</a>
                                     </div>
                                 </div>
                             </div>

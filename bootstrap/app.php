@@ -13,8 +13,15 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         // $middleware->add(AdminAuthenticate::class);
+        // $middleware->add(AdminAuthenticate::class);
+        // $middleware->append(AdminAuthenticate::class);
+
+
         $middleware->alias([
-            'auth.admin' => \App\Http\Middleware\AdminAuthenticate::class,
+            'admin.login' => AdminAuthenticate::class,
+        ]);
+        $middleware->alias([
+            'check.user.type' => \App\Http\Middleware\CheckTypeUser::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

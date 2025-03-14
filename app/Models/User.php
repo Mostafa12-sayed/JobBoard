@@ -37,13 +37,16 @@ class User extends Authenticatable
         // If using Laravel 10's hashed passwords, you may use 'hashed'
         'password' => 'hashed',
     ];
-
+    public function jobs()
+    {
+        return $this->hasMany(Job::class, 'user_id', 'id');
+    }
     /**
      * Get the jobs ordered by the user.
      */
     public function jobsOrder()
     {
-        return $this->hasMany(Jobs::class, 'user_id', 'id');
+        return $this->hasMany(Job::class, 'user_id', 'id');
     }
 
     /**

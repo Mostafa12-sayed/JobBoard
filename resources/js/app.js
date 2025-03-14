@@ -1,13 +1,12 @@
-
-import './bootstrap';
-
-import Alpine from 'alpinejs';
-
-window.Alpine = Alpine;
-
-Alpine.start();
-
 import "./bootstrap";
+
+// import Alpine from 'alpinejs';
+
+// window.Alpine = Alpine;
+
+// Alpine.start();
+
+// import "./bootstrap";
 
 // import Echo from "laravel-echo";
 // import Pusher from "pusher-js";
@@ -35,6 +34,7 @@ import "./bootstrap";
 // const pusherCluster = pusherConfigElement.dataset.pusherCluster;
 
 // window.Pusher = Pusher;
+<<<<<<< HEAD
 
 // window.Echo = new Echo({
 //     broadcaster: "pusher",
@@ -42,4 +42,12 @@ import "./bootstrap";
 //     cluster: pusherCluster,
 //     forceTLS: false,
 // });
+=======
+>>>>>>> 9b0a0e265c1c811885aaae0bf23ec29458722831
 
+// window.Echo = new Echo({
+//     broadcaster: "pusher",
+//     key: pusherKey,
+//     cluster: pusherCluster,
+//     forceTLS: false,
+// });
