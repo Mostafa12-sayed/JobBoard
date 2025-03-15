@@ -29,7 +29,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => \Illuminate\Support\Facades\Hash::make('password123'), // Always hash the password
             'role' => $this->faker->randomElement(['employer', 'candidate']),
-            'phone_number' => $this->faker->phoneNumber,
+            'phone_number' => $this->faker->numberBetween(1000000000,9999999999),
             'profile_picture' => 'profile_pic_' . rand(1, 5) . '.jpg',
         ];
     }

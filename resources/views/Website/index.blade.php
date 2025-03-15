@@ -40,37 +40,43 @@
     <!-- catagory_area -->
     <div class="catagory_area">
         <div class="container">
+            <form action="{{route ('home.filter')}}" method="post">
+                @csrf
             <div class="row cat_search">
                 <div class="col-lg-3 col-md-4">
                     <div class="single_input">
-                        <input type="text" placeholder="Search keyword">
+                        <input type="text" name="keyword" placeholder="Search keyword" value="{{ request('keyword') }}">
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4">
                     <div class="single_input">
-                        <select class="wide" >
-                            <option data-display="Location">Location</option>
-                            <option value="1">Dhaka</option>
-                            <option value="2">Rangpur</option>
-                            <option value="4">Sylet</option>
+                        <select class="wide" name="location">
+                            <option value="">Location</option>
+                            @foreach ($jobs_location as $job)
+                            <option value="{{$job->location}}" {{ request('location') == $job->location ? 'selected' : '' }}>{{ $job->location }}</option>
+                            @endforeach
                           </select>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4">
                     <div class="single_input">
-                        <select class="wide">
-                            <option data-display="Category">Category</option>
-                            <option value="1">Category 1</option>
-                            <option value="2">Category 2</option>
-                            <option value="4">Category 3</option>
+                        <select class="wide" name="category">
+                            <option data-display="Category" value="">Category</option>
+                            @foreach ($all_categories as $category)
+                            <option value="{{$category->id}}" {{ request('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                            @endforeach
                           </select>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-12">
-                    <div class="job_btn">
-                        <a href="#" class="boxed-btn3">Find Job</a>
+                <div class="col-lg-3 col-md-12 row">
+                    <div class="job_btn " >
+                        <input type="submit" value="Find Job" class="boxed-btn3">
+                    </div>
+                    <div >
+                        <a href="{{route ('home.show')}}"  class="boxed-btn3 ml-3">Reset</a>
                     </div>
                 </div>
+            </form>
             </div>
             <div class="row">
                 <div class="col-lg-12">
@@ -132,7 +138,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="brouse_job text-right">
+                    <div class="brouse_job text-right" id="results">
                         <a href="jobs.html" class="boxed-btn4">Browse More Job</a>
                     </div>
                 </div>

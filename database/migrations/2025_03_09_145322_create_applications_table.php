@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('job_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('job_id')->constrained('jobs_table')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->text('message')->nullable();
             $table->string('resume_path');
