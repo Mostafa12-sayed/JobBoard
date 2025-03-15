@@ -14,7 +14,8 @@ class HomePageController extends Controller
 {
     public function show()
     {
-        $categories = Category::withcount('jobs')->where('status', 'active')->get();
+        $categories = Category::withcount('jobs')
+            ->where('status', 'active')->having('jobs_count', '>', 0)->get();
         $jobs = Job::with('category')->paginate(10);
         $candidates = CandidateUser::paginate(10);
         $employer = EmployeeUser::paginate(4);
