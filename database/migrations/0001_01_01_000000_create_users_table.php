@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->enum('role', ['employer', 'candidate']);
-            $table->string('phone_number', 15)->nullable();
+            $table->string('phone_number', 255)->nullable();
             $table->string('profile_picture')->nullable();
             $table->timestamps();
         });

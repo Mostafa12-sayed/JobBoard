@@ -15,13 +15,8 @@ class ApplicationSeeder extends Seeder
      */
     public function run(): void
     {
-        $job = Job::first();
-        $user = User::first();
 
         // Create applications with specific job_id and user_id
-        Applications::factory()->count(10)->create([
-            'job_id' => $job->id,
-            'user_id' => $user->id,
-        ]);
+        Applications::factory()->count(40)->create();
     }
 }
