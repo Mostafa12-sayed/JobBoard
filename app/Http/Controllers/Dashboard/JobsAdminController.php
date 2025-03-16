@@ -32,7 +32,7 @@ class JobsAdminController extends Controller
 
             // Filter by type
             if ($request->has('type') && !empty($request->type)) {
-                $query->where('type', $request->type);
+                $query->where('job_type', $request->type);
             }
 
             // Filter by status

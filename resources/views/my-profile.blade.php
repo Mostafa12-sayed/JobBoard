@@ -50,20 +50,36 @@
                 @endif
 
                 @if($user->role === 'candidate' && $profileData->skills)
-                <div class="section-card">
-                    <h2>Skills:</h2>
-                    <div class="skills">
-                        @foreach(explode(',', $profileData->skills) as $skill)
-                        <div class="skill">
-                            <span>{{ trim($skill) }}</span>
-                            <div class="progress-bar">
-                                <div class="progress" style="width: 80%;">80%</div>
+                @php
+                    $skillsArray = json_decode($profileData->skills, true);
+                    // If json_decode failed or didn't return an array with 'value' keys
+                    if (!is_array($skillsArray) || !isset($skillsArray[0]['value'])) {
+                        // Try treating it as a comma-separated string
+                        $skillsArray = array_map(function($skill) {
+                            return ['value' => trim($skill)];
+                        }, explode(',', $profileData->skills));
+                    }
+                @endphp
+                @if(is_array($skillsArray) && count($skillsArray) > 0)
+                    <div class="section-card">
+                        <h2>Skills:</h2>
+                        <div class="skills">
+                            @foreach($skillsArray as $skill)
+                            @php
+                                $percentage = rand(60, 100);
+                            @endphp
+                            <div class="skill">
+                                <span>{{ $skill['value'] }}</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: {{ $percentage }}%;">{{ $percentage }}%</div>
+                                </div>
                             </div>
+                            @endforeach
                         </div>
-                        @endforeach
                     </div>
-                </div>
+                    @endif
                 @endif
+
 
                 @if($user->role === 'candidate' && $profileData->experience)
                 <div class="section-card">

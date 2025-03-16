@@ -31,6 +31,6 @@ class JobListingsSeeder extends Seeder
         // ]);
 
         // You can also generate multiple job listings using the factory if you have one.
-        \App\Models\Job::factory(100)->create();  // Creates 10 random job listings
+        \App\Models\Job::factory(20)->create();  // Creates 10 random job listings
     }
 }

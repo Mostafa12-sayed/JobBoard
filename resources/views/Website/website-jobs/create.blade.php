@@ -195,7 +195,8 @@
     </section>
     <script>
         var input = document.querySelector('input[name=technologies]');
-        var tagify = new Tagify(input);        var existingTechnologies = @json(json_decode($job->technologies, true));
+        var tagify = new Tagify(input);        
+        var existingTechnologies = @json(json_decode($job->technologies, true));
         if (existingTechnologies) {
             tagify.addTags(existingTechnologies);
         }
