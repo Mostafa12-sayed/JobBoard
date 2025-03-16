@@ -42,6 +42,8 @@ Route::get('/', function () {
 
 ////// home page
 Route::get('/', [HomePageController::class, 'show'])->name('home.show');
+Route::post('/filter', [HomePageController::class, 'show'])->name('home.filter');
+Route::get('/my-app', [HomePageController::class, 'my_apps'])->name('home.my-apps');
 
 // Route::get('/', function () {
 //     return view('Website.jobs');
