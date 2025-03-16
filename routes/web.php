@@ -14,6 +14,12 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\MyProfileController;
 
 
+use App\Http\Controllers\Website\HomePageController;
+use App\Http\Controllers\Website\JobController;
+use App\Http\Controllers\Website\MyJobsController;
+use App\Http\Middleware\AdminAuthenticate;
+use App\Models\Job;
+
 Route::get('/my-profile', [MyProfileController::class, 'index'])->middleware('auth')->name('my-profile');
 Route::post('/profile/update-images', [MyProfileController::class, 'updateImages'])->middleware('auth')->name('profile.update.images');
 Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
@@ -28,7 +34,6 @@ Route::middleware('auth')->group(function () {
 
 
 
-
 Route::get('/', function () {
     $jobs = Job::paginate(5);
     $jobCount = Job::count();
@@ -37,25 +42,20 @@ Route::get('/', function () {
 
 ////// home page
 Route::get('/', [HomePageController::class, 'show'])->name('home.show');
+Route::post('/filter', [HomePageController::class, 'show'])->name('home.filter');
+Route::get('/my-app', [HomePageController::class, 'my_apps'])->name('home.my-apps');
 
 // Route::get('/', function () {
 //     return view('Website.jobs');
 // });
 
 
-Route::group(['middleware' => 'guest:admin', 'prefix' => 'dashboard', 'as' => 'dashboard'], function () {
-    Route::get('/login', [AuthController::class, 'view'])->name('.login');
-    Route::post('/login',  [AuthController::class, 'login'])->name('.login.store');
+Route::group(['middleware' => 'guest:admin', 'prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
+    Route::get('/login', [AuthController::class, 'view'])->name('login');
+    Route::post('/login',  [AuthController::class, 'login'])->name('login.store');
 });
 
-Route::group(['middleware' => 'auth:admin', 'prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('index');
-    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::resource('category', CategoryController::class)->names('category')->except(['destroy', 'show']);
-    Route::get('/category/destroy/{category}', [CategoryController::class, 'destroy'])->name('category.destroy');
-    Route::post('/category/chanageStatus', [CategoryController::class, 'changeStatus'])->name('category.changeStatus');
-
-Route::group(['middleware' => 'auth.admin', 'prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
+Route::group(['middleware' => AdminAuthenticate::class, 'prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::resource('category', CategoryController::class)->names('category')->except(['destroy', 'show']);
@@ -90,7 +90,7 @@ Route::group(['as' => 'website.'], function () {
     Route::get('/jobs', [JobController::class, 'index'])->name('jobs.index');
     Route::get('/jobs/{id}', [JobController::class, 'show'])->name('jobs.show');
 
-    Route::middleware(['auth'])->group(function () {
+    Route::middleware(['auth:web', 'check.user.type'])->group(function () {
         Route::get('/employer/create-job', [JobController::class, 'create'])->name('job.create');
         Route::post('/employer/store-job', [JobController::class, 'store'])->name('job.store');
 
@@ -112,5 +112,3 @@ Route::get('/error', function () {
 })->name('error');
 // Route::view('/{any}', 'Website.abort')->where('any', '.*');
 require __DIR__ . '/auth.php';
-
-
