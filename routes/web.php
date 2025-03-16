@@ -28,6 +28,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Candidate profile update route
+    Route::patch('/profile/candidate', [ProfileController::class, 'updateCandidate'])
+         ->name('profile.update.candidate');
+    // Employer profile update route
+    Route::patch('/profile/employer', [ProfileController::class, 'updateEmployer'])
+         ->name('profile.update.employer');
 });
 
 
