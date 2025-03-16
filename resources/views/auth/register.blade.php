@@ -13,7 +13,7 @@
     @component('Website.layouts.includes.bradcamp')
 
     @slot('title' )
-    Register 
+    Register
     @endslot
     @endcomponent
     <!-- Ensure Alpine.js is included -->
@@ -149,7 +149,11 @@
                         </div>
                         <div>
                             <x-input-label for="skills" :value="__('Skills')" />
-                            <x-text-input id="skills" class="block mt-1 w-full" type="text" name="skills" :value="old('skills')" autocomplete="off" placeholder="e.g. PHP, Laravel, JavaScript" x-ref="skillsInput" x-init="new Tagify($el)" />
+                            <x-text-input id="skills" class="block mt-1 w-full" type="text" name="skills" :value="old('skills')"
+                            autocomplete="off" placeholder="e.g. PHP, Laravel, JavaScript"
+                            x-ref="skillsInput"
+                            x-init="new Tagify($el, { whitelist: ['PHP', 'Laravel', 'JavaScript', 'CSS', 'HTML', 'Bootstrap','Angular'], enforceWhitelist: false })"
+                            />
                             <x-input-error :messages="$errors->get('skills')" class="mt-2" />
                         </div>
                         <div>
