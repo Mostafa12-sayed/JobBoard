@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('parent_id')->nullable(); // Parent comment for replies
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->text('comment');
-            $table->morphs('commentable');
+            $table->nullableMorphs('commentable'); // Polymorphic relation
             $table->timestamps();
         });
     }

@@ -111,7 +111,7 @@ class JobController extends Controller
 
         $job->update($request->all());
 
-        return redirect()->route('website.jobs.index')->with('success', 'Job updated successfully.');
+        return back()->with('success', 'Job updated successfully.');
     }
 
     public function destroy(Job $job)
