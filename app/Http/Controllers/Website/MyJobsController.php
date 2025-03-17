@@ -14,4 +14,5 @@ class MyJobsController extends Controller
         // dd(auth()->user()->id);
         return view('Website.website-jobs.my-jobs', compact('jobs'));
     }
+
 }

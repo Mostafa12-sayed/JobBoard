@@ -27,60 +27,40 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="single_field">
-                                            <input type="text" placeholder="Search keyword">
+                                            <input type="text" id="jobkeywordfilter" placeholder="Search keyword">
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="single_field">
-                                            <select class="wide">
-                                                <option data-display="Location">Location</option>
-                                                <option value="1">Rangpur</option>
-                                                <option value="2">Dhaka </option>
+                                        <input type="text" id="joblocationfilter" placeholder="location">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="single_field">
+                                            <select class="wide" id="jobworktypefilter">
+                                                <option data-display="work type" value="">Work type</option>
+                                                <option value="onsite">onsite</option>
+                                                <option value="remote">remote </option>
+                                                <option value="hybrid">hybrid </option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="single_field">
-                                            <select class="wide">
-                                                <option data-display="Category">Category</option>
-                                                <option value="1">Category 1</option>
-                                                <option value="2">Category 2 </option>
+                                            <select class="wide" id="jobcategoryfilter">
+                                                <option data-display="Category" value="">Category</option>
+                                                @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}">{{$category->name}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="single_field">
-                                            <select class="wide">
-                                                <option data-display="Experience">Experience</option>
-                                                <option value="1">Experience 1</option>
-                                                <option value="2">Experience 2 </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="single_field">
-                                            <select class="wide">
-                                                <option data-display="Job type">Job type</option>
-                                                <option value="1">full time 1</option>
-                                                <option value="2">part time 2 </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="single_field">
-                                            <select class="wide">
-                                                <option data-display="Qualification">Qualification</option>
-                                                <option value="1">Qualification 1</option>
-                                                <option value="2">Qualification 2</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="single_field">
-                                            <select class="wide">
-                                                <option data-display="Gender">Gender</option>
-                                                <option value="1">male</option>
-                                                <option value="2">female</option>
+                                            <select class="wide" id="jobtypefilter">
+                                                <option data-display="Job type" value="">Job type</option>
+                                                <option value="full-time">full time</option>
+                                                <option value="part-time">part time</option>
                                             </select>
                                         </div>
                                     </div>
@@ -88,14 +68,21 @@
                             </form>
                         </div>
                         <div class="range_wrap">
-                            <label for="amount">Price range:</label>
+                            <label for="jobminfilter">min salary:</label>
                             <div id="slider-range"></div>
                             <p>
-                                <input type="text" id="amount" readonly style="border:0; color:#7A838B; font-size: 14px; font-weight:400;">
+                                <input type="number" id="jobminfilter" >
+                            </p>
+                        </div>
+                        <div class="range_wrap">
+                            <label for="jobmaxfilter">max salary:</label>
+                            <div id="slider-range"></div>
+                            <p>
+                                <input type="number" id="jobmaxfilter" >
                             </p>
                         </div>
                         <div class="reset_btn">
-                            <button  class="boxed-btn3 w-100" type="submit">Reset</button>
+                            <button  class="boxed-btn3 w-100" type="reset">Reset</button>
                         </div>
                     </div>
                 </div>
@@ -194,5 +181,118 @@
     </div> <!-- End container -->
 </div> 
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Listen for changes to filter inputs
+        $('#jobkeywordfilter, #jobcategoryfilter, #joblocationfilter, #jobworktypefilter, #jobtypefilter, #jobminfilter, #jobmaxfilter').change(function() {
+            performFilter();
+        });
+
+        // Add reset button handler
+        $('.reset_btn button').click(function() {
+            // Clear all inputs
+            $('#jobkeywordfilter, #joblocationfilter, #jobminfilter, #jobmaxfilter').val('');
+            $('#jobcategoryfilter, #jobworktypefilter, #jobtypefilter').val('').trigger('change');
+            performFilter();
+        });
+
+        function performFilter() {
+            var keyword = $('#jobkeywordfilter').val() || '';
+            var category = $('#jobcategoryfilter').val() || '';
+            var location = $('#joblocationfilter').val() || '';
+            var worktype = $('#jobworktypefilter').val() || '';
+            var type = $('#jobtypefilter').val() || '';
+            var min = $('#jobminfilter').val() || '';
+            var max = $('#jobmaxfilter').val() || '';
+
+            console.log('Filter values:', {
+                keyword, category, location, worktype, type, min, max
+            });
+
+            $.ajax({
+                url: "{{ route('website.jobs.filter') }}",
+                method: 'get',
+                data: {
+                    keyword: keyword,
+                    category: category,
+                    location: location,
+                    worktype: worktype,
+                    type: type,
+                    min: min,
+                    max: max
+                },
+                success: function(response) {
+                    console.log('Response:', response);
+                    
+                    var jobs = response.jobs.data;
+                    var jobcount = response.jobcount;
+                    
+                    // Update job count in header
+                    $('.bradcam_text h3').text(jobcount + '+ Jobs Available');
+                    
+                    // Clear existing job listings
+                    $('.job_lists .row').empty();
+                    
+                    if (!jobs || jobs.length === 0) {
+                        $('.job_lists .row').append(`
+                            <div class="col-lg-12 col-md-12">
+                                <div class="alert alert-info">
+                                    <h4>No Jobs Found</h4>
+                                    <p>Sorry, no jobs found matching your criteria.</p>
+                                </div>
+                            </div>
+                        `);
+                    } else {
+                        jobs.forEach(function(job) {
+                            $('.job_lists .row').append(`
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="single_jobs white-bg d-flex justify-content-between">
+                                        <div class="jobs_left d-flex align-items-center">
+                                            <div class="thumb">
+                                                <img src="/img/svg_icon/1.svg" alt="">
+                                            </div>
+                                            <div class="jobs_conetent">
+                                                <a href="/jobs/${job.id}"><h4>${job.title}</h4></a>
+                                                <div class="links_locat d-flex align-items-center">
+                                                    <div class="location">
+                                                        <p><i class="fa fa-map-marker"></i> ${job.location}</p>
+                                                    </div>
+                                                    <div class="location">
+                                                        <p><i class="fa fa-clock-o"></i> ${job.work_type}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="jobs_right">
+                                            <div class="apply_now">
+                                                <a href="/jobs/${job.id}" class="boxed-btn3">Apply Now</a>
+                                            </div>
+                                            <div class="date">
+                                                <p>Deadline: ${job.application_deadline}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `);
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Ajax Error:', {xhr, status, error});
+                    $('.job_lists .row').html(`
+                        <div class="col-lg-12 col-md-12">
+                            <div class="alert alert-danger">
+                                <h4>Error</h4>
+                                <p>An error occurred while filtering jobs. Please try again.</p>
+                            </div>
+                        </div>
+                    `);
+                }
+            });
+        }
+    });
+</script>
 
 @endsection

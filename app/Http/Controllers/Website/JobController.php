@@ -7,7 +7,7 @@ use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
-
+use Illuminate\Http\JsonResponse;
 
 class JobController extends Controller
 {
@@ -51,6 +51,7 @@ class JobController extends Controller
             'job_type' => $request->job_type,
         ]);
 
+
         return redirect()->route('website.jobs.index')->with('success', 'Job posted successfully.');
     }
 
@@ -59,7 +60,9 @@ class JobController extends Controller
     {
         $jobs = Job::paginate(5);
         $jobCount = Job::count();
-        return view('Website.website-jobs.jobs', compact('jobs', 'jobCount'));
+        $categories= Category::select('name','id')->get();
+
+        return view('Website.website-jobs.jobs', compact('jobs', 'jobCount','categories'));
     }
 
     public function show($id)
@@ -130,5 +133,47 @@ class JobController extends Controller
     {
         // Reject application logic here
         return redirect()->back()->with('error', 'Application rejected.');
+    }
+
+    
+    public function filter(Request $request){
+        
+        $keyword=$request->input('keyword');
+        $location=$request->input('location');
+        $category=$request->input('category');
+        $type=$request->input('type');
+        $worktype=$request->input('worktype');
+        $min=$request->input('min');
+        $max=$request->input('max');
+
+        $jobcount = Job::count();
+
+        $q = Job::query();
+        $q->where(function($query) use ($keyword) {
+            $query->where('title', 'LIKE', '%'.$keyword.'%')
+                  ->orWhere('description', 'LIKE', '%'.$keyword.'%');
+        });
+        if($location){
+            $q->where('location','LIKE','%'.$location.'%');
+        }
+        if($category){
+            $q->where('category_id',$category);
+        }
+        if($type){
+            $q->where('job_type',$type);
+        }
+        if($worktype){
+            $q->where('work_type',$worktype);
+        }
+        if($min && is_numeric($min) ){
+            $q->where('min_salary', '>=', (float)$min);
+        }
+        if($max && is_numeric($max) ){
+            $q->where('max_salary', '<=', (float)$max);
+        }
+        $jobs = $q->paginate(10);
+
+        return response()->json(['jobs'=>$jobs,'jobcount'=>$jobcount]);
+
     }
 }
