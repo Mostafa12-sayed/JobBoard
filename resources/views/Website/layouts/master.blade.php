@@ -11,6 +11,8 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Job Board</title>
     <meta name="description" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{asset('assets/dashboard/css/sweetalert2.min.css')}}" />
     <script src="{{ asset('assets/dashboard/js/sweetalert2.js') }}"></script>
