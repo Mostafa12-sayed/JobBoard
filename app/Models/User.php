@@ -64,4 +64,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(CandidateUser::class, 'user_id', 'id');
     }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
 }

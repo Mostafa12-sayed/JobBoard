@@ -12,8 +12,7 @@ use App\Http\Controllers\Dashboard\WebInfoController;
 use App\Http\Controllers\Website\ContactUsController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\MyProfileController;
-
-
+use App\Http\Controllers\Website\CommentController;
 use App\Http\Controllers\Website\HomePageController;
 use App\Http\Controllers\Website\JobController;
 use App\Http\Controllers\Website\MyJobsController;
@@ -30,10 +29,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     // Candidate profile update route
     Route::patch('/profile/candidate', [ProfileController::class, 'updateCandidate'])
-         ->name('profile.update.candidate');
+        ->name('profile.update.candidate');
     // Employer profile update route
     Route::patch('/profile/employer', [ProfileController::class, 'updateEmployer'])
-         ->name('profile.update.employer');
+        ->name('profile.update.employer');
 });
 
 
@@ -118,4 +117,10 @@ Route::get('/error', function () {
     return view('Website.abort');
 })->name('error');
 // Route::view('/{any}', 'Website.abort')->where('any', '.*');
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/comments/{jobId}', [CommentController::class, 'index']);
+    Route::post('/comments', [CommentController::class, 'store']);
+});
 require __DIR__ . '/auth.php';

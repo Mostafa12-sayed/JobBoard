@@ -76,6 +76,9 @@
                
               </tbody>
             </table>
+            <div class="pagination-wrapper d-flex justify-content-center mt-20">
+              {{ $categories->links() }}
+            </div>
           </div>
         </div>
 
