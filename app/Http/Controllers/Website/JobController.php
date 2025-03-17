@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
+use App\Models\Applications;
+use App\Models\CandidateUser;
 use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 
 class JobController extends Controller
@@ -67,8 +70,11 @@ class JobController extends Controller
 
     public function show($id)
     {
+        $user_id=Auth::id();
         $job = Job::findOrFail($id);
-        return view('Website.website-jobs.job_details', compact('job'));
+        $application=Applications::where('user_id',$user_id)->where('job_id',$id)->first();
+
+        return view('Website.website-jobs.job_details', compact('job','application'));
     }
 
     public function manage()
@@ -174,6 +180,38 @@ class JobController extends Controller
         $jobs = $q->paginate(10);
 
         return response()->json(['jobs'=>$jobs,'jobcount'=>$jobcount]);
+
+    }
+    public function delete_app($id){
+        $application=Applications::where('id',$id)->first();
+        if($application){
+            $application->delete();
+            return redirect()->back()->with('success','Application canceled successfully');
+        }
+        return redirect()->back()->with('success','Application canceled successfully');
+
+    }
+
+
+    public function apply($id){
+
+
+        $user_id=Auth::id();
+        $user=User::where('id',$user_id)->first();
+        $candidate=CandidateUser::where('user_id',$user_id)->first();
+
+
+        $application=new Applications;
+        $application->job_id=$id;
+        $application->user_id=$user_id;
+        $application->resume_path=$candidate->resume;
+        $application->name=$user->name;
+        $application->email=$user->email;
+        $application->phone=$user->phone_number;
+        $application->save();
+
+        return redirect()->back()->with('success','Application sent successfully');
+
 
     }
 }

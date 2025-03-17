@@ -77,10 +77,16 @@
                                                
                                                 @endif
                                             @endif
+                                            @if(Auth::check())
+                                                @if(Auth::user()->role == 'candidate')
+                                                    <li><a href="{{ route('home.my-apps') }}">Applications</a></li>
+                                                @endif
+                                            @endif
                                             <li><a href="{{route('website.contact-us')}}">Contact</a></li>
                                             <li>
                                                 
                                             </li>
+                                            
                                         </ul>
                                        
                                         
