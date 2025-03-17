@@ -94,6 +94,7 @@ Route::group(['as' => 'website.'], function () {
     Route::post('/contact-us', [ContactUsController::class, 'store'])->name('contact-us.store');
 
     Route::get('/jobs', [JobController::class, 'index'])->name('jobs.index');
+    Route::get('/jobs/filtered', [JobController::class, 'filter'])->name('jobs.filter');
     Route::get('/jobs/{id}', [JobController::class, 'show'])->name('jobs.show');
 
     Route::middleware(['auth:web', 'check.user.type'])->group(function () {

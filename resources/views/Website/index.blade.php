@@ -24,7 +24,7 @@
                             <h3 class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".3s">Find your Dream Job</h3>
                             <p class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".4s">We provide online instant cash loans with quick approval that suit your term length</p>
                             <div class="sldier_btn wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".5s">
-                                <a href="#" class="boxed-btn3">Upload your Resume</a>
+                                <a href="{{ route('website.jobs.index') }}" class="boxed-btn3">Find your job</a>
                             </div>
                         </div>
                     </div>
@@ -108,9 +108,6 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="brouse_job text-right">
-                        <a href="jobs.html" class="boxed-btn4">Browse More categories</a>
-                    </div>
                 </div>
             </div>
             <div class="row">
@@ -139,7 +136,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="brouse_job text-right" id="results">
-                        <a href="jobs.html" class="boxed-btn4">Browse More Job</a>
+                        <a href="{{ route('website.jobs.index') }}" class="boxed-btn4">Browse More Job</a>
                     </div>
                 </div>
             </div>
@@ -225,14 +222,14 @@
                     <div class="searching_text">
                         <h3>Looking for a Job?</h3>
                         <p>We provide online instant cash loans with quick approval </p>
-                        <a href="#" class="boxed-btn3">Browse Job</a>
+                        <a href="{{ route('website.jobs.index') }}" class="boxed-btn3">Browse Job</a>
                     </div>
                 </div>
                 <div class="col-lg-5 offset-lg-1 col-md-6">
                     <div class="searching_text">
                         <h3>Looking for a Expert?</h3>
                         <p>We provide online instant cash loans with quick approval </p>
-                        <a href="#" class="boxed-btn3">Post a Job</a>
+                        <a href="{{ route('website.job.create') }}" class="boxed-btn3">Post a Job</a>
                     </div>
                 </div>
             </div>
