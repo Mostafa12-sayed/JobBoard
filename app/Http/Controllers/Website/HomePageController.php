@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
+use App\Models\Applications;
 use App\Models\CandidateUser;
 use App\Models\Category;
 use App\Models\EmployeeUser;
 use App\Models\Job;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomePageController extends Controller
 {
@@ -46,7 +48,9 @@ class HomePageController extends Controller
                     $query->where('category_id', $category);
                 }
 
-                // $query->where('status','approved'); for displaying approved jobs only
+                $query->where('status','approved');
+
+                $query->where('job_status','available');
 
                 // Get the filtered jobs
                 $jobs = $query->with('user.employee')->paginate(10);
@@ -55,9 +59,10 @@ class HomePageController extends Controller
                 $all_categories = Category::all();
 
                 $jobs_location = job::all(['id', 'location']);
+                $jobcount=job::count('id');
 
 
-        return view('Website.index', compact('categories'), compact('jobs', 'candidates', 'employer','all_categories','jobs','jobs_location'));
+        return view('Website.index', compact('categories'), compact('jobs', 'candidates', 'employer','all_categories','jobs','jobs_location','jobcount'));
     }
    
     public function filter( Request $request)
@@ -94,6 +99,11 @@ class HomePageController extends Controller
                     $query->where('category_id', $category);
                 }
 
+                $query->where('status','approved');
+
+                $query->where('job_status','available');
+                
+
                 // $query->where('status','approved'); for displaying approved jobs only
 
                 // Get the filtered jobs
@@ -104,14 +114,26 @@ class HomePageController extends Controller
 
                 $jobs_location = job::all(['id', 'location']);
 
+                $jobcount=job::count('id');
 
-        return view('Website.index', compact('categories'), compact('jobs', 'candidates', 'employer','all_categories','jobs','jobs_location'));
+
+
+        return view('Website.index', compact('categories'), compact('jobs', 'candidates', 'employer','all_categories','jobs','jobs_location','jobcount'));
     }
 
     public function my_apps(){
-        $jobs = Job::with('category')->paginate(10);
 
-        return view('Website.my_applications',compact('jobs'));
+        $user_id=Auth::id();
+        $apps=Applications::where('user_id',$user_id)->get();
+        if($apps){
+            $jobs=Job::whereIn('id',$apps->pluck('job_id'))->get();
+            return view('Website.my_applications',compact('jobs'));
+        }else{
+            $jobs=[];
+            return view('Website.my_applications',compact('jobs'));
+
+        }
+
     }
 
     

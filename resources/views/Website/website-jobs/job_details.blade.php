@@ -72,14 +72,27 @@
                             </div>
                         </div>
                     @else
-                        <form action="#" method="POST">
                             @csrf
                             <div class="col-md-12">
                                 <div class="submit_btn">
-                                    <button class="boxed-btn3 w-100" type="submit">Apply Now</button>
+                                    @if (auth()->check() && auth()->user()->role === 'candidate')
+                                    
+                                        @if (isset($application->user_id) && Auth::id()===$application->user_id)
+                                        <form action="{{route('website.jobs.delete_app', "$application->id","$job->id")}}" method="post">
+                                            @csrf                   
+                                            @method('DELETE')
+                                            <button class="boxed-btn2 w-100" type="submit">Cancel </button>
+                                        </form>
+                                        @else
+                                        <form action="{{route('website.jobs.apply',"$job->id")}}" method="post">
+                                            @csrf
+                                            <button class="boxed-btn3 w-100" type="submit">Apply Now</button>
+                                        </form>
+                                            
+                                        @endif
+                                    @endif
                                 </div>
                             </div>
-                        </form>
                     @endif
                 </div>
             </div>

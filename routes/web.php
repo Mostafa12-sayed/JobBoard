@@ -96,6 +96,8 @@ Route::group(['as' => 'website.'], function () {
     Route::get('/jobs', [JobController::class, 'index'])->name('jobs.index');
     Route::get('/jobs/filtered', [JobController::class, 'filter'])->name('jobs.filter');
     Route::get('/jobs/{id}', [JobController::class, 'show'])->name('jobs.show');
+    Route::post('/jobs/apply/{id}', [JobController::class, 'apply'])->name('jobs.apply');
+    Route::delete('/jobs/delete_app/{id}', [JobController::class, 'delete_app'])->name('jobs.delete_app');
 
     Route::middleware(['auth:web', 'check.user.type'])->group(function () {
         Route::get('/employer/create-job', [JobController::class, 'create'])->name('job.create');
