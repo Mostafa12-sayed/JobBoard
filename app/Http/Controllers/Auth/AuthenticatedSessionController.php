@@ -28,7 +28,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('profile.edit'));
+        return redirect()->intended('/')
+        ->with('success', 'You are now logged in.');
     }
 
     /**

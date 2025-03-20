@@ -1,3 +1,23 @@
+@extends('Website.layouts.master')
+    @section('content')
+    <style>
+        .max-w-md{
+            max-width: 45rem !important
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    @component('Website.layouts.includes.bradcamp')
+
+    @slot('title' )
+    My Profile
+    @endslot
+    @endcomponent
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,11 +34,17 @@
             <label for="background_image" class="image-upload-label">
                 <img src="{{ $profileData->background_image ? Storage::url($profileData->background_image) : asset('profileimg/background.jpg') }}" alt="Background Image" class="header-bg" id="background-preview">
                 <input type="file" id="background_image" name="background_image" accept="image/*" class="hidden-input" onchange="uploadImage('background_image')">
+                <!-- <button>
+                    <i class="fas fa-camera"></i> Change Background
+                </button> -->
             </label>
             <div class="profile-pic">
                 <label for="profile_picture" class="image-upload-label">
                     <img src="{{ $profileData->profile_picture ? Storage::url($profileData->profile_picture) : asset('profileimg/profile.jpg') }}" alt="Profile Picture" class="profile-img" id="profile-preview">
                     <input type="file" id="profile_picture" name="profile_picture" accept="image/*" class="hidden-input" onchange="uploadImage('profile_picture')">
+                    <!-- <button>
+                        <i class="fas fa-camera"></i> Change Picture
+                    </button> -->
                 </label>
             </div>
         </div>
@@ -161,6 +187,43 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
+                    // Update the image preview immediately
+                    const previewId = inputId === 'background_image' ? 'background-preview' : 'profile-preview';
+
+                    // Append a timestamp to avoid caching issues
+                    const newImageUrl = '/storage/' + data.path + '?t=' + new Date().getTime();
+                    document.getElementById(previewId).src = newImageUrl;
+
+                    // If you want no pop-up, just remove or comment out the alerts:
+                    // alert('Image uploaded successfully!');
+                } else {
+                    // You can replace this with a toast or no message at all
+                    console.error('Image upload failed: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+
+    <!-- <script>
+        function uploadImage(inputId) {
+            const input = document.getElementById(inputId);
+            const formData = new FormData();
+            formData.append(inputId, input.files[0]);
+
+            fetch('/profile/update-images', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                credentials: 'same-origin'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
                     // Update the image preview
                     const previewId = inputId === 'background_image' ? 'background-preview' : 'profile-preview';
                     document.getElementById(previewId).src = '/storage/' + data.path;
@@ -174,6 +237,8 @@
                 alert('An error occurred while uploading the image.');
             });
         }
-    </script>
+    </script> -->
 </body>
 </html>
+
+@endsection
