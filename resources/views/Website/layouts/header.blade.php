@@ -12,7 +12,7 @@
     .item-nav:hover ,  .dropdown-menu a:hover{
         color: rgb(0, 211, 99) !important;
     }
-    
+
   .dropdown-menu{
     position: absolute;
     transform: translate3d(0px, 50px, 0px);
@@ -27,17 +27,17 @@
 
   .fa-fw{
     margin-right: 10px;
-  }  
+  }
     .toggle-change{
         &::after {
         border-top: 0;
         border-bottom: .3em solid;
         }
-    } 
+    }
 
 
 .btn-img{
-    
+
     width: 50px !important;
     height: 50px !important;
     margin: auto !important;
@@ -74,7 +74,7 @@
                                                 @if(Auth::user()->role == 'employer')
                                                     <li><a href="{{ route('website.candidates') }}">Candidates</a></li>
                                                     <li><a href="{{ route('website.MyJobs.index') }}">My Jobs</a></li>
-                                               
+
                                                 @endif
                                             @endif
                                             @if(Auth::check())
@@ -84,14 +84,14 @@
                                             @endif
                                             <li><a href="{{route('website.contact-us')}}">Contact</a></li>
                                             <li>
-                                                
+
                                             </li>
-                                            
+
                                         </ul>
-                                       
-                                        
+
+
                                     </nav>
-                                    
+
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-3 d-none d-lg-block">
@@ -102,8 +102,14 @@
                                             <a href="#" class="btn-img img dropdown-toggle rounded-circle" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false" >
                                             </a>
                                             <div class="dropdown-menu">
-                                            
+
                                               <a class="dropdown-item d-flex align-items-center mb-2" href="{{route('my-profile')}}">
+                                                  <div class="icon d-flex align-items-center justify-content-center mr-3 ">
+                                                      <span class="ion-ios-person"></span>
+                                                  </div>
+                                                  Profile
+                                              </a>
+                                              <a class="dropdown-item d-flex align-items-center mb-2" href="{{route('profile.edit')}}">
                                                   <div class="icon d-flex align-items-center justify-content-center mr-3 ">
                                                       <span class="ion-ios-settings"></span>
                                                   </div>
@@ -142,10 +148,10 @@
                                         <a class="boxed-btn3" href="{{ route('website.job.create') }}">Post a Job</a>
                                         </div>
                                     @endif
-                                
+
                                 </div>
-                                
-                                
+
+
                             </div>
                             <div class="col-12">
                                 <div class="mobile_menu d-block d-lg-none"></div>
