@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Redirect;
 
 class RegisteredUserController extends Controller
 {
@@ -117,8 +118,8 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         // Redirect to the profile page
-        return redirect()->route('my-profile')
-        ->with('success', 'Registration successful! Welcome to your profile.');
+        return Redirect::to('/')
+        ->with('success', 'Registration successful!');
 
 
     }

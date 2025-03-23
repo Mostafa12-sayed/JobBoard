@@ -13,7 +13,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        return view('dashboard.category.index', ['categories' => Category::all()]);
+        return view('dashboard.category.index', ['categories' => Category::paginate(10)]);
     }
 
     public function show(Category $category)

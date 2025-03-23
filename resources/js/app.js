@@ -34,16 +34,6 @@ import "./bootstrap";
 // const pusherCluster = pusherConfigElement.dataset.pusherCluster;
 
 // window.Pusher = Pusher;
-<<<<<<< HEAD
-
-// window.Echo = new Echo({
-//     broadcaster: "pusher",
-//     key: pusherKey,
-//     cluster: pusherCluster,
-//     forceTLS: false,
-// });
-=======
->>>>>>> 9b0a0e265c1c811885aaae0bf23ec29458722831
 
 // window.Echo = new Echo({
 //     broadcaster: "pusher",

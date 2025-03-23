@@ -1,10 +1,32 @@
-<x-guest-layout>
-    <!-- Ensure Alpine.js is included -->
+{{-- <x-guest-layout> --}}
+@extends('Website.layouts.master')
+@section('content')
+    <style>
+        .max-w-md{
+            max-width: 45rem !important
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    @component('Website.layouts.includes.bradcamp')
 
-    <div class="min-h-screen flex items-center justify-center bg-gray-100">
+    @slot('title' )
+    Register
+    @endslot
+    @endcomponent
+    <!-- Ensure Alpine.js is included -->
+
+    <div class="min-h-screen flex items-center justify-center  m-4">
         <div class="w-full max-w-md bg-white p-6 rounded-lg shadow-md" x-data="{ userType: 'employer' }">
-            <h2 class="text-2xl font-semibold text-center text-gray-700 mb-6">Register</h2>
+            <div class="card-body">
+            <div class="title">
+                <h3 class="text-2xl font-semibold  text-gray-700 mb-6">Register Now</h3>
+                <p>
+                  You can Register as an Employer or Candidate. Please select the appropriate option below.
+                </p>
+              </div>
 
             <!-- Buttons to choose the user type -->
             <div class="flex justify-center space-x-4 mb-6">
@@ -12,7 +34,7 @@
                         @click="userType = 'employer'"
                         :class="userType === 'employer' ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-700'"
                         class="px-4 py-2 rounded transition duration-300">
-                    employer
+                    Employer
                 </button>
                 <button type="button"
                         @click="userType = 'candidate'"
@@ -127,7 +149,11 @@
                         </div>
                         <div>
                             <x-input-label for="skills" :value="__('Skills')" />
-                            <x-text-input id="skills" class="block mt-1 w-full" type="text" name="skills" :value="old('skills')" autocomplete="off" placeholder="e.g. PHP, Laravel, JavaScript" />
+                            <x-text-input id="skills" class="block mt-1 w-full" type="text" name="skills" :value="old('skills')"
+                            autocomplete="off" placeholder="e.g. PHP, Laravel, JavaScript"
+                            x-ref="skillsInput"
+                            x-init="new Tagify($el, { whitelist: ['PHP', 'Laravel', 'JavaScript', 'CSS', 'HTML', 'Bootstrap','Angular'], enforceWhitelist: false })"
+                            />
                             <x-input-error :messages="$errors->get('skills')" class="mt-2" />
                         </div>
                         <div>
@@ -159,12 +185,25 @@
                 </template>
 
                 <!-- Submit Button -->
-                <div class="flex items-center justify-end mt-4">
+                {{-- <div class="flex items-center justify-end mt-4">
                     <x-primary-button class="ms-3">
                         {{ __('Register') }}
                     </x-primary-button>
+                </div> --}}
+
+                <div class="button text-center mt-4 w-full">
+                    <button class="btn submit" type="submit"  >{{ __('Register') }}</button>
+                  </div>
+                  <p class="outer-link  text-center mt-4 w-full">
+                    Do You have an account?
+                    <a href="{{route('login')}}">{{ __('Login here') }}</a>
+                  </p>
                 </div>
             </form>
         </div>
     </div>
-</x-guest-layout>
+    </div>
+
+    @endsection
+
+    {{-- </x-guest-layout> --}}
