@@ -110,8 +110,11 @@ Route::group(['as' => 'website.'], function () {
         Route::put('/employer/update-job/{job}', [JobController::class, 'update'])->name('job.update');
         Route::get('/employer/delete-job/{job}', [JobController::class, 'destroy'])->name('job.destroy');
 
-        Route::post('/employer/job/{job}/accept/{application}', [JobController::class, 'acceptApplication'])->name('job.accept');
-        Route::post('/employer/job/{job}/reject/{application}', [JobController::class, 'rejectApplication'])->name('job.reject');
+        Route::middleware(['auth'])->group(function () {
+            Route::get('/employer/job/{jobId}/applications', [JobController::class, 'showApplications'])->name('job.applications');
+            Route::post('/employer/job/{jobId}/accept/{applicationId}', [JobController::class, 'acceptApplication'])->name('job.accept');
+            Route::post('/employer/job/{jobId}/reject/{applicationId}', [JobController::class, 'rejectApplication'])->name('job.reject');
+        });        
     });
 });
 
