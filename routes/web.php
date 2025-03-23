@@ -102,6 +102,12 @@ Route::group(['as' => 'website.'], function () {
     Route::get('/jobs/filtered', [JobController::class, 'filter'])->name('jobs.filter');
     Route::get('/jobs/{id}', [JobController::class, 'show'])->name('jobs.show');
 
+        Route::middleware(['auth'])->group(function () {
+            Route::get('/employer/job/{jobId}/applications', [JobController::class, 'showApplications'])->name('job.applications');
+            Route::post('/employer/job/{jobId}/accept/{applicationId}', [JobController::class, 'acceptApplication'])->name('job.accept');
+            Route::post('/employer/job/{jobId}/reject/{applicationId}', [JobController::class, 'rejectApplication'])->name('job.reject');
+        });        
+
     Route::middleware('auth:web')->group(function () {
 
         //appply jobs
@@ -125,6 +131,7 @@ Route::group(['as' => 'website.'], function () {
             Route::post('/employer/job/{job}/reject/{application}', [JobController::class, 'rejectApplication'])->name('job.reject');
             Route::get('/jobs/close/{job}', [MyJobsController::class, 'close'])->name('jobs.close');
         });
+
     });
 });
 

@@ -170,22 +170,12 @@
                 </div>
                 </div>
 
-                <div class="apply_job_form white-bg">
-                    <h4>
-                        @if(auth()->check() && auth()->user()->role === 'employer' && auth()->id() === $job->user_id)
-                            Manage Job
-                        @else
-                            Apply for the Job
-                        @endif
-                    </h4>
+            <div class="apply_job_form white-bg">
+                <h4>
                     @if(auth()->check() && auth()->user()->role === 'employer' && auth()->id() === $job->user_id)
-                        <div class="col-md-12">
-                            <div class="submit_btn">
-                                <a href="{{ route('website.job.edit', $job->id) }}" class="btn btn-warning w-100">Edit Job</a>
-                            </div>
-                        </div>
+                        Manage Job Applications
                     @else
-                            @csrf
+
                             <div class="col-md-12">
                                 <div class="submit_btn">
                                     {{-- @if (auth()->check() && auth()->user()->role === 'candidate') --}}
@@ -207,9 +197,28 @@
                                     {{-- @endif --}}
                                 </div>
                             </div>
+
                     @endif
-                </div>
+                </h4>
+
+                @if(auth()->check() && auth()->user()->role === 'employer' && auth()->id() === $job->user_id)
+                    <div class="col-md-12">
+                        <div class="submit_btn">
+                        <a href="{{ route('website.job.applications', $job->id) }}" class="btn btn-primary w-100">View Applications</a>
+                        </div>
+                    </div>
+                @else
+                    <div class="col-md-12">
+                        <div class="submit_btn">
+                            <form action="{{ route('website.jobs.apply', $job->id) }}" method="POST">
+                                @csrf
+                                <button class="boxed-btn3 w-100" type="submit">Apply Now</button>
+                            </form>
+                        </div>
+                    </div>
+                @endif
             </div>
+
 
             <div class="col-lg-5">
                 <div class="job_sumary">
