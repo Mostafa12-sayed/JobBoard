@@ -110,8 +110,8 @@
     margin-top: 5px !important;
 }
 #comments-container{
-    height: 500px !important;
     overflow-y: scroll !important;
+    max-height: 400px !important;
 }
 </style>
 <div class="bradcam_area bradcam_bg_1">
@@ -188,28 +188,29 @@
                             @csrf
                             <div class="col-md-12">
                                 <div class="submit_btn">
-                                    @if (auth()->check() && auth()->user()->role === 'candidate')
-                                    
+                                    {{-- @if (auth()->check() && auth()->user()->role === 'candidate') --}}
+
                                         @if (isset($application->user_id) && Auth::id()===$application->user_id)
                                         <form action="{{route('website.jobs.delete_app', "$application->id","$job->id")}}" method="post">
-                                            @csrf                   
+                                            @csrf
                                             @method('DELETE')
                                             <button class="boxed-btn2 w-100" type="submit">Cancel </button>
                                         </form>
                                         @else
-                                        <form action="{{route('website.jobs.apply',"$job->id")}}" method="post">
-                                            @csrf
-                                            <button class="boxed-btn3 w-100" type="submit">Apply Now</button>
-                                        </form>
-                                            
+                                            @if(auth()->user()->role === 'candidate' || !auth()->user())
+                                            <form action="{{route('website.jobs.apply',$job->id)}}" method="post">
+                                                @csrf
+                                                <button class="boxed-btn3 w-100" type="submit">Apply Now</button>
+                                            </form>
+                                            @endif
                                         @endif
-                                    @endif
+                                    {{-- @endif --}}
                                 </div>
                             </div>
                     @endif
                 </div>
             </div>
-            
+
             <div class="col-lg-5">
                 <div class="job_sumary">
                     <div class="summery_header">
@@ -230,14 +231,21 @@
                     </div>
                     <div class="job_content p-3">
                             <div id="comments-container">
-   
+                                @if($job->comments->count() == 0)
+                                    <p>No comments yet.</p>
+                                @endif
+
+
                             </div>
-                
+
+                        
+                        @auth
                             <div class="comment-form">
                                 <h3>Leave a Comment</h3>
                                 <textarea id="comment-input" placeholder="Write your comment here..." rows="4"></textarea>
                                 <button id="post-comment-btn">Post Comment</button>
                             </div>
+                        @endauth
                         {{-- </div> --}}
                     </div>
                 </div>
@@ -262,7 +270,7 @@
 //         commentDiv.classList.add("comment");
 
 //         let repliesHTML = "";
-        
+
 //         // ✅ التأكد من عرض الردود الخاصة فقط بالتعليق
 //         if (comment.replies && comment.replies.length > 0) {
 //             comment.replies.forEach(reply => {
@@ -381,11 +389,9 @@
 //             });
 //         })
 //         .catch(error => console.error("Error loading comments:", error));
-
 //     // ✅ إرسال تعليق جديد
 //     postCommentBtn.addEventListener("click", function () {
-//         const commentText = commentInput.value.trim();
-
+//         const commentText = commentInput.value.trim()
 //         if (commentText !== "") {
 //             fetch("/comments", {
 //                 method: "POST",
@@ -410,261 +416,139 @@
 
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    const postCommentBtn = document.getElementById("post-comment-btn");
-    const commentInput = document.getElementById("comment-input");
-    const commentsContainer = document.getElementById("comments-container");
-    let jobId = document.getElementById("job_details_header").getAttribute("data-id");
-
-    // Function to create a comment element
-    function createCommentElement(comment) {
-        const commentDiv = document.createElement("div");
-        commentDiv.classList.add("comment");
-        commentDiv.setAttribute("data-id", comment.id);
-
-        let repliesHTML = "";
-        
-        // Create nested replies
-        if (comment.replies && comment.replies.length > 0) {
-            comment.replies.forEach(reply => {
-                repliesHTML += createCommentElement(reply).outerHTML;
-            });
-        }
-
-        // Create comment structure
-        commentDiv.innerHTML = `
-            <div class="user-info">
-                <img src="/storage/${comment.user.profile_picture ?? 'default-user.avif'}" alt="" class="rounded-circle">
-                <span class="username">${comment.user.name}</span>
-                <span class="timestamp">${comment.created_at}</span>
-            </div>
-            <p class="comment-text">${comment.comment}</p>
-            <button class="reply-btn" data-comment-id="${comment.id}">Reply</button>
-
-            <div class="reply-form-container"></div>
-            <div class="replies">${repliesHTML}</div>
-        `;
-
-        return commentDiv;
-    }
-
-    // Load comments when page loads
-    fetch(`/comments/${jobId}`)
-        .then(response => response.json())
-        .then(comments => {
-            commentsContainer.innerHTML = "";
-
-            // Organize comments into main comments and nested replies
-            const mainComments = comments.filter(comment => comment.parent_id === null);
-            const repliesMap = {};
-
-            // Organize replies in the array
-            comments.forEach(comment => {
-                if (comment.parent_id !== null) {
-                    if (!repliesMap[comment.parent_id]) {
-                        repliesMap[comment.parent_id] = [];
-                    }
-                    repliesMap[comment.parent_id].push(comment);
+class CommentSystem {
+                constructor() {
+                    this.postCommentBtn = document.getElementById("post-comment-btn");
+                    this.commentInput = document.getElementById("comment-input");
+                    this.commentsContainer = document.getElementById("comments-container");
+                    this.jobId = document.getElementById("job_details_header").getAttribute("data-id");
+                    this.init();
                 }
-            });
 
-            // Display comments and link replies to them
-            function nestReplies(comment) {
-                comment.replies = repliesMap[comment.id] || [];
-                comment.replies.forEach(nestReplies);
-            }
+                init() {
+                    this.loadComments();
+                    this.attachEventListeners();
+                }
 
-            mainComments.forEach(nestReplies);
-            mainComments.forEach(comment => {
-                commentsContainer.appendChild(createCommentElement(comment));
-            });
-        })
-        .catch(error => {
-            console.error("Error loading comments:", error);
-            commentsContainer.innerHTML = "<p>Failed to load comments. Please refresh the page.</p>";
-        });
+                createCommentElement(comment) {
+                    const commentDiv = document.createElement("div");
+                    commentDiv.classList.add("comment");
 
-    // Event delegation for reply buttons
-    commentsContainer.addEventListener("click", function (event) {
-        if (event.target.classList.contains("reply-btn")) {
-            const commentId = event.target.getAttribute("data-comment-id");
-            const parentComment = document.querySelector(`.comment[data-id='${commentId}']`);
-            let replyFormContainer = parentComment.querySelector(".reply-form-container");
-
-            // Toggle reply form visibility
-            if (replyFormContainer.innerHTML.trim() !== "") {
-                replyFormContainer.innerHTML = "";
-            } else {
-                replyFormContainer.innerHTML = `
-                    <div class="reply-form">
-                        <textarea class="reply-input" placeholder="Write a reply..." rows="2"></textarea>
-                        <div class="reply-actions">
-                            <button class="cancel-reply">Cancel</button>
-                            <button class="submit-reply" data-comment-id="${commentId}">Reply</button>
+                    commentDiv.innerHTML = `
+                        <div class="user-info">
+                            <img src="/storage/${comment.user.profile_picture ?? 'default-user.avif'}" alt="" class="rounded-circle">
+                            <span class="username">${comment.user.name}</span>
+                            <span class="timestamp">${comment.created_at}</span>
                         </div>
-                    </div>
-                `;
-                
-                // Add cancel button functionality
-                const cancelBtn = replyFormContainer.querySelector(".cancel-reply");
-                cancelBtn.addEventListener("click", () => {
-                    replyFormContainer.innerHTML = "";
-                });
-            }
-        }
+                        <p class="comment-text">${comment.comment}</p>
+                    `;
 
-        // Handle submit reply button click - THIS FUNCTIONALITY IS BROKEN
-        if (event.target.classList.contains("submit-reply")) {
-            const commentId = event.target.getAttribute("data-comment-id");
-            const parentComment = document.querySelector(`.comment[data-id='${commentId}']`);
-            const replyInput = parentComment.querySelector(".reply-input");
-            const replyText = replyInput.value.trim();
+                    return commentDiv;
+                }
 
-            if (replyText !== "") {
-                // Show loading state
-                event.target.textContent = "Sending...";
-                event.target.disabled = true;
-                
-                // BUG: The event listener is attached but the fetch promise is never resolved
-                // No actual HTTP request is made, so this will hang indefinitely
-                
-                // After 3 seconds, show error message
-                setTimeout(() => {
-                    event.target.textContent = "Reply";
-                    event.target.disabled = false;
-                    
-                    // Show error message
+                async loadComments() {
+                    try {
+                        const response = await fetch(`/comments/${this.jobId}`);
+                        const comments = await response.json();
+
+                        this.commentsContainer.innerHTML = "";
+
+                        if (comments.length === 0) {
+                            this.showNoCommentsMessage();
+                            return;
+                        }
+
+                        comments.forEach(comment => {
+                            if (!comment.parent_id) {
+                                this.commentsContainer.appendChild(this.createCommentElement(comment));
+                            }
+                        });
+                    } catch (error) {
+                        console.error("Error loading comments:", error);
+                        this.showError("Failed to load comments. Please refresh the page.", this.commentsContainer);
+                    }
+                }
+
+                showNoCommentsMessage() {
+                    const noComments = document.createElement("p");
+                    noComments.className = "no-comments";
+                    noComments.textContent = "No comments yet. Be the first to comment!";
+                    this.commentsContainer.appendChild(noComments);
+                }
+
+                attachEventListeners() {
+                    this.postCommentBtn.addEventListener("click", () => this.handleNewComment());
+                }
+
+                async handleNewComment() {
+                    const commentText = this.commentInput.value.trim();
+                    if (!commentText) {
+                        this.showValidationError(this.commentInput.parentNode);
+                        return;
+                    }
+
+                    this.setLoadingState(this.postCommentBtn, true);
+
+                    try {
+                        const comment = await this.submitComment(commentText);
+                        this.commentsContainer.appendChild(this.createCommentElement(comment));
+                        this.commentInput.value = "";
+                        this.removeNoCommentsMessage();
+                    } catch (error) {
+                        this.showError( "Failed to post comment. Please try again.", this.commentInput.parentNode);
+                    } finally {
+                        this.setLoadingState(this.postCommentBtn, false);
+                    }
+                }
+
+                async submitComment(text) {
+                    try {
+                        const response = await fetch("/comments", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+                            },
+                            body: JSON.stringify({
+                                comment: text,
+                                commentable_id: this.jobId,
+                            }),
+                        });
+                        const data = await response.json();
+                        if (!response.ok) {
+                            throw new Error(data.message || "Something went wrong");
+                        }
+                        return data;
+                        } catch (error) {
+                            this.showError( error.message, this.commentInput.parentNode);
+                        }
+                }
+
+
+                showError(message, container, duration = 5000) {
                     const errorMsg = document.createElement("div");
                     errorMsg.className = "error-message";
-                    errorMsg.textContent = "Failed to send reply. Please try again later.";
-                    parentComment.querySelector(".reply-form").appendChild(errorMsg);
-                    
-                    // Remove error message after 5 seconds
-                    setTimeout(() => {
-                        if (errorMsg.parentNode) {
-                            errorMsg.parentNode.removeChild(errorMsg);
-                        }
-                    }, 5000);
-                    
-                    console.error("Reply submission failed: Network request never completed");
-                }, 3000);
-                
-                // BUG: The actual fetch request is commented out
-                /*
-                fetch("/comments", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-                    },
-                    body: JSON.stringify({
-                        comment: replyText,
-                        parent_id: commentId,
-                        commentable_id: jobId,
-                    }),
-                })
-                .then(response => response.json())
-                .then(reply => {
-                    const replyElement = createCommentElement(reply);
-                    parentComment.querySelector(".replies").appendChild(replyElement);
-                    replyInput.value = "";
-                    parentComment.querySelector(".reply-form-container").innerHTML = "";
-                })
-                .catch(error => console.error("Error:", error));
-                */
-            } else {
-                // Show validation error
-                const errorMsg = document.createElement("div");
-                errorMsg.className = "error-message";
-                errorMsg.textContent = "Reply cannot be empty";
-                parentComment.querySelector(".reply-form").appendChild(errorMsg);
-                
-                // Remove error after 3 seconds
-                setTimeout(() => {
-                    if (errorMsg.parentNode) {
-                        errorMsg.parentNode.removeChild(errorMsg);
-                    }
-                }, 3000);
+                    errorMsg.textContent = message;
+                    container.appendChild(errorMsg);
+
+                    setTimeout(() => errorMsg.remove(), duration);
+                }
+
+                showValidationError(container) {
+                    this.showError("Comment cannot be empty", container, 3000);
+                }
+
+                setLoadingState(button, isLoading) {
+                    button.textContent = isLoading ? "Posting..." : "Post Comment";
+                    button.disabled = isLoading;
+                }
+
+                removeNoCommentsMessage() {
+                    const noComments = this.commentsContainer.querySelector(".no-comments");
+                    if (noComments) noComments.remove();
+                }
             }
-        }
-    });
 
-    // Post new comment
-    postCommentBtn.addEventListener("click", function () {
-        const commentText = commentInput.value.trim();
-
-        if (commentText !== "") {
-            // Show loading state
-            postCommentBtn.textContent = "Posting...";
-            postCommentBtn.disabled = true;
-            
-            fetch("/comments", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-                },
-                body: JSON.stringify({
-                    comment: commentText,
-                    commentable_id: jobId,
-                }),
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return response.json();
-            })
-            .then(comment => {
-                commentsContainer.appendChild(createCommentElement(comment));
-                commentInput.value = "";
-                
-                // Remove "no comments" message if it exists
-                const noComments = commentsContainer.querySelector(".no-comments");
-                if (noComments) {
-                    noComments.remove();
-                }
-                
-                // Reset button state
-                postCommentBtn.textContent = "Post Comment";
-                postCommentBtn.disabled = false;
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                
-                // Show error message
-                const errorMsg = document.createElement("div");
-                errorMsg.className = "error-message";
-                errorMsg.textContent = "Failed to post comment. Please try again.";
-                commentInput.parentNode.appendChild(errorMsg);
-                
-                // Remove error after 5 seconds
-                setTimeout(() => {
-                    if (errorMsg.parentNode) {
-                        errorMsg.parentNode.removeChild(errorMsg);
-                    }
-                }, 5000);
-                
-                // Reset button state
-                postCommentBtn.textContent = "Post Comment";
-                postCommentBtn.disabled = false;
-            });
-        } else {
-            // Show validation error
-            const errorMsg = document.createElement("div");
-            errorMsg.className = "error-message";
-            errorMsg.textContent = "Comment cannot be empty";
-            commentInput.parentNode.appendChild(errorMsg);
-            
-            // Remove error after 3 seconds
-            setTimeout(() => {
-                if (errorMsg.parentNode) {
-                    errorMsg.parentNode.removeChild(errorMsg);
-                }
-            }, 3000);
-        }
-    });
-});
-
+            document.addEventListener("DOMContentLoaded", () => new CommentSystem());
 </script>
 @endsection

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -12,6 +12,7 @@ class MyProfileController extends Controller
 {
     public function index()
     {
+
         // return view('hady-profile');
         $user = Auth::user();
 
@@ -53,5 +54,17 @@ class MyProfileController extends Controller
         }
 
         return Response::json($response);
+    }
+    public function canditateProfile(Request $request)
+    {
+        $keyword = $request->query('user');
+        $user = User::where('id', $keyword)->first();
+        if (!$user || !$user->candidate || $user->role !== 'candidate') {
+            // abort(404);
+            return redirect()->route('error');
+        }
+        $profileData = $user->role === 'employer' ? $user->employee : $user->candidate;
+
+        return view('my-profile', compact('user', 'profileData'));
     }
 }

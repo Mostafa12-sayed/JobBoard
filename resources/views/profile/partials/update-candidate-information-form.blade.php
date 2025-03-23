@@ -7,7 +7,7 @@
     @method('PATCH')
 
     <!-- Resume -->
-    <div>
+    <div style="width: 100%;">
         <x-input-label for="resume" :value="__('Resume')" />
         <input id="resume" name="resume" type="file" class="mt-1 block w-full" />
         @if ($profileData->resume)
