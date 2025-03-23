@@ -12,7 +12,11 @@
     @component('Website.layouts.includes.bradcamp')
 
     @slot('title' )
+    @if(Auth::user()->id === $user->id)
     My Profile
+    @else
+    {{ $user->name }}'s Profile
+    @endif
     @endslot
     @endcomponent
 
@@ -32,19 +36,24 @@
     <div class="container">
         <div class="header">
             <label for="background_image" class="image-upload-label">
-                <img src="{{ $profileData->background_image ? Storage::url($profileData->background_image) : asset('profileimg/background.jpg') }}" alt="Background Image" class="header-bg" id="background-preview">
+                <img src="{{ optional($profileData)->background_image ? Storage::url($profileData->background_image) : asset('profileimg/background.jpg') }}" alt="Background Image" class="header-bg" id="background-preview">
+                @if(Auth::user()->id === $user->id)
                 <input type="file" id="background_image" name="background_image" accept="image/*" class="hidden-input" onchange="uploadImage('background_image')">
+                @endif
                 <!-- <button>
                     <i class="fas fa-camera"></i> Change Background
                 </button> -->
             </label>
             <div class="profile-pic">
                 <label for="profile_picture" class="image-upload-label">
-                    <img src="{{ $profileData->profile_picture ? Storage::url($profileData->profile_picture) : asset('profileimg/profile.jpg') }}" alt="Profile Picture" class="profile-img" id="profile-preview">
+                    <img src="{{  optional($profileData)->profile_picture ? Storage::url($profileData->profile_picture) : asset('profileimg/profile.jpg') }}" alt="Profile Picture" class="profile-img" id="profile-preview">
+                    @if(Auth::user()->id === $user->id)
+
                     <input type="file" id="profile_picture" name="profile_picture" accept="image/*" class="hidden-input" onchange="uploadImage('profile_picture')">
-                    <!-- <button>
+                    @endif 
+                    {{-- <button>
                         <i class="fas fa-camera"></i> Change Picture
-                    </button> -->
+                    </button>  --}}
                 </label>
             </div>
         </div>

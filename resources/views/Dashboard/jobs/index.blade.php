@@ -113,19 +113,24 @@ No Jobs found
       <div class="between-flex mt-20 p-relative fs-13 ">
         <span class="c-grey mb-0">Created on {{date('d M Y', strtotime($job->created_at))}}</span>
         <div class="d-flex gap-20">
+          @if($job->status == 'pending' || $job->status == 'approved')
+          <button class="btn-shape d-block red bg-red changeStatus" data-id="{{ $job->id }}" data-status="rejected"  data-href="{{route('dashboard.jobs.changeStatus')}}">Reject</button>
+
+          @else
           <button class="btn-shape d-block blue bg-blue changeStatus" id="dd" data-id="{{ $job->id }}"  data-status="approved" data-href="{{route('dashboard.jobs.changeStatus')}}"
             >Accept</button
           >
-          <button class="btn-shape d-block red bg-red changeStatus" data-id="{{ $job->id }}" data-status="rejected"  data-href="{{route('dashboard.jobs.changeStatus')}}">Reject</button>
+          @endif
         </div>
       </div>
     </div>
   </div>
 
+
   @endforeach
   @endif
-
 </div>
+
 
 @endsection
 

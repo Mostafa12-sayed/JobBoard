@@ -15,9 +15,9 @@
 
   .dropdown-menu{
     position: absolute;
-    transform: translate3d(0px, 50px, 0px);
+    transform: translate3d(-30px, 50px, 0px);
     top: 0 !important;
-    left: -140px !important;
+    left: -80px !important;
     /* will-change: transform; */
 
   }
@@ -49,6 +49,9 @@
 .dropdown-toggle::after {
     display: none !important;
 }
+.rounded-circle{
+    background-color: #fff !important;
+}
 
 </style>
     <header>
@@ -74,14 +77,9 @@
                                                 @if(Auth::user()->role == 'employer')
                                                     <li><a href="{{ route('website.candidates') }}">Candidates</a></li>
                                                     <li><a href="{{ route('website.MyJobs.index') }}">My Jobs</a></li>
-
                                                 @endif
                                             @endif
-                                            @if(Auth::check())
-                                                @if(Auth::user()->role == 'candidate')
-                                                    <li><a href="{{ route('home.my-apps') }}">Applications</a></li>
-                                                @endif
-                                            @endif
+                                       
                                             <li><a href="{{route('website.contact-us')}}">Contact</a></li>
                                             <li>
 
@@ -115,12 +113,15 @@
                                                   </div>
                                                   Profile Settings
                                               </a>
-                                              <a class="dropdown-item d-flex align-items-center mb-2" href="">
+                                              @if(Auth::user()->role == 'candidate')
+
+                                              <a class="dropdown-item d-flex align-items-center mb-2" href="{{ route('home.my-apps') }}">
                                                   <div class="icon d-flex align-items-center justify-content-center mr-3">
                                                       <span class="ion-ios-cloud-download"></span>
                                                   </div>
                                                   My Application Jobs
                                               </a>
+                                              @endif
                                               <a class="dropdown-item d-flex align-items-center mb-2" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                                   <div class="icon d-flex align-items-center justify-content-center mr-3">
                                                       <span class="ion-ios-power"></span>

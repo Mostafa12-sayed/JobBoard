@@ -16,7 +16,7 @@ class CommentController extends Controller
         // dd($jobId);
         $job = Job::with([
             'comments' => function ($query) {
-                $query->with(['user', 'replies.user']);
+                $query->with(['user']);
             }
         ])->findOrFail($jobId);
         $job->comments->each(function ($comment) {

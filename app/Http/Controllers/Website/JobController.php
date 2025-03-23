@@ -59,22 +59,29 @@ class JobController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
-        $jobs = Job::paginate(5);
-        $jobCount = Job::count();
-        $categories= Category::select('name','id')->get();
+        // dd($request);
+        $categoryId = $request->query('category');;
+        if ($categoryId) {
+            $jobs = Job::where('category_id', $categoryId)->paginate(5);
+        } else {
+            $jobs = Job::paginate(5);
+        }
 
-        return view('Website.website-jobs.jobs', compact('jobs', 'jobCount','categories'));
+        $jobCount = Job::count();
+        $categories = Category::select('name', 'id')->get();
+
+        return view('Website.website-jobs.jobs', compact('jobs', 'jobCount', 'categories'));
     }
 
     public function show($id)
     {
-        $user_id=Auth::id();
+        $user_id = Auth::id();
         $job = Job::findOrFail($id);
-        $application=Applications::where('user_id',$user_id)->where('job_id',$id)->first();
+        $application = Applications::where('user_id', $user_id)->where('job_id', $id)->first();
 
-        return view('Website.website-jobs.job_details', compact('job','application'));
+        return view('Website.website-jobs.job_details', compact('job', 'application'));
     }
 
     public function manage()
@@ -130,78 +137,72 @@ class JobController extends Controller
     }
 
 
-    
-    public function filter(Request $request){
-        
-        $keyword=$request->input('keyword');
-        $location=$request->input('location');
-        $category=$request->input('category');
-        $type=$request->input('type');
-        $worktype=$request->input('worktype');
-        $min=$request->input('min');
-        $max=$request->input('max');
 
+    public function filter(Request $request)
+    {
+
+        $keyword = $request->input('keyword');
+        $location = $request->input('location');
+        $category = $request->input('category');
+        $type = $request->input('type');
+        $worktype = $request->input('worktype');
+        $min = $request->input('min');
+        $max = $request->input('max');
         $jobcount = Job::count();
-
         $q = Job::query();
-        $q->where(function($query) use ($keyword) {
-            $query->where('title', 'LIKE', '%'.$keyword.'%')
-                  ->orWhere('description', 'LIKE', '%'.$keyword.'%');
+        $q->where(function ($query) use ($keyword) {
+            $query->where('title', 'LIKE', '%' . $keyword . '%')
+                ->orWhere('description', 'LIKE', '%' . $keyword . '%');
         });
-        if($location){
-            $q->where('location','LIKE','%'.$location.'%');
+        if ($location) {
+            $q->where('location', 'LIKE', '%' . $location . '%');
         }
-        if($category){
-            $q->where('category_id',$category);
+        if ($category) {
+            $q->where('category_id', $category);
         }
-        if($type){
-            $q->where('job_type',$type);
+        if ($type) {
+            $q->where('job_type', $type);
         }
-        if($worktype){
-            $q->where('work_type',$worktype);
+        if ($worktype) {
+            $q->where('work_type', $worktype);
         }
-        if($min && is_numeric($min) ){
+        if ($min && is_numeric($min)) {
             $q->where('min_salary', '>=', (float)$min);
         }
-        if($max && is_numeric($max) ){
+        if ($max && is_numeric($max)) {
             $q->where('max_salary', '<=', (float)$max);
         }
-        $jobs = $q->paginate(10);
+        $jobs = $q->where('applicable_status', 'open')->paginate(10);
 
-        return response()->json(['jobs'=>$jobs,'jobcount'=>$jobcount]);
-
+        return response()->json(['jobs' => $jobs, 'jobcount' => $jobcount]);
     }
-    public function delete_app($id){
-        $application=Applications::where('id',$id)->first();
-        if($application){
+    public function delete_app($id)
+    {
+        $application = Applications::where('id', $id)->first();
+        if ($application) {
             $application->delete();
-            return redirect()->back()->with('success','Application canceled successfully');
+            return redirect()->back()->with('success', 'Application canceled successfully');
         }
-        return redirect()->back()->with('success','Application canceled successfully');
-
+        return redirect()->back()->with('success', 'Application canceled successfully');
     }
 
 
-    public function apply($id){
+    public function apply($id)
+    {
 
-
-        $user_id=Auth::id();
-        $user=User::where('id',$user_id)->first();
-        $candidate=CandidateUser::where('user_id',$user_id)->first();
-
-
-        $application=new Applications;
-        $application->job_id=$id;
-        $application->user_id=$user_id;
-        $application->resume_path=$candidate->resume;
-        $application->name=$user->name;
-        $application->email=$user->email;
-        $application->phone=$user->phone_number;
+        $user_id = Auth::id();
+        $user = User::where('id', $user_id)->first();
+        $candidate = CandidateUser::where('user_id', $user_id)->first();
+        $application = new Applications;
+        $application->job_id = intval($id);
+        $application->user_id = $user_id;
+        $application->resume_path = $candidate->resume;
+        $application->name = $user->name;
+        $application->email = $user->email;
+        $application->phone = $user->phone_number;
         $application->save();
 
-        return redirect()->back()->with('success','Application sent successfully');
-
-
+        return redirect()->back()->with('success', 'Application sent successfully');
     }
     
     public function showApplications($jobId)

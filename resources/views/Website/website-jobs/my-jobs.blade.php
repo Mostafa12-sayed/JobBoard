@@ -105,7 +105,14 @@
                                     <div class="apply_now">
                                         <a href="{{ route('website.job.edit', $job->id) }}" title="View Job" class="edit" ><i class="fa-solid fa-pen-to-square"></i></a>
                                         <a data-id="{{ $job->id }}" data-url="{{ route('website.job.destroy', $job->id) }}" onclick="deleteJob(this , event)" class="danger delete-item" title="Delete Job"><i class="fa-solid fa-trash"></i></a>
-                                        <a href="{{ route('website.jobs.show', $job->id) }}" title="Close Job" class=" close" ><i class="fa-solid fa-lock"></i></a>
+                                        <a href="{{ route('website.jobs.close', $job->id) }}" title="Open Job" class=" close" >
+                                            @if($job->applicable_status == 'closed')
+                                            <i class="fa-solid fa-lock-open"></i>
+                                            @else
+                                            <i class="fa-solid fa-lock"></i>
+                                            @endif
+                                        
+                                        </a>
                                         {{-- <a href="#" class="genric-btn primary-border circle arrow">Close</a> --}}
                                     </div>
                                    
