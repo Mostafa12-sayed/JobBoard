@@ -31,7 +31,7 @@
                             <div class="thumb">
                                 <img src="{{$candidate->image ?asset($candidate->image) : asset('assets/website/img/defult-cand.jpg')}}" alt="">
                             </div>
-                            <a href="#"><h4>{{$candidate->name}}</h4></a>
+                            <a href="{{route('candidate.details', ['user'=>$candidate->id])}}"><h4>{{$candidate->name}}</h4></a>
                             <p>Software Engineer</p>
                         </div>
                     </div>

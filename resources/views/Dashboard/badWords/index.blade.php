@@ -68,6 +68,9 @@
                
               </tbody>
             </table>
+            <div class="pagination-wrapper d-flex justify-content-center mt-20">
+              {{ $words->links() }}
+            </div>
           </div>
         </div>
 

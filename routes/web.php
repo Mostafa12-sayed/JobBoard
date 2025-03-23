@@ -19,7 +19,11 @@ use App\Http\Controllers\Website\MyJobsController;
 use App\Http\Middleware\AdminAuthenticate;
 use App\Models\Job;
 
+define('pageinate', 10);
+
 Route::get('/my-profile', [MyProfileController::class, 'index'])->middleware('auth')->name('my-profile');
+Route::get('/candidate/profile', [MyProfileController::class, 'canditateProfile'])->middleware('auth')->name('candidate.details');
+
 Route::post('/profile/update-images', [MyProfileController::class, 'updateImages'])->middleware('auth')->name('profile.update.images');
 Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);
@@ -89,29 +93,38 @@ Route::group(['middleware' => AdminAuthenticate::class, 'prefix' => 'dashboard',
 
 
 Route::group(['as' => 'website.'], function () {
+    //contact us page
     Route::get('/contact-us', [ContactUsController::class, 'index'])->name('contact-us');
     Route::post('/contact-us', [ContactUsController::class, 'store'])->name('contact-us.store');
 
+    //jobs page
     Route::get('/jobs', [JobController::class, 'index'])->name('jobs.index');
     Route::get('/jobs/filtered', [JobController::class, 'filter'])->name('jobs.filter');
     Route::get('/jobs/{id}', [JobController::class, 'show'])->name('jobs.show');
-    Route::post('/jobs/apply/{id}', [JobController::class, 'apply'])->name('jobs.apply');
-    Route::delete('/jobs/delete_app/{id}', [JobController::class, 'delete_app'])->name('jobs.delete_app');
 
-    Route::middleware(['auth:web', 'check.user.type'])->group(function () {
-        Route::get('/employer/create-job', [JobController::class, 'create'])->name('job.create');
-        Route::post('/employer/store-job', [JobController::class, 'store'])->name('job.store');
+    Route::middleware('auth:web')->group(function () {
 
-        Route::get('/candidates', [HomePageController::class, 'candidates'])->name('candidates');
-        Route::get('/my-jobs', [MyJobsController::class, 'index'])->name('MyJobs.index');
+        //appply jobs
+        Route::post('/jobs/apply/{id}', [JobController::class, 'apply'])->name('jobs.apply');
+        Route::delete('/jobs/delete_app/{id}', [JobController::class, 'delete_app'])->name('jobs.delete_app');
+        //comment jobs
+        Route::get('/comments/{jobId}', [CommentController::class, 'index']);
+        Route::post('/comments', [CommentController::class, 'store'])->middleware('filter.badwords');
 
-        Route::get('/employer/manage-jobs', [JobController::class, 'manage'])->name('employer.jobs.index');
-        Route::get('/employer/edit-job/{job}', [JobController::class, 'edit'])->name('job.edit');
-        Route::put('/employer/update-job/{job}', [JobController::class, 'update'])->name('job.update');
-        Route::get('/employer/delete-job/{job}', [JobController::class, 'destroy'])->name('job.destroy');
-
-        Route::post('/employer/job/{job}/accept/{application}', [JobController::class, 'acceptApplication'])->name('job.accept');
-        Route::post('/employer/job/{job}/reject/{application}', [JobController::class, 'rejectApplication'])->name('job.reject');
+        // create jon and manage    
+        Route::middleware('check.user.type')->group(function () {
+            Route::get('/employer/create-job', [JobController::class, 'create'])->name('job.create');
+            Route::post('/employer/store-job', [JobController::class, 'store'])->name('job.store');
+            Route::get('/candidates', [HomePageController::class, 'candidates'])->name('candidates');
+            Route::get('/my-jobs', [MyJobsController::class, 'index'])->name('MyJobs.index');
+            Route::get('/employer/manage-jobs', [JobController::class, 'manage'])->name('employer.jobs.index');
+            Route::get('/employer/edit-job/{job}', [JobController::class, 'edit'])->name('job.edit');
+            Route::put('/employer/update-job/{job}', [JobController::class, 'update'])->name('job.update');
+            Route::get('/employer/delete-job/{job}', [JobController::class, 'destroy'])->name('job.destroy');
+            Route::post('/employer/job/{job}/accept/{application}', [JobController::class, 'acceptApplication'])->name('job.accept');
+            Route::post('/employer/job/{job}/reject/{application}', [JobController::class, 'rejectApplication'])->name('job.reject');
+            Route::get('/jobs/close/{job}', [MyJobsController::class, 'close'])->name('jobs.close');
+        });
     });
 });
 
@@ -120,9 +133,8 @@ Route::get('/error', function () {
 })->name('error');
 // Route::view('/{any}', 'Website.abort')->where('any', '.*');
 
-
-Route::middleware('auth')->group(function () {
-    Route::get('/comments/{jobId}', [CommentController::class, 'index']);
-    Route::post('/comments', [CommentController::class, 'store']);
+Route::fallback(function () {
+    return view('Website.abort');
 });
+
 require __DIR__ . '/auth.php';

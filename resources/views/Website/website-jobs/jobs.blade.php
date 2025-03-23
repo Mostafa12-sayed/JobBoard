@@ -1,7 +1,14 @@
 @extends('Website.layouts.master')
 
+
 @section('content')
-    <!-- bradcam_area  -->
+
+<style>
+    .number{
+        padding: 5px !important
+    }
+</style>
+<!-- bradcam_area  -->
     <div class="bradcam_area bradcam_bg_1">
         <div class="container">
             <div class="row">
@@ -64,23 +71,20 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-lg-12">
+                                        <div class="single_field">
+                                            <input type="number" id="jobminfilter" placeholder="Min Salary">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="single_field">
+                                            <input type="number" id="jobmaxfilter" placeholder="Max Salary">
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
                         </div>
-                        <div class="range_wrap">
-                            <label for="jobminfilter">min salary:</label>
-                            <div id="slider-range"></div>
-                            <p>
-                                <input type="number" id="jobminfilter" >
-                            </p>
-                        </div>
-                        <div class="range_wrap">
-                            <label for="jobmaxfilter">max salary:</label>
-                            <div id="slider-range"></div>
-                            <p>
-                                <input type="number" id="jobmaxfilter" >
-                            </p>
-                        </div>
+                       
                         <div class="reset_btn">
                             <button  class="boxed-btn3 w-100" type="reset">Reset</button>
                         </div>

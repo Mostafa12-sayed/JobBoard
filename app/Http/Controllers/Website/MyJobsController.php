@@ -15,4 +15,13 @@ class MyJobsController extends Controller
         return view('Website.website-jobs.my-jobs', compact('jobs'));
     }
 
+
+
+    public function close(Job $job)
+    {
+        $job->applicable_status = $job->applicable_status == 'closed' ? 'open' : 'closed';
+        $job->save();
+        flash()->success('Job status updated successfully');
+        return back();
+    }
 }

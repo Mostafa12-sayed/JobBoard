@@ -10,7 +10,7 @@ class UsersController extends Controller
 {
     public function index()
     {
-        return view('dashboard.users.index', ['users' => User::all()]);
+        return view('dashboard.users.index', ['users' => User::select('id', 'name', 'email', 'created_at')->paginate(10)]);
     }
 
     public function show(User $user)

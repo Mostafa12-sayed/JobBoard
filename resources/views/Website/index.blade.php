@@ -115,7 +115,7 @@
                     
                 <div class="col-lg-4 col-xl-3 col-md-6">
                     <div class="single_catagory">
-                        <a href="jobs.html"><h4>{{$category->name}}</h4></a>
+                        <a href="{{route('website.jobs.index', ['category' => $category->id])}}"><h4>{{$category->name}}</h4></a>
                         <p> <span>{{$category->jobs_count}}</span> Available position</p>
                     </div>
                 </div>

@@ -27,6 +27,7 @@ return new class extends Migration
             $table->enum('job_status', ['available', 'not available'])->default('available');
             $table->enum('job_type', ['full-time', 'part-time'])->default('full-time');
             $table->string('application_deadline')->nullable();
+            $table->enum('applicable_status', ['open', 'closed'])->default('open');
             $table->timestamps();
         });
     }
