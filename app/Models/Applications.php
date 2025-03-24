@@ -9,16 +9,20 @@ class Applications extends Model
 {
     protected $table = 'applications';
     use HasFactory;
-    protected $fillable= [
+    protected $fillable = [
         'job_id',
-        'user_id' ,
-        'status' ,
+        'user_id',
+        'status',
         'message',
-        'resume_path' ,
-        'name' ,
-        'email' ,
+        'resume_path',
+        'name',
+        'email',
         'phone',
 
     ];
-   
+
+    public function job()
+    {
+        return $this->belongsTo(Job::class);
+    }
 }

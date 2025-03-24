@@ -191,8 +191,12 @@ class JobController extends Controller
     {
 
         $user_id = Auth::id();
+
         $user = User::where('id', $user_id)->first();
         $candidate = CandidateUser::where('user_id', $user_id)->first();
+        if (!$candidate->resume) {
+            return back()->with('info', 'Please upload resume to apply jobs');
+        }
         $application = new Applications;
         $application->job_id = intval($id);
         $application->user_id = $user_id;
@@ -204,27 +208,28 @@ class JobController extends Controller
 
         return redirect()->back()->with('success', 'Application sent successfully');
     }
-    
+
     public function showApplications($jobId)
     {
-         $job = Job::with('applications')->findOrFail($jobId);
+        $job = Job::with('applications')->findOrFail($jobId);
 
-    if (Auth::id() !== $job->user_id || Auth::user()->role !== 'employer') {
-        return redirect()->back()->with('error', 'You are not authorized to view applications for this job.');
-    }
+        if (Auth::id() !== $job->user_id || Auth::user()->role !== 'employer') {
+            return redirect()->back()->with('error', 'You are not authorized to view applications for this job.');
+        }
 
-    return view('Website.website-jobs.applications', compact('job'));
+        return view('Website.website-jobs.applications', compact('job'));
     }
 
     public function acceptApplication($jobId, $applicationId)
     {
         $application = Applications::where('job_id', $jobId)->where('id', $applicationId)->firstOrFail();
+        // dd($application->job->user_id);
 
         if (Auth::id() !== $application->job->user_id) {
             return redirect()->back()->with('error', 'You are not authorized to accept this application.');
         }
 
-        $application->update(['status' => 'accepted']);
+        $application->update(['status' => 'approved']);
         return redirect()->back()->with('success', 'Application accepted.');
     }
 
@@ -237,6 +242,6 @@ class JobController extends Controller
         }
 
         $application->update(['status' => 'rejected']);
-        return redirect()->back()->with('error', 'Application rejected.');
+        return redirect()->back()->with('success', 'Application rejected.');
     }
 }

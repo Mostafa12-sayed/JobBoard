@@ -18,11 +18,15 @@ return new class extends Migration
             $table->string('linkedin_profile')->nullable();
             $table->string('github_profile')->nullable();
             $table->string('portfolio_website')->nullable();
-            $table->string('skills')->nullable();
+
+            $table->json('skills')->nullable();  // Change 'tags' column to JSON
+            $table->json('languages')->nullable();  // Change 'tags' column to JSON
+
             $table->string('education')->nullable();
             $table->string('experience')->nullable();
-            $table->string('languages')->nullable();
-            $table->string('interests')->nullable();
+
+            $table->json('interests')->nullable();
+
             $table->string('cover_letter')->nullable();
             $table->timestamps();
         });

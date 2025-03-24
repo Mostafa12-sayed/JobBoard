@@ -9,7 +9,7 @@
         font-weight: 600 !important;
         transition: all 0.3s ease-in-out;
     }
-    .item-nav:hover ,  .dropdown-menu a:hover{
+    .item-nav:hover ,  .dropdown-menu a:hover ,.active{
         color: rgb(0, 211, 99) !important;
     }
 
@@ -41,7 +41,7 @@
     width: 50px !important;
     height: 50px !important;
     margin: auto !important;
-    background-image: url('{{ Auth::check() && Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('assets/website/img/defult-user.jpg') }}');
+    background-image: url("{{Auth::check() ? Auth::user()->image_url :''}}");
     no-repeat center center;
     background-size: cover;
     border-radius: 50%;
@@ -71,16 +71,16 @@
                                 <div class="main-menu  d-none d-lg-block">
                                     <nav class="d-flex">
                                         <ul id="navigation">
-                                            <li><a href="{{ route('home.show') }}">home</a></li>
-                                            <li><a href="{{route('website.jobs.index')}}">Browse Job</a></li>
+                                            <li><a href="{{ route('home.show') }}" class="{{ request()->routeIs('home.show')? 'active' : '' }}">home</a></li>
+                                            <li><a href="{{route('website.jobs.index')}}" class="{{request()->routeIs('website.jobs.index')? 'active' : ''}}">Browse Job</a></li>
                                             @if(Auth::check())
                                                 @if(Auth::user()->role == 'employer')
-                                                    <li><a href="{{ route('website.candidates') }}">Candidates</a></li>
-                                                    <li><a href="{{ route('website.MyJobs.index') }}">My Jobs</a></li>
+                                                    <li><a href="{{ route('website.candidates') }}" class="{{request()->routeIs('website.candidates')? 'active' : ''}}">Candidates</a></li>
+                                                    <li><a href="{{ route('website.MyJobs.index') }}" class="{{request()->routeIs('website.MyJobs.index')? 'active' : ''}}">My Jobs</a></li>
                                                 @endif
                                             @endif
                                        
-                                            <li><a href="{{route('website.contact-us')}}">Contact</a></li>
+                                            <li><a href="{{route('website.contact-us')}}" class="{{request()->routeIs('website.contact-us')? 'active' : ''}}">Contact</a></li>
                                             <li>
 
                                             </li>
@@ -97,7 +97,7 @@
                                     <div class="phone_num d-none d-xl-block">
                                         @if(Auth::check())
                                         <div class="btn-group">
-                                            <a href="#" class="btn-img img dropdown-toggle rounded-circle" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false" >
+                                            <a href="" class="btn-img img dropdown-toggle rounded-circle" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false" >
                                             </a>
                                             <div class="dropdown-menu">
 
@@ -134,8 +134,8 @@
                                             </div>
                                           </div>
                                         @else
-                                            <a href="{{route('register')}}" class="m-2 item-nav">Sign Up</a>
-                                            <a href="{{route('login')}}" class="item-nav">Log in</a>
+                                            <a href="{{route('register')}}" class="m-2 item-nav {{ request()->routeIs('register')? 'active' : '' }}">Sign Up</a>
+                                            <a href="{{route('login')}}" class="item-nav {{ request()->routeIs('login')? 'active' : '' }}">Log in</a>
                                         @endif
                                     </div>
                                     @if(Auth::check())

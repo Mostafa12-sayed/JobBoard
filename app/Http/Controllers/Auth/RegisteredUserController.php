@@ -50,15 +50,15 @@ class RegisteredUserController extends Controller
             ]);
         } elseif ($request->role === 'candidate') {
             $validationRules = array_merge($validationRules, [
-                'resume' => 'required|file|max:2048',
-                'linkedin_profile' => 'required|nullable|url',
-                'github_profile' => 'required|nullable|url',
+                'resume' => 'nullable|file|max:2048',
+                'linkedin_profile' => 'nullable|nullable|url',
+                'github_profile' => 'nullable|nullable|url',
                 'portfolio_website' => 'nullable|url',
-                'skills' => 'required|nullable|string|max:255',
-                'education' => 'required|nullable|string|max:255',
+                'skills' => 'nullable|nullable|string|max:255',
+                'education' => 'nullable|nullable|string|max:255',
                 'experience' => 'nullable|string|max:255',
-                'languages' => 'required|nullable|string|max:255',
-                'interests' => 'required|nullable|string|max:255',
+                'languages' => 'nullable|nullable|string|max:255',
+                'interests' => 'nullable|nullable|string|max:255',
                 'cover_letter' => 'nullable|string|max:65535', // Updated to handle larger text
             ]);
         }
@@ -119,8 +119,6 @@ class RegisteredUserController extends Controller
 
         // Redirect to the profile page
         return Redirect::to('/')
-        ->with('success', 'Registration successful!');
-
-
+            ->with('success', 'Registration successful!');
     }
 }

@@ -1,39 +1,31 @@
 @extends('Website.layouts.master')
-    @section('content')
-    <style>
-        .max-w-md{
-            max-width: 45rem !important
-        }
-    </style>
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    @component('Website.layouts.includes.bradcamp')
-
-    @slot('title' )
-    @if(Auth::user()->id === $user->id)
-    My Profile
-    @else
-    {{ $user->name }}'s Profile
-    @endif
-    @endslot
-    @endcomponent
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile - {{ $user->name }}</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body>
-    <div class="container">
+@section('title') 
+@if(Auth::user()->id === $user->id)
+My Profile
+@else
+{{ $user->name }}'s Profile
+@endif
+@endsection
+@section('css')
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+<link rel="preconnect" href="https://fonts.bunny.net">
+<link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+<style>
+    .max-w-md{
+        max-width: 45rem !important
+    }
+    .profile{
+        margin-top: 100px !important
+    }
+    .header-area{
+        background-color: rgba(0, 29, 56, 0.8) !important;
+    }
+</style>
+@endsection
+@section('content')
+    <div class="container mt-5 profile">
         <div class="header">
             <label for="background_image" class="image-upload-label">
                 <img src="{{ optional($profileData)->background_image ? Storage::url($profileData->background_image) : asset('profileimg/background.jpg') }}" alt="Background Image" class="header-bg" id="background-preview">
@@ -104,18 +96,53 @@
                                 $percentage = rand(60, 100);
                             @endphp
                             <div class="skill">
-                                <span>{{ $skill['value'] }}</span>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width: {{ $percentage }}%;">{{ $percentage }}%</div>
-                                </div>
+                                <ul class="ml-2">
+                                    <li>
+                                    {{ $skill['value'] }}
+
+                                    </li>
+                                </ul>
+                              
                             </div>
                             @endforeach
                         </div>
                     </div>
                     @endif
                 @endif
+                @if($user->role === 'candidate')
 
+                <div class="section-card">
+                    <h2>Languages:</h2>
+                    <div class="skills">
+                        @if($profileData->languages )
+                        <ul class="ml-2">
+                            @foreach(json_decode( $profileData->languages ,true) as $lang)
+                                <li>{{ $lang['value'] }}</li>
+                            @endforeach
+                        </ul>
+                        @else 
+                        N/A 
+                        @endif
+                    </div>
+                </div>
+                @endif
+                @if($user->role === 'candidate')
 
+                <div class="section-card">
+                    <h2>Inerestes:</h2>
+                    <div class="skills">
+                        @if($profileData->interests )
+                        <ul class="ml-2"   list-style-type="disc" >
+                            @foreach(json_decode( $profileData->interests ,true) as $inter)
+                                <li>{{ $inter['value'] }}</li>
+                            @endforeach
+                        </ul>
+                        @else 
+                        N/A 
+                        @endif
+                    </div>
+                </div>
+                @endif
                 @if($user->role === 'candidate' && $profileData->experience)
                 <div class="section-card">
                     <h2>Experience:</h2>
@@ -153,10 +180,9 @@
                         <li><strong>GitHub:</strong><br> <a href="{{ $profileData->github_profile ? (str_starts_with($profileData->github_profile, 'http') ? $profileData->github_profile : 'https://' . $profileData->github_profile) : '#' }}">{{ $profileData->github_profile ?? 'N/A' }}</a></li>
                         <li><strong>Portfolio:</strong><br> <a href="{{ $profileData->portfolio_website ? (str_starts_with($profileData->portfolio_website, 'http') ? $profileData->portfolio_website : 'https://' . $profileData->portfolio_website) : '#' }}">{{ $profileData->portfolio_website ?? 'N/A' }}</a></li>
                         <li><strong>Education:</strong> {{ $profileData->education ?? 'N/A' }}</li>
-                        <li><strong>Languages:</strong> {{ $profileData->languages ?? 'N/A' }}</li>
-                        <li><strong>Interests:</strong> {{ $profileData->interests ?? 'N/A' }}</li>
+                           
                     @endif
-
+                
                     <!-- Social icons (only for candidates) -->
                     @if($user->role === 'candidate')
                         <li><strong>Social:</strong>
@@ -177,77 +203,45 @@
             </div>
         </div>
     </div>
+@endsection
+    
+<!-- JavaScript for image upload -->
+@section('js')
+<script>
+    function uploadImage(inputId) {
+        const input = document.getElementById(inputId);
+        const formData = new FormData();
+        formData.append(inputId, input.files[0]);
 
-    <!-- JavaScript for image upload -->
-    <script>
-        function uploadImage(inputId) {
-            const input = document.getElementById(inputId);
-            const formData = new FormData();
-            formData.append(inputId, input.files[0]);
+        fetch('/profile/update-images', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            credentials: 'same-origin'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Update the image preview immediately
+                const previewId = inputId === 'background_image' ? 'background-preview' : 'profile-preview';
 
-            fetch('/profile/update-images', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                credentials: 'same-origin'
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Update the image preview immediately
-                    const previewId = inputId === 'background_image' ? 'background-preview' : 'profile-preview';
+                // Append a timestamp to avoid caching issues
+                const newImageUrl = '/storage/' + data.path + '?t=' + new Date().getTime();
+                document.getElementById(previewId).src = newImageUrl;
 
-                    // Append a timestamp to avoid caching issues
-                    const newImageUrl = '/storage/' + data.path + '?t=' + new Date().getTime();
-                    document.getElementById(previewId).src = newImageUrl;
-
-                    // If you want no pop-up, just remove or comment out the alerts:
-                    // alert('Image uploaded successfully!');
-                } else {
-                    // You can replace this with a toast or no message at all
-                    console.error('Image upload failed: ' + data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }
-    </script>
-
-    <!-- <script>
-        function uploadImage(inputId) {
-            const input = document.getElementById(inputId);
-            const formData = new FormData();
-            formData.append(inputId, input.files[0]);
-
-            fetch('/profile/update-images', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                credentials: 'same-origin'
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Update the image preview
-                    const previewId = inputId === 'background_image' ? 'background-preview' : 'profile-preview';
-                    document.getElementById(previewId).src = '/storage/' + data.path;
-                    alert('Image uploaded successfully!');
-                } else {
-                    alert('Image upload failed: ' + data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while uploading the image.');
-            });
-        }
-    </script> -->
-</body>
-</html>
+                // If you want no pop-up, just remove or comment out the alerts:
+                // alert('Image uploaded successfully!');
+            } else {
+                // You can replace this with a toast or no message at all
+                console.error('Image upload failed: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+</script>
 
 @endsection

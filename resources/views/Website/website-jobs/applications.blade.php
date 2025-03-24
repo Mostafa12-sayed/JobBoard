@@ -83,8 +83,8 @@
                                             <td>{{ $application->phone }}</td>
                                             <td>{{ ucfirst($application->status) }}</td>
                                             <td class="apply_now">
-                                                <a href="{{ route('job.accept', ['jobId' => $job->id, 'applicationId' => $application->id]) }}" class="btn-action btn-accept">Accept</a>
-                                                <a href="{{ route('job.reject', ['jobId' => $job->id, 'applicationId' => $application->id]) }}" class="btn-action btn-reject">Reject</a>
+                                                <a href="{{ route('website.job.accept', ['jobId' => $job->id, 'applicationId' => $application->id]) }}" class="btn-action btn-accept">Accept</a>
+                                                <a href="{{ route('website.job.reject', ['jobId' => $job->id, 'applicationId' => $application->id]) }}" class="btn-action btn-reject">Reject</a>
                                             </td>
                                         </tr>
                                     @endforeach
