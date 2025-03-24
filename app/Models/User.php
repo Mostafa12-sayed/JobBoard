@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -68,5 +69,18 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->morphMany(Comment::class, 'commentable');
+    }
+
+
+    public function getImageUrlAttribute()
+    {
+        if (!$this->profile_picture) {
+            return asset('assets/website/img/defult-user.jpg');
+        }
+        if (Str::startsWith($this->profile_picture, ['http', 'https'])) {
+            return $this->profile_picture;
+        }
+
+        return asset('storage/' . $this->profile_picture);
     }
 }

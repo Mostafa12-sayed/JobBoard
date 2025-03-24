@@ -168,12 +168,18 @@
                         </div>
                         <div>
                             <x-input-label for="languages" :value="__('Languages')" />
-                            <x-text-input id="languages" class="block mt-1 w-full" type="text" name="languages" :value="old('languages')" autocomplete="off" placeholder="e.g. English, Arabic" />
+                            <x-text-input id="languages" class="block mt-1 w-full" type="text" name="languages" :value="old('languages')" 
+                            autocomplete="off"
+                            x-ref="languagesInput"
+                            x-init="new Tagify($el, { enforceWhitelist: false })" placeholder="e.g. English, Arabic" />
                             <x-input-error :messages="$errors->get('languages')" class="mt-2" />
                         </div>
                         <div>
                             <x-input-label for="interests" :value="__('Interests')" />
-                            <x-text-input id="interests" class="block mt-1 w-full" type="text" name="interests" :value="old('interests')" autocomplete="off" placeholder="e.g. Sports, Music" />
+                            <x-text-input id="interests" class="block mt-1 w-full" type="text" name="interests" :value="old('interests')" autocomplete="off"
+                                   x-ref="interestsInput"
+                            x-init="new Tagify($el, { enforceWhitelist: false })"
+                            placeholder="e.g. Sports, Music" />
                             <x-input-error :messages="$errors->get('interests')" class="mt-2" />
                         </div>
                         <div>

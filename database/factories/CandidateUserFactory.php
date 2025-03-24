@@ -34,12 +34,14 @@ class CandidateUserFactory extends Factory
             'linkedin_profile' => $this->faker->url, // Fake LinkedIn profile URL
             'github_profile' => $this->faker->url, // Fake GitHub profile URL
             'portfolio_website' => $this->faker->url, // Fake portfolio website URL
-            'skills' => implode(', ', $this->faker->words(5)), // Fake skills (comma-separated)
-            'education' => $this->faker->sentence, // Fake education details
             'experience' => $this->faker->paragraph, // Fake experience details
-            'languages' => implode(', ', $this->faker->words(3)), // Fake languages (comma-separated)
-            'interests' => implode(', ', $this->faker->words(4)), // Fake interests (comma-separated)
-            'cover_letter' => $this->faker->paragraph, // Fake cover letter
+            'education' => $this->faker->sentence, // Fake education details
+
+            'skills' => json_encode($this->faker->words(5)), // Convert array to JSON
+            'languages' => json_encode($this->faker->words(3)), // Convert array to JSON
+            'interests' => json_encode($this->faker->words(4)), // Convert array to JSON
+
+            'cover_letter' => substr($this->faker->paragraph, 0, 255), // Fake cover letter
             'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'), // Random creation date
             'updated_at' => $this->faker->dateTimeBetween('-1 year', 'now'), // Random update date
         ];

@@ -15,7 +15,7 @@ class EmployeeUserFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    
+
     public function definition(): array
     {
         $user = User::where('role', 'employer')->inRandomOrder()->first();

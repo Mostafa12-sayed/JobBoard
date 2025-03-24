@@ -50,7 +50,7 @@
                 </div>
                 <div class="col-lg-3 col-md-4">
                     <div class="single_input">
-                        <select class="wide" name="location">
+                        <select class="wide" name="location" id="location">
                             <option value="">Location</option>
                             @foreach ($jobs_location as $job)
                             <option value="{{$job->location}}" {{ request('location') == $job->location ? 'selected' : '' }}>{{ $job->location }}</option>
@@ -310,4 +310,15 @@
     <!-- /testimonial_area  -->
 
 
+ @endsection
+ @section('js')
+
+<script>
+    //    $('#location').select2({
+    //         allowClear: true,
+    //         placeholder: 'Select Job Type',
+    //         width: '100%',
+    //         height: '40px',
+    //     });
+</script>
  @endsection

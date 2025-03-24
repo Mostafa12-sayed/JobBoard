@@ -16,6 +16,7 @@
 <script src="{{asset('assets/website/js/jquery.magnific-popup.min.js')}}"></script>
 <script src="{{asset('assets/website/js/plugins.js')}}"></script>
 <script src="{{asset('assets/website/js/gijgo.min.js')}}"></script>
+<script src="{{ asset('assets/dashboard/js/sweetalert2.js') }}"></script>
 
 
 
@@ -32,6 +33,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
 <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <script>
 
 
@@ -50,4 +53,5 @@ function changeImage(element, id) {
 
 </script>
 
+@yield('js')
 

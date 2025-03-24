@@ -24,11 +24,24 @@
                 </div>
                 <div class="social-login">
                   <div class="row">
-                    <div class="col-lg-12 col-md-12 col-12">
+                    <div class="col-lg-4 col-md-4 col-12">
                       <a class="btn facebook-btn" href="javascript:void(0)"
                         ><i class="lni lni-facebook-filled"></i> Linkedin </a
                       >
+                      
                     </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                      <a class="btn facebook-btn" href="{{route('social.login', 'facebook')}}"
+                        ><i class="lni lni-facebook-filled"></i> Facebook </a
+                      >
+                      
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                      <a class="btn google-btn" href="{{route('social.login', 'google')}}"
+                        ><i class="lni lni-google-filled"></i> Google </a
+                      >
+                    </div>
+                    
                   </div>
                 </div>
                 <div class="alt-option">

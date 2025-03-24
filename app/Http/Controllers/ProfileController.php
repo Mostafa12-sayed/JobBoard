@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
 {
@@ -34,8 +35,8 @@ class ProfileController extends Controller
         }
 
         $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        flash()->success('Profile Updated');
+        return back()->with('status', 'profile-updated');
     }
 
     /**
@@ -44,9 +45,11 @@ class ProfileController extends Controller
     public function destroy(Request $request): RedirectResponse
     {
         $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
+            'password' => [
+                'required',
+                'current_password',
+            ],
         ]);
-
         $user = $request->user();
 
         Auth::logout();
@@ -95,7 +98,7 @@ class ProfileController extends Controller
             'address' => $request->address,
         ]);
 
-        return redirect()->route('my-profile')->with('success', 'Employer profile updated successfully');
+        return back()->with('success', 'profile updated successfully');
     }
 
     public function updateCandidate(Request $request)
@@ -145,6 +148,6 @@ class ProfileController extends Controller
             'cover_letter' => $request->cover_letter,
         ]);
 
-        return redirect()->route('my-profile')->with('success', 'Candidate profile updated successfully');
+        return back()->with('success', 'profile updated successfully');
     }
 }

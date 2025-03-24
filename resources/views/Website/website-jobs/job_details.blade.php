@@ -165,9 +165,12 @@
                         </ul>
                     </div>
                     <div class="single_wrap">
-                    <h4>Salary</h4>
-                    <p>${{ number_format($job->min_salary) }} - ${{ number_format($job->max_salary) }}</p>
-                </div>
+                        <h4>Salary</h4>
+                        <p>${{ number_format($job->min_salary) }} - ${{ number_format($job->max_salary) }}</p>
+                    </div>
+
+              
+
                 </div>
 
             <div class="apply_job_form white-bg">
@@ -178,14 +181,13 @@
 
                             <div class="col-md-12">
                                 <div class="submit_btn">
-                                    {{-- @if (auth()->check() && auth()->user()->role === 'candidate') --}}
-
                                         @if (isset($application->user_id) && Auth::id()===$application->user_id)
                                         <form action="{{route('website.jobs.delete_app', "$application->id","$job->id")}}" method="post">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="boxed-btn2 w-100" type="submit">Cancel </button>
+                                            <button class="boxed-btn2 w-100" type="submit">Cancel</button>
                                         </form>
+                                        @elseif(auth()->check() && auth()->user()->role === 'employer' && auth()->id() === $job->user_id)
                                         @else
                                             @if(auth()->user()->role === 'candidate' || !auth()->user())
                                             <form action="{{route('website.jobs.apply',$job->id)}}" method="post">
@@ -194,7 +196,7 @@
                                             </form>
                                             @endif
                                         @endif
-                                    {{-- @endif --}}
+
                                 </div>
                             </div>
 
@@ -207,19 +209,10 @@
                         <a href="{{ route('website.job.applications', $job->id) }}" class="btn btn-primary w-100">View Applications</a>
                         </div>
                     </div>
-                @else
-                    <div class="col-md-12">
-                        <div class="submit_btn">
-                            <form action="{{ route('website.jobs.apply', $job->id) }}" method="POST">
-                                @csrf
-                                <button class="boxed-btn3 w-100" type="submit">Apply Now</button>
-                            </form>
-                        </div>
-                    </div>
                 @endif
+                  
             </div>
-
-
+            </div>
             <div class="col-lg-5">
                 <div class="job_sumary">
                     <div class="summery_header">
@@ -231,6 +224,7 @@
                             <li>Location: <span>{{ $job->location }}</span></li>
                             <li>Job Type: <span>{{ $job->work_type }}</span></li>
                             <li>Deadline: <span>{{ $job->application_deadline }}</span></li>
+                            <li>Number of Applications: <span> {{count($job->applications)}} </span></li>
                         </ul>
                     </div>
                 </div>
@@ -245,9 +239,7 @@
                                 @endif
 
 
-                            </div>
-
-                        
+                            </div> 
                         @auth
                             <div class="comment-form">
                                 <h3>Leave a Comment</h3>
@@ -263,166 +255,6 @@
     </div>
 </div>
 <script>
-
-
-
-
-// document.addEventListener("DOMContentLoaded", function () {
-//     const postCommentBtn = document.getElementById("post-comment-btn");
-//     const commentInput = document.getElementById("comment-input");
-//     const commentsContainer = document.getElementById("comments-container");
-//     let jobId = document.getElementById("job_details_header").getAttribute("data-id");
-
-//     // 🟢 دالة لإنشاء عنصر تعليق أو رد
-//     function createCommentElement(comment) {
-//         const commentDiv = document.createElement("div");
-//         commentDiv.classList.add("comment");
-
-//         let repliesHTML = "";
-
-//         // ✅ التأكد من عرض الردود الخاصة فقط بالتعليق
-//         if (comment.replies && comment.replies.length > 0) {
-//             comment.replies.forEach(reply => {
-//                 repliesHTML += `
-//                     <div class="comment reply" style="margin-left: 20px;">
-//                         <div class="user-info">
-//                             <img src="/storage/${reply.user.profile_picture ?? 'default-user.avif'}" alt="" class="rounded-circle">
-//                             <div class="d-flex align-items-center justify-content-between w-100">
-//                                 <span class="username">${reply.user.name}</span>
-//                                 <span class="timestamp">${reply.created_at}</span>
-//                             </div>
-//                         </div>
-//                         <p class="comment-text">${reply.comment}</p>
-//                     </div>
-//                 `;
-//             });
-//         }
-
-//         // ✅ إنشاء هيكل التعليق
-//         commentDiv.innerHTML = `
-//             <div class="user-info">
-//                 <img src="/storage/${comment.user.profile_picture ?? 'default-user.avif'}" alt="" class="rounded-circle">
-//                 <span class="username">${comment.user.name}</span>
-//                 <span class="timestamp">${comment.created_at}</span>
-//             </div>
-//             <p class="comment-text">${comment.comment}</p>
-//             <button class="reply-btn">Reply</button>
-
-//             <div class="reply-form" style="display: none;">
-//                 <textarea class="reply-input" placeholder="Write a reply..." rows="2"></textarea>
-//                 <button class="submit-reply" data-comment-id="${comment.id}">Reply</button>
-//             </div>
-
-//             <div class="replies">${repliesHTML}</div>
-//         `;
-
-//         // ✅ إضافة وظيفة إظهار نموذج الرد
-//         const replyBtn = commentDiv.querySelector(".reply-btn");
-//         replyBtn.addEventListener("click", function () {
-//             const replyForm = commentDiv.querySelector(".reply-form");
-//             replyForm.style.display = replyForm.style.display === "none" ? "block" : "none";
-//         });
-
-//         // ✅ التعامل مع إرسال الرد
-//         const replySubmitBtn = commentDiv.querySelector(".submit-reply");
-//         replySubmitBtn.addEventListener("click", function () {
-//             const replyInput = commentDiv.querySelector(".reply-input");
-//             const replyText = replyInput.value.trim();
-//             const commentId = this.getAttribute("data-comment-id");
-
-//             if (replyText !== "") {
-//                 // إرسال الرد إلى السيرفر باستخدام AJAX
-//                 fetch("/comments", {
-//                     method: "POST",
-//                     headers: {
-//                         "Content-Type": "application/json",
-//                         "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-//                     },
-//                     body: JSON.stringify({
-//                         comment: replyText,
-//                         parent_id: commentId,
-//                         commentable_id: jobId, // ربطه بالوظيفة
-//                     }),
-//                 })
-//                 .then(response => response.json())
-//                 .then(reply => {
-//                     const replyDiv = document.createElement("div");
-//                     replyDiv.classList.add("comment", "reply");
-//                     replyDiv.style.marginLeft = "10px";
-
-//                     replyDiv.innerHTML = `
-//                         <div class="user-info">
-//                             <img src="/storage/${reply.user.profile_picture ?? 'default-user.avif'}" alt="" class="rounded-circle">
-//                             <div class="d-flex align-items-center justify-content-between w-100">
-//                                 <span class="username">${reply.user.name}</span>
-//                                 <span class="timestamp">Just now</span>
-//                             </div>
-//                         </div>
-//                         <p class="comment-text">${reply.comment}</p>
-//                     `;
-//                     commentDiv.querySelector(".replies").appendChild(replyDiv);
-//                     replyInput.value = "";
-//                     commentDiv.querySelector(".reply-form").style.display = "none";
-//                 })
-//                 .catch(error => console.error("Error:", error));
-//             }
-//         });
-
-//         return commentDiv;
-//     }
-
-//     // ✅ تحميل التعليقات عند تحميل الصفحة مع منع التكرار
-//     fetch(`/comments/${jobId}`)
-//         .then(response => response.json())
-//         .then(comments => {
-//             commentsContainer.innerHTML = "";
-
-//             // 🔹 تقسيم التعليقات إلى تعليقات رئيسية وردود
-//             const mainComments = comments.filter(comment => comment.parent_id === null);
-//             const repliesMap = {};
-
-//             // 🔹 ترتيب الردود ضمن التعليقات المناسبة
-//             comments.forEach(comment => {
-//                 if (comment.parent_id !== null) {
-//                     if (!repliesMap[comment.parent_id]) {
-//                         repliesMap[comment.parent_id] = [];
-//                     }
-//                     repliesMap[comment.parent_id].push(comment);
-//                 }
-//             });
-
-//             // 🔹 عرض التعليقات الرئيسية وربط الردود بها
-//             mainComments.forEach(comment => {
-//                 comment.replies = repliesMap[comment.id] || []; // إضافة الردود الخاصة بالتعليق
-//                 commentsContainer.appendChild(createCommentElement(comment));
-//             });
-//         })
-//         .catch(error => console.error("Error loading comments:", error));
-//     // ✅ إرسال تعليق جديد
-//     postCommentBtn.addEventListener("click", function () {
-//         const commentText = commentInput.value.trim()
-//         if (commentText !== "") {
-//             fetch("/comments", {
-//                 method: "POST",
-//                 headers: {
-//                     "Content-Type": "application/json",
-//                     "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-//                 },
-//                 body: JSON.stringify({
-//                     comment: commentText,
-//                     commentable_id: jobId, // ربطه بالوظيفة
-//                 }),
-//             })
-//             .then(response => response.json())
-//             .then(comment => {
-//                 commentsContainer.appendChild(createCommentElement(comment));
-//                 commentInput.value = "";
-//             })
-//             .catch(error => console.error("Error:", error));
-//         }
-//     });
-// });
-
 
 
 class CommentSystem {
@@ -480,7 +312,7 @@ class CommentSystem {
 
                 showNoCommentsMessage() {
                     const noComments = document.createElement("p");
-                    noComments.className = "no-comments";
+                    noComments.className = "no-comments ";
                     noComments.textContent = "No comments yet. Be the first to comment!";
                     this.commentsContainer.appendChild(noComments);
                 }
