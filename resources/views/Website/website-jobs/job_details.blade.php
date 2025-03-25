@@ -189,7 +189,7 @@
                                         </form>
                                         @elseif(auth()->check() && auth()->user()->role === 'employer' && auth()->id() === $job->user_id)
                                         @else
-                                            @if(auth()->user()->role === 'candidate' || !auth()->user())
+                                            @if( !auth()->user() ||auth()->user()->role === 'candidate')
                                             <form action="{{route('website.jobs.apply',$job->id)}}" method="post">
                                                 @csrf
                                                 <button class="boxed-btn3 w-100" type="submit">Apply Now</button>
@@ -233,12 +233,10 @@
                         <h3>Comments</h3>
                     </div>
                     <div class="job_content p-3">
-                            <div id="comments-container">
+                            <div id="comments-container" class="text-center">
                                 @if($job->comments->count() == 0)
                                     <p>No comments yet.</p>
                                 @endif
-
-
                             </div> 
                         @auth
                             <div class="comment-form">
@@ -283,7 +281,6 @@ class CommentSystem {
                         </div>
                         <p class="comment-text">${comment.comment}</p>
                     `;
-
                     return commentDiv;
                 }
 

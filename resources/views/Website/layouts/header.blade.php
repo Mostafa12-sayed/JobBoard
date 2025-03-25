@@ -34,14 +34,21 @@
         border-bottom: .3em solid;
         }
     }
+.logo{
+    width: 100px !important;
+    height: 60px !important;
 
-
+}
+.logo img{
+    /* width: 100% !important; */
+    height: 100% !important;
+}
 .btn-img{
 
     width: 50px !important;
     height: 50px !important;
     margin: auto !important;
-    background-image: url("{{Auth::check() ? Auth::user()->image_url :''}}");
+    /* background-image: url("{{Auth::check() ? Auth::user()->image_url :''}}"); */
     no-repeat center center;
     background-size: cover;
     border-radius: 50%;
@@ -52,9 +59,14 @@
 .rounded-circle{
     background-color: #fff !important;
 }
-
+.btn-img img{
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 50%;
+}
 </style>
-    <header>
+
+<header>
         <div class="header-area ">
             <div id="sticky-header" class="main-header-area">
                 <div class="container-fluid ">
@@ -98,6 +110,7 @@
                                         @if(Auth::check())
                                         <div class="btn-group">
                                             <a href="" class="btn-img img dropdown-toggle rounded-circle" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false" >
+                                                <img src="{{Auth::user()->image_url}}" alt="">
                                             </a>
                                             <div class="dropdown-menu">
 

@@ -24,16 +24,21 @@ class SocialController extends Controller
 
         try {
             $userSocial  =   Socialite::driver($provider)->stateless()->user();
+            // dd($userSocial);
             $user = User::firstOrCreate(
                 ['email' => $userSocial->getEmail()],
                 [
                     'name' => $userSocial->getName(),
                     'provider' => $provider,
                     'provider_id' => $userSocial->getId(),
-                    'profile_picture'         => $userSocial->getAvatar(),
+                    'profile_picture' => $userSocial->getAvatar(),
+                    'role' => 'candidate',
                 ]
             );
-            CandidateUser::firstOrCreate(['user_id' => $user->id]);
+            CandidateUser::firstOrCreate(['user_id' => $user->id], [
+                'profile_picture' => $userSocial->getAvatar(),
+
+            ]);
             // dd($user);
             Auth::guard('web')->login($user);
             return redirect('/');

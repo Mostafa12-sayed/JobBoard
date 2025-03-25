@@ -38,9 +38,18 @@ My Profile
             </label>
             <div class="profile-pic">
                 <label for="profile_picture" class="image-upload-label">
-                    <img src="{{  optional($profileData)->profile_picture ? Storage::url($profileData->profile_picture) : asset('profileimg/profile.jpg') }}" alt="Profile Picture" class="profile-img" id="profile-preview">
-                    @if(Auth::user()->id === $user->id)
+                    <img src="{{ optional($profileData)->profile_picture 
+                    ? (Str::startsWith($profileData->profile_picture, ['http', 'https']) 
+                        ? $profileData->profile_picture 
+                        : Storage::url($profileData->profile_picture)) 
+                    : asset('profileimg/profile.jpg') }}" 
+                     alt="Profile Picture" 
+                     class="profile-img" 
+                     id="profile-preview">
+                    
 
+                    
+                    @if(Auth::user()->id === $user->id)
                     <input type="file" id="profile_picture" name="profile_picture" accept="image/*" class="hidden-input" onchange="uploadImage('profile_picture')">
                     @endif 
                     {{-- <button>
