@@ -59,13 +59,13 @@ Route::group(['as' => 'website.'], function () {
     Route::get('/jobs/filtered', [JobController::class, 'filter'])->name('jobs.filter');
     Route::get('/jobs/{id}', [JobController::class, 'show'])->name('jobs.show');
 
+    Route::get('/comments/{jobId}', [CommentController::class, 'index']);
     Route::middleware('auth:web')->group(function () {
 
         //appply jobs
         Route::post('/jobs/apply/{id}', [JobController::class, 'apply'])->name('jobs.apply');
         Route::delete('/jobs/delete_app/{id}', [JobController::class, 'delete_app'])->name('jobs.delete_app');
         //comment jobs
-        Route::get('/comments/{jobId}', [CommentController::class, 'index']);
         Route::post('/comments', [CommentController::class, 'store'])->middleware('filter.badwords');
 
         // create jon and manage    

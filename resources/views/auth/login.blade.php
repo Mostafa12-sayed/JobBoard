@@ -25,7 +25,7 @@
                 <div class="social-login">
                   <div class="row">
                     <div class="col-lg-4 col-md-4 col-12">
-                      <a class="btn facebook-btn" href="javascript:void(0)"
+                      <a class="btn facebook-btn" href="{{route('social.login', 'linkedin-openid')}}"
                         ><i class="lni lni-facebook-filled"></i> Linkedin </a
                       >
                       

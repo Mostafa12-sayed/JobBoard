@@ -78,6 +78,7 @@ class User extends Authenticatable
             return asset('assets/website/img/defult-user.jpg');
         }
         if (Str::startsWith($this->profile_picture, ['http', 'https'])) {
+            // dd($this->profile_picture);
             return $this->profile_picture;
         }
 
