@@ -1,5 +1,5 @@
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f8f9fa;
@@ -48,7 +48,7 @@ body {
 .header-info {
     margin-bottom: 30px;
 }
-.hidden-input{
+.hidden-input {
     display: none;
 }
 .main-content {
@@ -66,6 +66,7 @@ body {
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-height: 500px;
 }
 
 .section-card {
@@ -294,8 +295,6 @@ p {
     font-size: 0.9em;
 }
 
-
-
 /* ========== Section Card Enhancements ========== */
 .section-card {
     background-color: #fff;
@@ -338,7 +337,7 @@ p {
 
 /* If you want to add an icon before each list item (optional):*/
 .skills li::before {
-    content: '✓';
+    content: "✓";
     color: #28a745;
     font-weight: bold;
     margin-right: 6px;

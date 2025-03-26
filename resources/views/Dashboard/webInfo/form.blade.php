@@ -80,7 +80,10 @@
             <label for="twitter" class="form-label">Twitter</label>
             <input type="text" name="twitter" class="form-control" id="twitter" placeholder="Enter linkedin" value="{{ old('twitter', $resource->twitter) }}">
           </div>
-
+          <div class="mb-3">
+            <label for="valueJobs" class="form-label">Number of jobs can user apply</label>
+            <input type="text" name="number_of_jobs_apply" class="form-control" id="valueJobs" placeholder="Enter valu" value="{{ old('number_of_jobs_apply', $resource->number_of_jobs_apply) }}">
+          </div>
           <div class="mb-3 images  d-flex justify-content-between ">
             
             <label for="logo" class="upload-btn " >

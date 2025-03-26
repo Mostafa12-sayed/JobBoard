@@ -23,6 +23,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'check.user.type' => \App\Http\Middleware\CheckTypeUser::class,
             'filter.badwords' => \App\Http\Middleware\FilterBadWords::class,
+            'check.verified.user' => \App\Http\Middleware\CheckVerified::class,
+
 
         ]);
     })

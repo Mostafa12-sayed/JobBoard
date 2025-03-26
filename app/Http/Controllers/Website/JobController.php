@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Models\User;
+use App\Models\WebInfo;
 use Illuminate\Http\JsonResponse;
 
 class JobController extends Controller
@@ -192,6 +193,10 @@ class JobController extends Controller
 
         $user_id = Auth::id();
 
+        if ($this->checkAvaliableApply()) {
+            return back()->with('error', 'You have already applied Limited.');
+        }
+
         $user = User::where('id', $user_id)->first();
         $candidate = CandidateUser::where('user_id', $user_id)->first();
         if (!$candidate->resume) {
@@ -243,5 +248,18 @@ class JobController extends Controller
 
         $application->update(['status' => 'rejected']);
         return redirect()->back()->with('success', 'Application rejected.');
+    }
+
+
+    public function checkAvaliableApply()
+    {
+        $avaliable_jobs = WebInfo::select('number_of_jobs_apply')->first();
+        $number_of_jobs = Auth::user()->application->count();
+
+        if ($number_of_jobs >= $avaliable_jobs->number_of_jobs_apply) {
+            return true;
+        }
+
+        return false;
     }
 }

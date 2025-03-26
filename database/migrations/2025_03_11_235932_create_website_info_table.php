@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('linkedin')->nullable();
             $table->string('facebook')->nullable();
             $table->string('twitter')->nullable();
+            $table->integer('number_of_jobs_apply')->default(1);
 
             $table->timestamps();
         });

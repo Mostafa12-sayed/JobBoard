@@ -122,7 +122,7 @@
                             <div class="single_jobs white-bg d-flex justify-content-between">
                                 <div class="jobs_left d-flex align-items-center">
                                     <div class="thumb">
-                                        <img src="{{ asset('img/svg_icon/1.svg') }}" alt="">
+                                        <img src="{{$job->user->company_logo ? asset($job->user->company_logo) : asset('assets/website/img/defult-company.png')}}" alt="">
                                     </div>
                                     <div class="jobs_conetent">
                                         <a href="{{ route('website.jobs.show', $job->id) }}"><h4>{{ $job->title }}</h4></a>
@@ -255,7 +255,7 @@
                                     <div class="single_jobs white-bg d-flex justify-content-between">
                                         <div class="jobs_left d-flex align-items-center">
                                             <div class="thumb">
-                                                <img src="/img/svg_icon/1.svg" alt="">
+                                                <img src="{{$job->user->company_logo ? asset($job->user->company_logo) : asset('assets/website/img/defult-company.png')}}" alt="">
                                             </div>
                                             <div class="jobs_conetent">
                                                 <a href="/jobs/${job.id}"><h4>${job.title}</h4></a>
