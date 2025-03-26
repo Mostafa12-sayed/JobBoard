@@ -46,9 +46,18 @@
                                             </div>
                                         </div>
                                         <div class="jobs_right">
-                                            <div class="apply_now">
-                                                <a href="{{route('website.jobs.show' , $job->id)}}" class="boxed-btn3">View Details</a>
+                                            
+                                            <div class="apply_now text-right">
+                                               @if($job->applications->where('user_id', auth()->user()->id)->select('status')->first()['status'] == 'pending')
+                                               <span class="btn badge badge-warning">Pending</span>
+                                               @elseif($job->applications->where('user_id', auth()->user()->id)->select('status')->first()['status'] == 'approved')
+                                               <span class="btn badge badge-success">Approved</span>
+                                               @else
+                                               <span class="btn badge badge-danger">Rejected</span>
+                                               @endif
                                             </div>
+                                          
+                                            
                                             <div class="date">
                                                 <p>Deadline: {{$job->application_deadline}}</p>
                                             </div>
@@ -58,7 +67,7 @@
                                 @endforeach
                             @else
                                 <div class="col-lg-12">
-                                    <div class="alert alert-info">
+                                    <div class="alert alert-info p-5">
                                         <p>You haven't applied to any jobs yet.</p>
                                     </div>
                                 </div>

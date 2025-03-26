@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Website\ContactUsController;
@@ -103,6 +104,13 @@ Route::fallback(function () {
 
 Route::get('login/{provider}', [SocialController::class, 'redirect'])->name('social.login');
 Route::get('login/{provider}/callback', [SocialController::class, 'callback'])->name('social.callback');
+
+
+Route::get('password/forget/{token}', [PasswordResetLinkController::class, 'showLinkRequestForm'])
+    ->name('password.forget.link');
+
+Route::post('password/email/submit', [PasswordResetLinkController::class, 'resetPassword'])
+    ->name('password.forget.link.submit');
 
 
 require __DIR__ . '/dashboard.php';

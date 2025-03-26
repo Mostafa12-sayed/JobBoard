@@ -84,4 +84,9 @@ class User extends Authenticatable
 
         return asset('storage/' . $this->profile_picture);
     }
+
+    public function application()
+    {
+        return $this->hasMany(Applications::class, 'user_id');
+    }
 }
