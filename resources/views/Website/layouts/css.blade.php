@@ -34,4 +34,24 @@
         .submit:hover{
             background-color:rgb(8, 106, 197) !important;
         }
+        .thumb img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+        .bradcam_area {
+            background-image: url('/assets/website/img/banner/bradcam.png');
+            padding: 170px 0;
+            background-size: cover;
+            background-position: center center;
+            position: relative;
+            z-index: 0;
+            background-image: url('/assets/website/img/banner/bradcam.png');
+        }
+        .bradcam_text h3 {
+            font-size: 50px;
+            font-weight: 700;
+            color: #fff;
+            text-transform: capitalize;
+        }
     </style>

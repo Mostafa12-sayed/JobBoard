@@ -36,11 +36,11 @@ Route::middleware('check.verified.user')->group(function () {
 
 
 
-    Route::get('/', function () {
-        $jobs = Job::paginate(5);
-        $jobCount = Job::count();
-        return view('Website.jobs', compact('jobs', 'jobCount'));
-    })->name('home.index');
+    // Route::get('/', function () {
+    //     $jobs = Job::paginate(5);
+    //     $jobCount = Job::count();
+    //     return view('Website.jobs', compact('jobs', 'jobCount'));
+    // })->name('home.index');
     Route::get('/', [HomePageController::class, 'show'])->name('home.show');
     // });
 
@@ -93,12 +93,6 @@ Route::middleware('check.verified.user')->group(function () {
         });
     });
 
-    // Route::get('/error', function () {
-    //     return view('Website.abort');
-    // })->name('error');
-    // // Route::view('/{any}', 'Website.abort')->where('any', '.*');
-
-
 
     Route::get('login/{provider}', [SocialController::class, 'redirect'])->name('social.login');
     Route::get('login/{provider}/callback', [SocialController::class, 'callback'])->name('social.callback');
@@ -116,8 +110,12 @@ Route::get('/verifications/{id}/{token}', [RegisteredUserController::class, 'act
 
 Route::post('/resend/verifications', [RegisteredUserController::class, 'resendVerificationEmail'])
     ->name('resend.verification.email');
+
+
 Route::fallback(function () {
     return view('Website.abort');
 })->name('error');
+
+
 require __DIR__ . '/dashboard.php';
 require __DIR__ . '/auth.php';

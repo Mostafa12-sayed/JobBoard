@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="bradcam_text">
-                        <h3>My Applications</h3>
+                        <h3>My Applications  ({{ $jobs->count() }} of  {{\App\Models\WebInfo::first()->number_of_jobs_apply}})</h3>
                     </div>
                 </div>
             </div>
@@ -83,25 +83,6 @@
 
 @section('styles')
     <style>
-        .thumb img {
-            width: 100px;
-            height: auto;
-            object-fit: contain;
-        }
-        .bradcam_area {
-            background-image: url('/assets/website/img/banner/bradcam.png');
-            padding: 170px 0;
-            background-size: cover;
-            background-position: center center;
-            position: relative;
-            z-index: 0;
-            background-image: url('/assets/website/img/banner/bradcam.png');
-        }
-        .bradcam_text h3 {
-            font-size: 50px;
-            font-weight: 700;
-            color: #fff;
-            text-transform: capitalize;
-        }
+       
     </style>
 @endsection
