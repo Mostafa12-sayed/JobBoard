@@ -1,5 +1,5 @@
 @extends('Website.layouts.master')
-@section('title') 
+@section('title')
 @if(Auth::user()->id === $user->id)
 My Profile
 @else
@@ -38,20 +38,20 @@ My Profile
             </label>
             <div class="profile-pic">
                 <label for="profile_picture" class="image-upload-label">
-                    <img src="{{ optional($profileData)->profile_picture 
-                    ? (Str::startsWith($profileData->profile_picture, ['http', 'https']) 
-                        ? $profileData->profile_picture 
-                        : Storage::url($profileData->profile_picture)) 
-                    : asset('profileimg/profile.jpg') }}" 
-                     alt="Profile Picture" 
-                     class="profile-img" 
+                    <img src="{{ optional($profileData)->profile_picture
+                    ? (Str::startsWith($profileData->profile_picture, ['http', 'https'])
+                        ? $profileData->profile_picture
+                        : Storage::url($profileData->profile_picture))
+                    : asset('profileimg/profile.jpg') }}"
+                     alt="Profile Picture"
+                     class="profile-img"
                      id="profile-preview">
-                    
 
-                    
+
+
                     @if(Auth::user()->id === $user->id)
                     <input type="file" id="profile_picture" name="profile_picture" accept="image/*" class="hidden-input" onchange="uploadImage('profile_picture')">
-                    @endif 
+                    @endif
                     {{-- <button>
                         <i class="fas fa-camera"></i> Change Picture
                     </button>  --}}
@@ -111,7 +111,7 @@ My Profile
 
                                     </li>
                                 </ul>
-                              
+
                             </div>
                             @endforeach
                         </div>
@@ -129,8 +129,8 @@ My Profile
                                 <li>{{ $lang['value'] }}</li>
                             @endforeach
                         </ul>
-                        @else 
-                        N/A 
+                        @else
+                        N/A
                         @endif
                     </div>
                 </div>
@@ -146,8 +146,8 @@ My Profile
                                 <li>{{ $inter['value'] }}</li>
                             @endforeach
                         </ul>
-                        @else 
-                        N/A 
+                        @else
+                        N/A
                         @endif
                     </div>
                 </div>
@@ -189,15 +189,16 @@ My Profile
                         <li><strong>GitHub:</strong><br> <a href="{{ $profileData->github_profile ? (str_starts_with($profileData->github_profile, 'http') ? $profileData->github_profile : 'https://' . $profileData->github_profile) : '#' }}">{{ $profileData->github_profile ?? 'N/A' }}</a></li>
                         <li><strong>Portfolio:</strong><br> <a href="{{ $profileData->portfolio_website ? (str_starts_with($profileData->portfolio_website, 'http') ? $profileData->portfolio_website : 'https://' . $profileData->portfolio_website) : '#' }}">{{ $profileData->portfolio_website ?? 'N/A' }}</a></li>
                         <li><strong>Education:</strong> {{ $profileData->education ?? 'N/A' }}</li>
-                           
+
                     @endif
-                
+
                     <!-- Social icons (only for candidates) -->
                     @if($user->role === 'candidate')
                         <li><strong>Social:</strong>
                             <div class="social-icons">
-                                <a href="{{ $profileData->linkedin_profile ? (str_starts_with($profileData->linkedin_profile, 'http') ? $profileData->linkedin_profile : 'https://' . $profileData->linkedin_profile) : '#' }}"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="{{ $profileData->github_profile ? (str_starts_with($profileData->github_profile, 'http') ? $profileData->github_profile : 'https://' . $profileData->github_profile) : '#' }}"><i class="fab fa-github"></i></a>
+                                <a href="{{ $profileData->linkedin_profile ? (str_starts_with($profileData->linkedin_profile, 'http') ? $profileData->linkedin_profile : 'https://' . $profileData->linkedin_profile) : '#' }}"><i class="ti-linkedin"></i></a>
+                                <a href="{{ $profileData->github_profile ? (str_starts_with($profileData->github_profile, 'http') ? $profileData->github_profile : 'https://' . $profileData->github_profile) : '#' }}"><i class="ti-github"></i></a>
+                                <a href="{{ $profileData->portfolio_website ? (str_starts_with($profileData->portfolio_website, 'http') ? $profileData->portfolio_website : 'https://' . $profileData->portfolio_website) : '#' }}"><i class="ti-user"></i></a>
                             </div>
                         </li>
                     @endif
@@ -213,7 +214,7 @@ My Profile
         </div>
     </div>
 @endsection
-    
+
 <!-- JavaScript for image upload -->
 @section('js')
 <script>
