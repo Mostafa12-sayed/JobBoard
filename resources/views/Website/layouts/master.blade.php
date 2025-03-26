@@ -1,5 +1,5 @@
 @php
-    
+
     $info =webinfo();
 
 @endphp
@@ -15,11 +15,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="shortcut icon" type="image/x-icon" href="{{$info ? asset($info->favicon) : ''}}">
-
+    
 
     @include('Website.layouts.css')
     @yield('css')
-    
+
 </head>
 
 <body>
