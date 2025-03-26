@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="{{asset('assets/website/css/style.css')}}">
     <!-- <link rel="stylesheet" href="css/responsive.css')}}"> -->
 
-    
+
     <style>
         .submit{
             background-color: rgb(1, 132, 255) !important;
