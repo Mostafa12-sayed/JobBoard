@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendVerificationEmail;
+use App\Mail\VerifyEmail;
 use App\Models\User;
 use App\Models\EmployeeUser;
 use App\Models\CandidateUser;
@@ -11,8 +13,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
 {
@@ -65,13 +69,14 @@ class RegisteredUserController extends Controller
 
         // Validate the request with dynamic rules
         $request->validate($validationRules);
-
+        $token = Str::random(65);
         // Create the user record
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
+            'verification_token' => $token,
         ]);
 
         // Process file uploads
@@ -112,13 +117,40 @@ class RegisteredUserController extends Controller
         }
 
         // Fire the Registered event
-        event(new Registered($user));
+        // event(new Registered($user));
+        SendVerificationEmail::dispatch($user);
+        flash()->info('Please verify your email address to complete registration.');
 
         // Log in the user
         Auth::login($user);
 
         // Redirect to the profile page
-        return Redirect::to('/')
-            ->with('success', 'Registration successful!');
+        return Redirect::to('/');
+    }
+
+
+    public function activateUser($id, $token)
+    {
+        $user = User::where('verification_token', $token)->where('id', $id)->first();
+        if (!$user) {
+            return redirect('/login')->with('error', 'Invalid token!');
+        }
+        $user->email_verified_at = now();
+        $user->save();
+        flash()->success('Email verified successfully!');
+        return to_route('home.show');
+    }
+
+    public function resendVerificationEmail(Request $request)
+    {
+        // dd($request->all());
+        $user = User::where('email', $request->email)->first();
+        if (!$user) {
+            return redirect('/login')->with('error', 'Email not found!');
+        }
+        // Mail::to($user->email)->send(new VerifyEmail($user));
+        SendVerificationEmail::dispatch($user);
+
+        return back()->with('success', 'Verification email sent!');
     }
 }
