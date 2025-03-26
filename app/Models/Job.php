@@ -50,9 +50,9 @@ class Job extends Model
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
-    
+
     public function applications()
     {
-         return $this->hasMany(Applications::class, 'job_id');
+        return $this->hasMany(Applications::class, 'job_id');
     }
 }

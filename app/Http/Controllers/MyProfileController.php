@@ -12,10 +12,8 @@ class MyProfileController extends Controller
 {
     public function index()
     {
-
         // return view('hady-profile');
         $user = Auth::user();
-
         // Fetch related profile data based on role
         $profileData = $user->role === 'employer' ? $user->employee : $user->candidate;
 
