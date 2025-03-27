@@ -14,12 +14,8 @@ use App\Http\Controllers\Website\SocialController;
 use App\Models\Category;
 use App\Models\EmployeeUser;
 use App\Models\Job;
-<<<<<<< HEAD
-use App\Models\User;
-=======
 
 Route::middleware('check.verified.user')->group(function () {
->>>>>>> 9dc68010747b41d8156c266db15d263855cd3f8f
 
     Route::get('/candidate/profile', [MyProfileController::class, 'canditateProfile'])->middleware('auth')->name('candidate.details');
 

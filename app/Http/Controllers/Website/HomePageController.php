@@ -62,11 +62,7 @@ class HomePageController extends Controller
         $jobcount = job::count('id');
 
 
-<<<<<<< HEAD
         return view('Website.index', compact('categories'), compact( 'candidates', 'employer','all_categories','jobs','jobs_location','jobcount'));
-=======
-        return view('Website.index', compact('categories'), compact('jobs', 'candidates', 'employer', 'all_categories', 'jobs', 'jobs_location', 'jobcount'));
->>>>>>> 9dc68010747b41d8156c266db15d263855cd3f8f
     }
 
     public function filter(Request $request)
