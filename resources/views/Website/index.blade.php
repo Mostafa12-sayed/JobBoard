@@ -78,22 +78,7 @@
                 </div>
             </form>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="popular_search d-flex align-items-center">
-                        <span>Popular Search:</span>
-                        <!-- <ul>
-                            <li><a href="#">Design & Creative</a></li>
-                            <li><a href="#">Marketing</a></li>
-                            <li><a href="#">Administration</a></li>
-                            <li><a href="#">Teaching & Education</a></li>
-                            <li><a href="#">Engineering</a></li>
-                            <li><a href="#">Software & Web</a></li>
-                            <li><a href="#">Telemarketing</a></li>
-                        </ul> -->
-                    </div>
-                </div>
-            </div>
+       
         </div>
     </div>
     <!--/ catagory_area -->

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->json('languages')->nullable();  // Change 'tags' column to JSON
 
             $table->string('education')->nullable();
-            $table->string('experience')->nullable();
+            $table->text('experience')->nullable();
 
             $table->json('interests')->nullable();
 

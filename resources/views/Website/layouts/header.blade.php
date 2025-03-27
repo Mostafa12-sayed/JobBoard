@@ -35,8 +35,8 @@
         }
     }
 .logo{
-    width: 100px !important;
-    height: 60px !important;
+    /* width: 100px !important;
+    height: 60px !important; */
 
 }
 .logo img{

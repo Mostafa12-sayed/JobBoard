@@ -80,6 +80,12 @@
                   @endif
                   </td>
                 </tr>
+
+                <tr>
+                  <td>Number of Jobs Can User Apply</td>
+                  <td>{{ $websiteInfo->number_of_jobs_apply ?? 'N/A' }}</td>
+               
+                </tr>
                
               </tbody>
             </table>

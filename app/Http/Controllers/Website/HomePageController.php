@@ -48,9 +48,9 @@ class HomePageController extends Controller
             $query->where('category_id', $category);
         }
 
-                $query->where('status','approved');
+        $query->where('status', 'approved');
 
-                $query->where('job_status','available');
+        $query->where('job_status', 'available');
 
         // Get the filtered jobs
         $jobs = $query->with('user.employee')->paginate(10);
@@ -58,11 +58,15 @@ class HomePageController extends Controller
         // Get all categories for the filter dropdown
         $all_categories = Category::all();
 
-                $jobs_location = job::all(['id', 'location']);
-                $jobcount=job::count('id');
+        $jobs_location = job::all(['id', 'location']);
+        $jobcount = job::count('id');
 
 
+<<<<<<< HEAD
         return view('Website.index', compact('categories'), compact( 'candidates', 'employer','all_categories','jobs','jobs_location','jobcount'));
+=======
+        return view('Website.index', compact('categories'), compact('jobs', 'candidates', 'employer', 'all_categories', 'jobs', 'jobs_location', 'jobcount'));
+>>>>>>> 9dc68010747b41d8156c266db15d263855cd3f8f
     }
 
     public function filter(Request $request)
@@ -74,35 +78,35 @@ class HomePageController extends Controller
         $employer = EmployeeUser::paginate(4);
 
         // Get the filter inputs
-                $keyword = $request->input('keyword');
-                $location = $request->input('location');
-                $category = $request->input('category');
-        
-                // Start the query
-                $query = Job::query();
-        
-                // Apply keyword filter (search in title and description)
-                if ($keyword) {
-                    $query->where(function ($q) use ($keyword) {
-                        $q->where('title', 'like', "%{$keyword}%")
-                          ->orWhere('description', 'like', "%{$keyword}%");
-                    });
-                }
-        
-                // Apply location filter
-                if ($location) {
-                    $query->where('location', 'like', "%{$location}%");
-                }
-        
-                // Apply category filter
-                if ($category) {
-                    $query->where('category_id', $category);
-                }
+        $keyword = $request->input('keyword');
+        $location = $request->input('location');
+        $category = $request->input('category');
 
-                $query->where('status','approved');
+        // Start the query
+        $query = Job::query();
 
-                $query->where('job_status','available');
-                
+        // Apply keyword filter (search in title and description)
+        if ($keyword) {
+            $query->where(function ($q) use ($keyword) {
+                $q->where('title', 'like', "%{$keyword}%")
+                    ->orWhere('description', 'like', "%{$keyword}%");
+            });
+        }
+
+        // Apply location filter
+        if ($location) {
+            $query->where('location', 'like', "%{$location}%");
+        }
+
+        // Apply category filter
+        if ($category) {
+            $query->where('category_id', $category);
+        }
+
+        $query->where('status', 'approved');
+
+        $query->where('job_status', 'available');
+
 
         // $query->where('status','approved'); for displaying approved jobs only
 
@@ -114,26 +118,25 @@ class HomePageController extends Controller
 
         $jobs_location = job::all(['id', 'location']);
 
-                $jobcount=job::count('id');
+        $jobcount = job::count('id');
 
 
 
-        return view('Website.index', compact('categories'), compact('jobs', 'candidates', 'employer','all_categories','jobs','jobs_location','jobcount'));
+        return view('Website.index', compact('categories'), compact('jobs', 'candidates', 'employer', 'all_categories', 'jobs', 'jobs_location', 'jobcount'));
     }
 
-    public function my_apps(){
+    public function my_apps()
+    {
 
-        $user_id=Auth::id();
-        $apps=Applications::where('user_id',$user_id)->get();
-        if($apps){
-            $jobs=Job::whereIn('id',$apps->pluck('job_id'))->get();
-            return view('Website.my_applications',compact('jobs'));
-        }else{
-            $jobs=[];
-            return view('Website.my_applications',compact('jobs'));
-
+        $user_id = Auth::id();
+        $apps = Applications::where('user_id', $user_id)->get();
+        if ($apps) {
+            $jobs = Job::whereIn('id', $apps->pluck('job_id'))->get();
+            return view('Website.my_applications', compact('jobs'));
+        } else {
+            $jobs = [];
+            return view('Website.my_applications', compact('jobs'));
         }
-
     }
 
     public function candidates()
