@@ -11,8 +11,10 @@ use App\Http\Controllers\Website\HomePageController;
 use App\Http\Controllers\Website\JobController;
 use App\Http\Controllers\Website\MyJobsController;
 use App\Http\Controllers\Website\SocialController;
+use App\Models\Category;
+use App\Models\EmployeeUser;
 use App\Models\Job;
-
+use App\Models\User;
 
 Route::get('/my-profile', [MyProfileController::class, 'index'])->middleware('auth')->name('my-profile');
 Route::get('/candidate/profile', [MyProfileController::class, 'canditateProfile'])->middleware('auth')->name('candidate.details');
@@ -41,6 +43,15 @@ Route::get('/', function () {
     $jobCount = Job::count();
     return view('Website.jobs', compact('jobs', 'jobCount'));
 })->name('home.index');
+
+Route::get('/companies', function () {
+    $jobs = Job::all();
+    $jobCount = Job::count();
+    $categories =  Category::withcount('jobs')->where('status', 'active')->having('jobs_count', '>', 0)->get();
+    $employer = EmployeeUser::all();
+    // dd($employer);
+    return view('Website.companies', compact('jobs', 'jobCount', 'categories', 'employer'));
+})->name('companies.index');
 
 
 

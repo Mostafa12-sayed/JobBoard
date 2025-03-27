@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="bradcam_text">
-                    <h3>{{ isset($jobCount) ? $jobCount : '0' }}+ Jobs Available</h3>
+                    <h3 class="jobs_available">{{ isset($jobCount) ? $jobCount : '0' }} +Jobs Available</h3>
                     </div>
                 </div>
             </div>
@@ -104,7 +104,7 @@
                         </div>
                     </div>
                 <div class="job_lists m-0">
-                    <div class="row">
+                    <div class="row jj">
                         @if($jobs->count() == 0)
                         <div class="col-lg-12 col-md-12">
                             @component('Website.layouts.includes.alter')
@@ -202,7 +202,7 @@
             performFilter();
         });
 
-        function performFilter() {
+        function performFilter(page = 1) {
             var keyword = $('#jobkeywordfilter').val() || '';
             var category = $('#jobcategoryfilter').val() || '';
             var location = $('#joblocationfilter').val() || '';
@@ -225,22 +225,24 @@
                     worktype: worktype,
                     type: type,
                     min: min,
-                    max: max
+                    max: max,
+                    page: page
                 },
                 success: function(response) {
                     console.log('Response:', response);
                     
                     var jobs = response.jobs.data;
                     var jobcount = response.jobcount;
+                    var pagination = response.jobs;
                     
                     // Update job count in header
-                    $('.bradcam_text h3').text(jobcount + '+ Jobs Available');
+                    $('.jobs_available').text(jobcount + '+ Jobs Available');
                     
                     // Clear existing job listings
                     $('.job_lists .row').empty();
                     
                     if (!jobs || jobs.length === 0) {
-                        $('.job_lists .row').append(`
+                        $('.job_lists .jj').append(`
                             <div class="col-lg-12 col-md-12">
                                 <div class="alert alert-info">
                                     <h4>No Jobs Found</h4>
@@ -250,7 +252,7 @@
                         `);
                     } else {
                         jobs.forEach(function(job) {
-                            $('.job_lists .row').append(`
+                            $('.job_lists .jj').append(`
                                 <div class="col-lg-12 col-md-12">
                                     <div class="single_jobs white-bg d-flex justify-content-between">
                                         <div class="jobs_left d-flex align-items-center">
@@ -281,11 +283,49 @@
                                 </div>
                             `);
                         });
+
+                        // Add pagination if there are multiple pages
+                        if (pagination.last_page > 1) {
+                            let paginationHtml = '<div class="col-lg-12"><div class="pagination_wrap"><ul>';
+                            
+                            // Previous page
+                            if (pagination.current_page > 1) {
+                                paginationHtml += `<li><a href="#" data-page="${pagination.current_page - 1}"><i class="ti-angle-left"></i></a></li>`;
+                            } else {
+                                paginationHtml += '<li><span><i class="ti-angle-left"></i></span></li>';
+                            }
+
+                            // Page numbers
+                            for (let i = 1; i <= pagination.last_page; i++) {
+                                if (i === pagination.current_page) {
+                                    paginationHtml += `<li><span style="background-color: rgb(16, 170, 241); width: 25px; height: 25px; border-radius: 50%; display: inline-block; margin-right: 5px; color: white; text-align: center; line-height: 25px;">${i}</span></li>`;
+                                } else {
+                                    paginationHtml += `<li><a href="#" data-page="${i}"><span>${i}</span></a></li>`;
+                                }
+                            }
+
+                            // Next page
+                            if (pagination.current_page < pagination.last_page) {
+                                paginationHtml += `<li><a href="#" data-page="${pagination.current_page + 1}"><i class="ti-angle-right"></i></a></li>`;
+                            } else {
+                                paginationHtml += '<li><span><i class="ti-angle-right"></i></span></li>';
+                            }
+
+                            paginationHtml += '</ul></div></div>';
+                            $('.job_lists .jj').append(paginationHtml);
+
+                            // Add click handlers for pagination
+                            $('.pagination_wrap a').click(function(e) {
+                                e.preventDefault();
+                                var page = $(this).data('page');
+                                performFilter(page);
+                            });
+                        }
                     }
                 },
                 error: function(xhr, status, error) {
                     console.error('Ajax Error:', {xhr, status, error});
-                    $('.job_lists .row').html(`
+                    $('.job_lists .jj').html(`
                         <div class="col-lg-12 col-md-12">
                             <div class="alert alert-danger">
                                 <h4>Error</h4>
