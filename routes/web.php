@@ -11,6 +11,8 @@ use App\Http\Controllers\Website\HomePageController;
 use App\Http\Controllers\Website\JobController;
 use App\Http\Controllers\Website\MyJobsController;
 use App\Http\Controllers\Website\SocialController;
+use App\Models\Category;
+use App\Models\EmployeeUser;
 use App\Models\Job;
 
 Route::middleware('check.verified.user')->group(function () {
@@ -43,6 +45,15 @@ Route::middleware('check.verified.user')->group(function () {
     // })->name('home.index');
     Route::get('/', [HomePageController::class, 'show'])->name('home.show');
     // });
+
+Route::get('/companies', function () {
+    $jobs = Job::all();
+    $jobCount = Job::count();
+    $categories =  Category::withcount('jobs')->where('status', 'active')->having('jobs_count', '>', 0)->get();
+    $employer = EmployeeUser::all();
+    // dd($employer);
+    return view('Website.companies', compact('jobs', 'jobCount', 'categories', 'employer'));
+})->name('companies.index');
 
 
     ////// home page

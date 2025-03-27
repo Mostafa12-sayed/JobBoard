@@ -97,7 +97,6 @@
             </div>
             <div class="row">
                 @foreach ($categories as $category)
-                    
                 <div class="col-lg-4 col-xl-3 col-md-6">
                     <div class="single_catagory">
                         <a href="{{route('website.jobs.index', ['category' => $category->id])}}"><h4>{{$category->name}}</h4></a>
@@ -174,7 +173,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="brouse_job text-right">
-                        <a href="jobs.html" class="boxed-btn4">Browse More Job</a>
+                        <a href="{{ route('companies.index') }}" class="boxed-btn4">Browse More Companies</a>
                     </div>
                 </div>
             </div>
@@ -182,15 +181,11 @@
                 <div class="row">
                     @foreach ($employer as $employer) 
                     <div class="col-lg-4 col-xl-3 col-md-6">
-                        <div class="single_company">
-                            {{-- <div class="thumb">
-                                <img src='{{$employer->company_logo}}' alt="">
-                            </div> --}}
+                        <div class="single_company" style="width: 200px; height: 200px;">
                             <div class="thumb">
                                 <img src="{{$employer->company_logo ? asset($employer->company_logo) : asset('assets/website/img/defult-company.png')}}" alt="">
                             </div>
-                            <a href="jobs.html"><h3>{{$employer->company_name}}</h3></a>
-                            <p> <span>{{$employer->jobs_count}}</span> Available position</p>
+                            <a href="{{ route('website.jobs.index') }}"> <h3>{{$employer->company_name}}</h3></a>
                         </div>
                     </div>
                     @endforeach
@@ -298,12 +293,5 @@
  @endsection
  @section('js')
 
-<script>
-    //    $('#location').select2({
-    //         allowClear: true,
-    //         placeholder: 'Select Job Type',
-    //         width: '100%',
-    //         height: '40px',
-    //     });
-</script>
+
  @endsection
