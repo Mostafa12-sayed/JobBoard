@@ -37,9 +37,9 @@
     </div>
     <!-- slider_area_end -->
 
-    <!-- catagory_area -->
+    <!-- search_area -->
     <div class="catagory_area">
-        <div class="container">
+        <div class="container mt-2">
             <form action="{{route ('home.filter')}}" method="post">
                 @csrf
             <div class="row cat_search">
@@ -81,36 +81,10 @@
        
         </div>
     </div>
-    <!--/ catagory_area -->
-
-    <!-- popular_catagory_area_start  -->
-    <div class="popular_catagory_area">
-        <div class="container">
-        <div class="row align-items-center">
-                <div class="col-lg-6 mb-40">
-                    <div class="section_title">
-                        <h3>popular categories</h3>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                </div>
-            </div>
-            <div class="row">
-                @foreach ($categories as $category)
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory">
-                        <a href="{{route('website.jobs.index', ['category' => $category->id])}}"><h4>{{$category->name}}</h4></a>
-                        <p> <span>{{$category->jobs_count}}</span> Available position</p>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
-    <!-- popular_catagory_area_end  -->
+    <!--/ search_area -->
 
     <!-- job_listing_area_start  -->
-    <div class="job_listing_area">
+    <div class="job_listing_area" style="margin-top: 20px;">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
@@ -163,6 +137,34 @@
     </div>
     <!-- featured_candidates_area_end  -->
 
+
+    <!-- popular_catagory_area_start  -->
+    <div class="popular_catagory_area">
+        <div class="container">
+        <div class="row align-items-center">
+                <div class="col-lg-6 mb-40">
+                    <div class="section_title">
+                        <h3>popular categories</h3>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                </div>
+            </div>
+            <div class="row">
+                @foreach ($categories as $category)
+                <div class="col-lg-4 col-xl-3 col-md-6">
+                    <div class="single_catagory">
+                        <a href="{{route('website.jobs.index', ['category' => $category->id])}}"><h4>{{$category->name}}</h4></a>
+                        <p> <span>{{$category->jobs_count}}</span> Available position</p>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    <!-- popular_catagory_area_end  -->
+
+
     <div class="top_companies_area">
         <div class="container">
             <div class="row align-items-center mb-40">
@@ -180,12 +182,14 @@
             <div class="d-flex">
                 <div class="row">
                     @foreach ($employer as $employer) 
-                    <div class="col-lg-4 col-xl-3 col-md-6">
-                        <div class="single_company" style="width: 200px; height: 200px;">
-                            <div class="thumb">
-                                <img src="{{$employer->company_logo ? asset($employer->company_logo) : asset('assets/website/img/defult-company.png')}}" alt="">
+                    <div class="col-lg-4 col-xl-3 col-md-6" style="height: auto;">
+                        <div class="single_company " style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                            <div class="thumb" style="width: 80px; height: 110px; margin-right:0px;">
+                                <img src="{{$employer->company_logo }}" style="width: 80px; height: 110px;" alt="">
                             </div>
-                            <a href="{{ route('website.jobs.index') }}"> <h3>{{$employer->company_name}}</h3></a>
+                            <div style="height: 30px;" class="mt-2">
+                                <a href="{{ route('website.jobs.index') }}"> <span>{{$employer->company_name}}</span></a>
+                            </div>
                         </div>
                     </div>
                     @endforeach
@@ -194,28 +198,6 @@
         </div> 
     </div>
 
-    <!-- job_searcing_wrap  -->
-    <div class="job_searcing_wrap overlay">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-5 offset-lg-1 col-md-6">
-                    <div class="searching_text">
-                        <h3>Looking for a Job?</h3>
-                        <p>We provide online instant cash loans with quick approval </p>
-                        <a href="{{ route('website.jobs.index') }}" class="boxed-btn3">Browse Job</a>
-                    </div>
-                </div>
-                <div class="col-lg-5 offset-lg-1 col-md-6">
-                    <div class="searching_text">
-                        <h3>Looking for a Expert?</h3>
-                        <p>We provide online instant cash loans with quick approval </p>
-                        <a href="{{ route('website.job.create') }}" class="boxed-btn3">Post a Job</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- job_searcing_wrap end  -->
 
     <!-- testimonial_area  -->
     <div class="testimonial_area  ">

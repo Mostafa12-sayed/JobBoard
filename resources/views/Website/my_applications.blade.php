@@ -8,8 +8,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
-                    <div class="bradcam_text">
-                        <h3>My Applications  ({{ $jobs->count() }} of  {{\App\Models\WebInfo::first()->number_of_jobs_apply}})</h3>
+                    <div class="bradcam_text"
+                        <h3>My Applications</h3>
+                        @if ($jobs->count() >0 )
+                        <h3>My Applications  ({{ $jobs->count() }} of  {{optional(\App\Models\WebInfo::first())->number_of_jobs_apply}})</h3>
+                        @else
+                        
+                        @endif
                     </div>
                 </div>
             </div>

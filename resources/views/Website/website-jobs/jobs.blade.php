@@ -234,6 +234,7 @@
                     var jobs = response.jobs.data;
                     var jobcount = response.jobcount;
                     var pagination = response.jobs;
+                    console.log('jobs: ', jobs);
                     
                     // Update job count in header
                     $('.jobs_available').text(jobcount + '+ Jobs Available');
