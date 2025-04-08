@@ -74,23 +74,19 @@
                         <h3>Top Companies</h3>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="brouse_job text-right">
-                        <a href="jobs.html" class="boxed-btn4">Browse More Job</a>
-                    </div>
-                </div>
             </div>
             <div class="d-flex">
                 <div class="row">
                     
                     @foreach ($employer as $employer) 
-                    <div class="col-lg-4 col-xl-3 col-md-6">
-                        <div class="single_company" style="width: 200px; height: 300px;">
-                            <div class="thumb">
-                                <img src="{{$employer->company_logo ? asset($employer->company_logo) : asset('assets/website/img/defult-company.png')}}" alt="">
+                    <div class="col-lg-4 col-xl-3 col-md-6" style="height: auto;">
+                        <div class="single_company " style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                            <div class="thumb" style="width: 80px; height: 110px; margin-right:0px;">
+                                <img src="{{$employer->company_logo }}" style="width: 80px; height: 110px;" alt="">
                             </div>
-                            <a href="{{ route('website.jobs.index') }}"> <h3>{{$employer->company_name}}</h3></a>
-                            <p> <span>{{$employer->jobs_count}}</span> Available position</p>
+                            <div style="height: 30px;" class="mt-2">
+                                <a href="{{ route('website.jobs.index') }}"> <span>{{$employer->company_name}}</span></a>
+                            </div>
                         </div>
                     </div>
                     @endforeach
