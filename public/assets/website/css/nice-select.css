@@ -26,6 +26,11 @@
           user-select: none;
   white-space: nowrap;
   width: auto; }
+  .nice-select.open ul {
+    max-height: 320px;
+    overflow-y: scroll;
+    display: block;
+}
   .nice-select:hover {
     border-color: #dbdbdb; }
   .nice-select:active, .nice-select.open, .nice-select:focus {

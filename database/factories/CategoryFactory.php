@@ -17,7 +17,21 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->unique()->word, // Random word as category name
+            'name' => $this->faker->randomElement([    'Software Development',
+            'Marketing',
+            'Finance',
+            'Human Resources',
+            'Sales',
+            'Customer Service',
+            'IT',
+            'Engineering',
+            'Design',
+            'Writing',
+            'Research',
+            'Consulting',
+            'Management',
+            'Operations',
+            'Logistics']), // Random word as category name
             'description' => $this->faker->paragraph,  // For category description
             'status' => $this->faker->randomElement(['active', 'inactive']), // Random status (active or inactive)
             'slug' => $this->faker->unique()->slug,

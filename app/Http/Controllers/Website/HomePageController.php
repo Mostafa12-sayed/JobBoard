@@ -141,4 +141,10 @@ class HomePageController extends Controller
 
         return view('Website.candidates', compact('candidates'));
     }
+    public function companies(){ 
+        $jobs = Job::all();
+        $jobCount = Job::count();
+        $categories =  Category::withcount('jobs')->where('status', 'active')->having('jobs_count', '>', 0)->get();
+        $employer = EmployeeUser::all();
+        return view('Website.companies', compact('jobs', 'jobCount', 'categories', 'employer'));}
 }

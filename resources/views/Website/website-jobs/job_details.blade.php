@@ -130,13 +130,6 @@
 
 <div class="job_details_area">
     <div class="container">
-        <div class="col-lg-6 mb-3" >
-            <div class="section_title" >
-                <a class="boxed-btn3 w-50" href="{{ route('website.jobs.index') }}">
-                    <img src="https://img.icons8.com/?size=96&id=81127&format=png" style="width: 2.5rem;" alt="">
-                Back</a>
-            </div>
-        </div>
         <div class="row">
             <div class="col-lg-7">
                 <div class="job_details_header" id="job_details_header" data-id="{{ $job->id }}">
