@@ -27,7 +27,7 @@ class EmployeeUserFactory extends Factory
         return [
             'user_id' => $user->id, // Create a User and use its ID
             'company_name' => $this->faker->company, // Fake company name
-            'company_logo' => 'https://plus.unsplash.com/premium_photo-1680281937048-735543c5c0f7?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Y29tcGFueXxlbnwwfHwwfHx8MA%3D%3D', // Fake company logo URL
+            'company_logo' => 'company_logos/OIP.jpeg', // Fake company logo URL
             'position' => $this->faker->jobTitle, // Fake job position
             'phone_number' => $this->faker->phoneNumber, // Fake phone number
             'address' => $this->faker->address, // Fake address

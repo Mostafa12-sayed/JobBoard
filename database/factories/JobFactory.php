@@ -39,7 +39,7 @@ class JobFactory extends Factory
                 return ['value' => $tech];
             }, $this->faker->words(3))),
 
-            'application_deadline' => $this->faker->date(),
+            'application_deadline' => $this->faker->dateTimeBetween('now', '+3 months')->format('Y-m-d'),
         ];
     }
 }

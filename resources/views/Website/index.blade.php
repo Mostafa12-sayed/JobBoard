@@ -50,7 +50,7 @@
                 </div>
                 <div class="col-lg-3 col-md-4">
                     <div class="single_input">
-                        <select class="wide" name="location" id="location">
+                        <select class="wide"  name="location" id="location" style="height: 100px;">
                             <option value="">Location</option>
                             @foreach ($jobs_location as $job)
                             <option value="{{$job->location}}" {{ request('location') == $job->location ? 'selected' : '' }}>{{ $job->location }}</option>
@@ -88,12 +88,12 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
-                    <div class="section_title">
+                    <div class="section_title mt-2">
                         <h3>Job Listing</h3>
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="brouse_job text-right" id="results">
+                    <div class="brouse_job text-right mt-3" id="results">
                         <a href="{{ route('website.jobs.index') }}" class="boxed-btn4">Browse More Job</a>
                     </div>
                 </div>
@@ -185,7 +185,7 @@
                     <div class="col-lg-4 col-xl-3 col-md-6" style="height: auto;">
                         <div class="single_company " style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
                             <div class="thumb" style="width: 80px; height: 110px; margin-right:0px;">
-                                <img src="{{$employer->company_logo }}" style="width: 80px; height: 110px;" alt="">
+                                <img src="{{ asset('storage/' . $employer->company_logo) }}" style="width: 80px; height: 110px;" alt="">
                             </div>
                             <div style="height: 30px;" class="mt-2">
                                 <a href="{{ route('website.jobs.index') }}"> <span>{{$employer->company_name}}</span></a>
@@ -199,67 +199,68 @@
     </div>
 
 
-    <!-- testimonial_area  -->
-    <div class="testimonial_area  ">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section_title text-center mb-40">
-                        <h3>Testimonial</h3>
-                    </div>
+<!-- testimonial_area -->
+<div class="testimonial_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section_title text-center mb-40">
+                    <h3>Testimonials</h3>
                 </div>
-                <div class="col-xl-12">
-                    <div class="testmonial_active owl-carousel">
-                        <div class="single_carousel">
-                            <div class="row">
-                                <div class="col-lg-11">
-                                    <div class="single_testmonial d-flex align-items-center">
-                                        <div class="thumb">
-                                            <img src="img/testmonial/author.png" alt="">
-                                            <div class="quote_icon">
-                                                <i class="Flaticon flaticon-quote"></i>
-                                            </div>
+            </div>
+            <div class="col-xl-12">
+                <div class="testmonial_active owl-carousel">
+                    <!-- Testimonial 1 -->
+                    <div class="single_carousel">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-10 col-xl-11">
+                                <div class="single_testmonial d-flex align-items-center">
+                                    <div class="thumb">
+                                        <div class="quote_icon">
+                                            <i class="flaticon-quote"></i>
                                         </div>
-                                        <div class="info">
-                                            <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering through animal welfare when people might depend on livestock as their only source of income or food.</p>
-                                            <span>- Micky Mouse</span>
-                                        </div>
+                                    </div>
+                                    <div class="info">
+                                        <p>"This company provided exceptional service. Their team went above and beyond to meet our needs and delivered outstanding results."</p>
+                                        <span>- Michael Johnson</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="single_carousel">
-                            <div class="row">
-                                <div class="col-lg-11">
-                                    <div class="single_testmonial d-flex align-items-center">
-                                        <div class="thumb">
-                                            <img src="img/testmonial/author.png" alt="">
-                                            <div class="quote_icon">
-                                                <i class=" Flaticon flaticon-quote"></i>
-                                            </div>
+                    </div>
+                    
+                    <!-- Testimonial 2 -->
+                    <div class="single_carousel">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-10 col-xl-11">
+                                <div class="single_testmonial d-flex align-items-center">
+                                    <div class="thumb">
+                                        <div class="quote_icon">
+                                            <i class="flaticon-quote"></i>
                                         </div>
-                                        <div class="info">
-                                            <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering through animal welfare when people might depend on livestock as their only source of income or food.</p>
-                                            <span>- Micky Mouse</span>
-                                        </div>
+                                    </div>
+                                    <div class="info">
+                                        <p>"The quality of their work is unmatched. We've been working together for years and they consistently exceed our expectations."</p>
+                                        <span>- Sarah Williams</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="single_carousel">
-                            <div class="row">
-                                <div class="col-lg-11">
-                                    <div class="single_testmonial d-flex align-items-center">
-                                        <div class="thumb">
-                                            <img src="img/testmonial/author.png" alt="">
-                                            <div class="quote_icon">
-                                                <i class="Flaticon flaticon-quote"></i>
-                                            </div>
+                    </div>
+                    
+                    <!-- Testimonial 3 -->
+                    <div class="single_carousel">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-10 col-xl-11">
+                                <div class="single_testmonial d-flex align-items-center">
+                                    <div class="thumb">
+                                        <div class="quote_icon">
+                                            <i class="flaticon-quote"></i>
                                         </div>
-                                        <div class="info">
-                                            <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering through animal welfare when people might depend on livestock as their only source of income or food.</p>
-                                            <span>- Micky Mouse</span>
-                                        </div>
+                                    </div>
+                                    <div class="info">
+                                        <p>"Their innovative solutions helped us solve complex problems and significantly improved our business operations."</p>
+                                        <span>- David Thompson</span>
                                     </div>
                                 </div>
                             </div>
@@ -269,7 +270,8 @@
             </div>
         </div>
     </div>
-    <!-- /testimonial_area  -->
+</div>
+<!-- /testimonial_area -->
 
 
  @endsection

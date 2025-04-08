@@ -174,6 +174,8 @@ class JobController extends Controller
         if ($max && is_numeric($max)) {
             $q->where('max_salary', '<=', (float)$max);
         }
+        $q->where('application_deadline', '>', now());
+        
         $jobs = $q->where('applicable_status', 'open')->paginate(10);
 
         return response()->json(['jobs' => $jobs, 'jobcount' => $jobcount]);

@@ -82,7 +82,7 @@
                     <div class="col-lg-4 col-xl-3 col-md-6" style="height: auto;">
                         <div class="single_company " style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
                             <div class="thumb" style="width: 80px; height: 110px; margin-right:0px;">
-                                <img src="{{$employer->company_logo }}" style="width: 80px; height: 110px;" alt="">
+                                <img src="{{ asset('storage/' . $employer->company_logo) }}" style="width: 80px; height: 110px;" alt="">
                             </div>
                             <div style="height: 30px;" class="mt-2">
                                 <a href="{{ route('website.jobs.index') }}"> <span>{{$employer->company_name}}</span></a>

@@ -46,14 +46,7 @@ Route::middleware('check.verified.user')->group(function () {
     Route::get('/', [HomePageController::class, 'show'])->name('home.show');
     // });
 
-Route::get('/companies', function () {
-    $jobs = Job::all();
-    $jobCount = Job::count();
-    $categories =  Category::withcount('jobs')->where('status', 'active')->having('jobs_count', '>', 0)->get();
-    $employer = EmployeeUser::all();
-    // dd($employer);
-    return view('Website.companies', compact('jobs', 'jobCount', 'categories', 'employer'));
-})->name('companies.index');
+Route::get('/companies', [HomePageController::class, 'companies'])->name('companies.index');
 
 
     ////// home page
